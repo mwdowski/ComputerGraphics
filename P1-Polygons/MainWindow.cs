@@ -6,5 +6,15 @@ namespace P1_Polygons
         {
             InitializeComponent();
         }
+
+        private void controlsTableLayoutPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void mainTableLayoutPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }
