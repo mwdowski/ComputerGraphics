@@ -15,17 +15,19 @@ namespace P1_Polygons
     {
         private static Dictionary<ClickMode, (string name, string[] controls)> dict = new Dictionary<ClickMode, (string name, string[] controls)>
         {
-            { ClickMode.Default, ("Default", new string[]{ "D" }) },
+            { ClickMode.Default, ("Default", new string[] {
+                "Left click on vertex - start dragging vertex",
+                "Right click on edge - open edge context menu"})},
             { ClickMode.AddPolygon, ("Add new polygon", new string[] {
-                "Left mouse click - start creating polygon",
-                "Right mouse click - abort creating polygon" })},
+                "Left click - start creating polygon",
+                "Right click - abort creating polygon" })},
             { ClickMode.DeletePolygon, ("Delete polygon", new string[] {
-                "Left mouse click - choosing polygon to delete",
-                "Right mouse click - abort deleting polygon" })},
+                "Left click - choosing polygon to delete",
+                "Right click - abort deleting polygon" })},
             { ClickMode.CreatingPolygon, ("Creating new polygon", new string[] {
-                "Left mouse click on starting vertex - finish creating polygon",
-                "Left mouse click - add another vertex",
-                "Right mouse click - abort creating polygon"})}
+                "Left click on starting vertex - finish creating polygon",
+                "Left click - add another vertex",
+                "Right click - abort creating polygon"})}
         };
 
         public static string GetModeName(ClickMode clickMode) => dict[clickMode].name;
