@@ -11,7 +11,9 @@ namespace P1_Polygons.Model
         public abstract void ProcessLeftClick();
 
         public abstract void ProcessRightClick();
+        public abstract void MoveBy(Point vector);
+        public abstract void MoveTo(Point position);
 
-        public abstract Polygon GetPolygon();
+        public abstract Polygon? GetPolygon();
     }
 }

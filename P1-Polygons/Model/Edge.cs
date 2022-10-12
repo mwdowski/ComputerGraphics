@@ -18,9 +18,23 @@ namespace P1_Polygons.Model
             Polygon = polygon;
         }
 
-        public override Polygon GetPolygon()
+        public override Polygon? GetPolygon()
         {
             return Polygon;
+        }
+
+        public override void MoveBy(Point vector)
+        {
+            Console.WriteLine($"{this.GetType().Name}.{(new StackFrame())?.GetMethod()?.Name}: {vector}");
+            Start.MoveBy(vector);
+            End.MoveBy(vector);
+        }
+
+        public override void MoveTo(Point position)
+        {
+            Console.WriteLine($"{this.GetType().Name}.{(new StackFrame())?.GetMethod()?.Name}: {position}");
+            Start.MoveTo(position);
+            End.MoveTo(position);
         }
 
         public override void ProcessLeftClick()
