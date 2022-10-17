@@ -23,16 +23,7 @@ namespace P1_Polygons.Model
             return this;
         }
 
-        public void Move(Point position)
-        {
-            Console.WriteLine($"{this.GetType().Name}.{(new StackFrame())?.GetMethod()?.Name}: {position}");
-            foreach (var vertex in vertices)
-            {
-                vertex.Move(position);
-            }
-        }
-
-        public override void MoveBy(Point vector)
+        public override void MoveBy(PointF vector)
         {
             Console.WriteLine($"{this.GetType().Name}.{(new StackFrame())?.GetMethod()?.Name}: {vector}");
             foreach (var vertex in vertices)
@@ -41,7 +32,7 @@ namespace P1_Polygons.Model
             }
         }
 
-        public override void MoveTo(Point position)
+        public override void MoveTo(PointF position)
         {
             Console.WriteLine($"{this.GetType().Name}.{(new StackFrame())?.GetMethod()?.Name}: {position}");
             foreach (var vertex in vertices)
