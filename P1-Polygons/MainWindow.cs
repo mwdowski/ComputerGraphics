@@ -13,15 +13,23 @@ namespace P1_Polygons
                 {
                     case ClickModes.Default:
                         this.pictureBox.Cursor = Cursors.Default;
+                        this.addPolygonButton.Enabled = true;
+                        this.deletePolygonButton.Enabled = true;
                         break;
                     case ClickModes.AddPolygon:
                         this.pictureBox.Cursor = Cursors.Cross;
+                        this.addPolygonButton.Enabled = false;
+                        this.deletePolygonButton.Enabled = false;
                         break;
                     case ClickModes.DeletePolygon:
                         this.pictureBox.Cursor = Cursors.No;
+                        this.addPolygonButton.Enabled = false;
+                        this.deletePolygonButton.Enabled = false;
                         break;
                     case ClickModes.AddingPolygon:
                         this.pictureBox.Cursor = Cursors.Cross;
+                        this.addPolygonButton.Enabled = false;
+                        this.deletePolygonButton.Enabled = false;
                         break;
                     case ClickModes.MovingFigure:
                         this.pictureBox.Cursor = Cursors.SizeAll;
@@ -75,8 +83,12 @@ namespace P1_Polygons
                             ClickMode = ClickModes.AddingPolygon;
                             break;
                         case ClickModes.DeletePolygon:
-                            var polygon = Logic.GetPointedFigure(e.Location)?.GetPolygon();
-                            if (polygon != null) Logic.DeletePolygon(polygon);
+                            Logic.FigureSelector.SelectByClick(e.Location);
+                            if (Logic.FigureSelector.SelectedFigure?.GetPolygon() != null)
+                            {
+                                Logic.DeletePolygon(Logic.FigureSelector.SelectedFigure.GetPolygon());
+                                ClickMode = ClickModes.Default;
+                            }
                             break;
                         case ClickModes.AddingPolygon:
                             switch (Logic.PolygonCreator.AddVertexWhileCreatingPolygon(e.Location))
@@ -85,6 +97,7 @@ namespace P1_Polygons
                                     break;
                                 case CreatingPolygonState.PolygonReady:
                                     ClickMode = ClickModes.Default;
+                                    Logic.GetPolygonFromCreator();
                                     Logic.PolygonCreator.Restart();
                                     break;
                                 default:
@@ -134,6 +147,7 @@ namespace P1_Polygons
                 default:
                     break;
             }
+            Logic.DrawPolygons();
         }
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)
         {

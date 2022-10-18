@@ -1,4 +1,5 @@
 ﻿using P1_Polygons.Logic.EdgeRestrictions;
+using P1_Polygons.Logic.MainLogic;
 using System.Diagnostics;
 
 namespace P1_Polygons.Model
@@ -7,7 +8,7 @@ namespace P1_Polygons.Model
     {
         public readonly Vertex Start;
         public readonly Vertex End;
-        private readonly Polygon Polygon;
+        private readonly Polygon _polygon;
 
         private List<IEdgeRestriction> _edgeRestriction = new List<IEdgeRestriction>(2);
 
@@ -15,12 +16,31 @@ namespace P1_Polygons.Model
         {
             Start = start;
             End = end;
-            Polygon = polygon;
+            _polygon = polygon;
         }
 
-        public override Polygon? GetPolygon()
+        public override float GetDistanceSquared(PointF point)
         {
-            return Polygon;
+            var topSqrt = (End.Position.X - Start.Position.X) * (Start.Position.Y - point.Y)
+                    - (Start.Position.X - point.X) * (End.Position.Y - Start.Position.Y);
+            var bottom = Start.GetDistanceSquared(End.Position);
+
+            return topSqrt * topSqrt / bottom;
+        }
+        public override int GetPixelDistanceSquared(Point point, Rasterizer rasterizer)
+        {
+            // TODO
+            var rasterizedStart = rasterizer.Rasterize(Start.Position);
+            var rasterizedEnd = rasterizer.Rasterize(End.Position);
+            var topSqrt = (rasterizedEnd.X - rasterizedStart.X) * (rasterizedStart.Y - point.Y)
+                        - (rasterizedStart.X - point.X) * (rasterizedEnd.Y - rasterizedStart.Y);
+            var bottom = Start.GetPixelDistanceSquared(rasterizedEnd, rasterizer);
+            return topSqrt * topSqrt / bottom; ;
+        }
+
+        public override Polygon GetPolygon()
+        {
+            return _polygon;
         }
 
         public override void MoveBy(PointF vector)

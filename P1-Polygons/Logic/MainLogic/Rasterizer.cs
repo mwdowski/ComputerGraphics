@@ -1,5 +1,6 @@
 ﻿using P1_Polygons.Model;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -45,6 +46,53 @@ namespace P1_Polygons.Logic.MainLogic
             var yDif = aInt.Y - bInt.Y;
 
             return xDif * xDif + yDif * yDif < radius * radius;
+        }
+
+        public int PixelDistanceSquared(Point aInt, Point bInt)
+        {
+            var xDif = aInt.X - bInt.X;
+            var yDif = aInt.Y - bInt.Y;
+
+            return xDif * xDif + yDif * yDif;
+        }
+
+        public int DistanceSquared(PointF a, PointF b)
+        {
+            return PixelDistanceSquared(Rasterize(a), Rasterize(b));
+        }
+    }
+
+    public class EdgeDistanceComparer : IComparer<Edge>
+    {
+        private Point Point { get; }
+        public Rasterizer Rasterizer { get; }
+
+        public EdgeDistanceComparer(Point point, Rasterizer rasterizer)
+        {
+            Point = point;
+            Rasterizer = rasterizer;
+        }
+
+        public int Compare(Edge? x, Edge? y)
+        {
+            return x.GetPixelDistanceSquared(Point, Rasterizer) - y.GetPixelDistanceSquared(Point, Rasterizer);
+        }
+    }
+
+    public class VertexDistanceComparer : IComparer<Vertex>
+    {
+        private Point Point { get; }
+        public Rasterizer Rasterizer { get; }
+
+        public VertexDistanceComparer(Point point, Rasterizer rasterizer)
+        {
+            Point = point;
+            Rasterizer = rasterizer;
+        }
+
+        public int Compare(Vertex? x, Vertex? y)
+        {
+            return x.GetPixelDistanceSquared(Point, Rasterizer) - y.GetPixelDistanceSquared(Point, Rasterizer);
         }
     }
 }

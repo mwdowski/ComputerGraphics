@@ -12,14 +12,44 @@ namespace P1_Polygons.Logic.MainLogic
         public Rasterizer Rasterizer { get; }
         public FigureDrawer FigureDrawer { get; }
         public PolygonCreator PolygonCreator { get; }
+        public FigureSelector FigureSelector { get; }
         public List<Polygon> Polygons { get; private set; }
+        private PictureBox _pictureBox;
 
         public ProgramLogic(PictureBox canvas)
         {
+            canvas.Image = new Bitmap(2000, 2000);
             Rasterizer = new(canvas);
             FigureDrawer = new(Rasterizer);
+            FigureSelector = new(Rasterizer, this);
             PolygonCreator = new(Rasterizer);
             Polygons = new List<Polygon>();
+            _pictureBox = canvas;
+        }
+
+        public void DrawPolygons()
+        {
+            using (var graphics = Graphics.FromImage(Rasterizer.Image))
+            {
+                graphics.Clear(Color.White);
+
+                foreach (var polygon in Polygons)
+                {
+                    FigureDrawer.DrawPolygon(polygon, graphics);
+                }
+                PolygonCreator.DrawCurrentPolygon(FigureDrawer, graphics);
+            }
+
+            _pictureBox.Refresh();
+        }
+
+        public void GetPolygonFromCreator()
+        {
+            Console.WriteLine($"{this.GetType().Name}.{(new StackFrame())?.GetMethod()?.Name}");
+            if (PolygonCreator.LastState == CreatingPolygonState.PolygonReady)
+            {
+                Polygons.Add(PolygonCreator.GetCreatedPolygon());
+            }
         }
 
         public void AddVertexOnEdge(Edge edge)
@@ -40,6 +70,8 @@ namespace P1_Polygons.Logic.MainLogic
         public void DeletePolygon(Polygon polygon)
         {
             Console.WriteLine($"{this.GetType().Name}.{(new StackFrame())?.GetMethod()?.Name}");
+            Polygons.Remove(polygon);
+        
         }
 
         public void DeleteVertex(Vertex vertex)

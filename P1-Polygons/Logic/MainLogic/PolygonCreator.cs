@@ -17,13 +17,13 @@ namespace P1_Polygons.Logic.MainLogic
     {
         private List<Edge> _newPolygonEdges;
         private List<Vertex> _newPolygonVertices;
-        private Polygon _newPolygon;
+        public Polygon _newPolygon;
 
-        private CreatingPolygonState _lastState = CreatingPolygonState.NotStarted;
+        public CreatingPolygonState LastState { get; private set; } = CreatingPolygonState.NotStarted;
         private CreatingPolygonState SetLastState(CreatingPolygonState lastState)
         {
-            _lastState = lastState;
-            return _lastState;
+            LastState = lastState;
+            return LastState;
         }
 
         public Rasterizer Rasterizer { get; }
@@ -37,18 +37,18 @@ namespace P1_Polygons.Logic.MainLogic
 
         private void InitializePolygonData()
         {
-            _newPolygonEdges = new();
-            _newPolygonVertices = new();
-            _newPolygon = new(_newPolygonEdges, _newPolygonVertices);
+            _newPolygon = new(new(), new());
+            _newPolygonEdges = _newPolygon.Edges;
+            _newPolygonVertices = _newPolygon.Vertices;
         }
 
         public CreatingPolygonState StartPolygonCreation(Point position)
         {
             Console.WriteLine($"{this.GetType().Name}.{(new StackFrame())?.GetMethod()?.Name}");
 
-            if (_lastState == CreatingPolygonState.NotStarted)
+            if (LastState == CreatingPolygonState.NotStarted)
             {
-                _newPolygonVertices.Add(new Vertex(Rasterizer.Derasterize(position)));
+                _newPolygonVertices.Add(new Vertex(Rasterizer.Derasterize(position), _newPolygon));
                 return SetLastState(CreatingPolygonState.Adding);
             }
             else
@@ -60,24 +60,27 @@ namespace P1_Polygons.Logic.MainLogic
         private const int pixelRadius = 20;
         public CreatingPolygonState AddVertexWhileCreatingPolygon(Point position)
         {
-            if (_lastState != CreatingPolygonState.Adding) {
+            Console.WriteLine($"{this.GetType().Name}.{(new StackFrame())?.GetMethod()?.Name}");
+
+            if (LastState != CreatingPolygonState.Adding) {
                 return SetLastState(CreatingPolygonState.Error);
             }
 
-            var newVertex = new Vertex(Rasterizer.Derasterize(position));
+            var newVertex = new Vertex(Rasterizer.Derasterize(position), _newPolygon);
             var lastVertex = _newPolygonVertices[_newPolygonVertices.Count - 1];
+            var firstVertex = _newPolygonVertices[0];
 
-            if (Rasterizer.ArePointsWithinPixelRadius(newVertex.Position, lastVertex.Position, pixelRadius))
+            if (Rasterizer.ArePointsWithinPixelRadius(position, Rasterizer.Rasterize(firstVertex.Position), pixelRadius))
             {
                 if (_newPolygonVertices.Count <= 2)
                 {
-                    return CreatingPolygonState.Adding;
+                    return SetLastState(CreatingPolygonState.Adding);
                 }
 
-                var newEdge = new Edge(lastVertex, _newPolygonVertices[0], _newPolygon);
+                var newEdge = new Edge(lastVertex, firstVertex, _newPolygon);
                 _newPolygonEdges.Add(newEdge);
 
-                return CreatingPolygonState.PolygonReady;
+                return SetLastState(CreatingPolygonState.PolygonReady);
             }
             else
             {
@@ -85,14 +88,14 @@ namespace P1_Polygons.Logic.MainLogic
                 _newPolygonEdges.Add(newEdge);
                 _newPolygonVertices.Add(newVertex);
 
-                return CreatingPolygonState.Adding;
+                return SetLastState(CreatingPolygonState.Adding);
             }
         }
 
         public Polygon GetCreatedPolygon()
         {
             Console.WriteLine($"{this.GetType().Name}.{(new StackFrame())?.GetMethod()?.Name}");
-            if (_lastState == CreatingPolygonState.PolygonReady)
+            if (LastState == CreatingPolygonState.PolygonReady)
             {
                 SetLastState(CreatingPolygonState.Finished);
                 return _newPolygon;
@@ -106,6 +109,14 @@ namespace P1_Polygons.Logic.MainLogic
             Console.WriteLine($"{this.GetType().Name}.{(new StackFrame())?.GetMethod()?.Name}");
             SetLastState(CreatingPolygonState.NotStarted);
             InitializePolygonData();
+        }
+
+        public void DrawCurrentPolygon(FigureDrawer drawer, Graphics graphics)
+        {
+            if (LastState == CreatingPolygonState.Adding)
+            {
+                drawer.DrawPolygon(_newPolygon, graphics);
+            }
         }
     }
 }

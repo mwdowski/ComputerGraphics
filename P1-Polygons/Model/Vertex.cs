@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using P1_Polygons.Logic.MainLogic;
+using System.Diagnostics;
 using System.Xml.Schema;
 
 namespace P1_Polygons.Model
@@ -6,12 +7,12 @@ namespace P1_Polygons.Model
     public class Vertex : Figure
     {
         public PointF Position;
-        public Edge? From { get; set; }
-        public Edge? To { get; set; }
+        private readonly Polygon _polygon;
 
-        public Vertex(PointF position)
+        public Vertex(PointF position, Polygon polygon)
         {
             Position = position;
+            _polygon = polygon;
         }
 
         public override void MoveTo(PointF position)
@@ -29,15 +30,27 @@ namespace P1_Polygons.Model
             Console.WriteLine($"{this.GetType().Name}.{(new StackFrame())?.GetMethod()?.Name}");
         }
 
-        public override Polygon? GetPolygon()
+        public override Polygon GetPolygon()
         {
-            Console.WriteLine($"{this.GetType().Name}.{(new StackFrame())?.GetMethod()?.Name}");
-            return From?.GetPolygon();
+            return _polygon;
         }
 
         public override void MoveBy(PointF vector)
         {
             Console.WriteLine($"{this.GetType().Name}.{(new StackFrame())?.GetMethod()?.Name}: {vector}");
+        }
+
+        public override float GetDistanceSquared(PointF point)
+        {
+            var xDif = point.X - Position.X;
+            var yDif = point.Y - Position.Y;
+
+            return xDif * xDif + yDif * yDif;
+        }
+
+        public override int GetPixelDistanceSquared(Point point, Rasterizer rasterizer)
+        {
+            return rasterizer.PixelDistanceSquared(rasterizer.Rasterize(Position), point);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using P1_Polygons.Model;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,6 +10,8 @@ namespace P1_Polygons.Logic.MainLogic
 {
     public class FigureDrawer
     {
+        private static Pen pen = new Pen(Color.Black, 1);
+        private static int radius = 4;
         public Rasterizer Rasterizer { get; }
 
         public FigureDrawer(Rasterizer rasterizer)
@@ -16,19 +19,33 @@ namespace P1_Polygons.Logic.MainLogic
             Rasterizer = rasterizer;
         }
 
-        void DrawVertex(Vertex vertex)
+        public void DrawVertex(Vertex vertex, Graphics graphics)
         {
-            // using drawing draw circle
+            var rasterizedPosition = Rasterizer.Rasterize(vertex.Position);
+            var vertexPaintRect = new Rectangle(
+                rasterizedPosition.X - radius,
+                rasterizedPosition.Y - radius,
+                radius * 2,
+                radius * 2);
+
+            graphics.FillEllipse(pen.Brush, vertexPaintRect);
         }
 
-        void DrawEdge(Edge edge)
+        public void DrawEdge(Edge edge, Graphics graphics)
         {
-            // using drawing draw circle
+            graphics.DrawLine(pen, Rasterizer.Rasterize(edge.Start.Position), Rasterizer.Rasterize(edge.End.Position));
         }
 
-        void DrawPolygon(Polygon polygon)
+        public void DrawPolygon(Polygon polygon, Graphics graphics)
         {
-            // draw vertices then edges
+            foreach (var e in polygon.Edges)
+            {
+                DrawEdge(e, graphics);
+            }
+            foreach (var v in polygon.Vertices)
+            {
+                DrawVertex(v, graphics);
+            }
         }
     }
 }
