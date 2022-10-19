@@ -9,7 +9,7 @@ namespace P1_Polygons.Logic.MainLogic
 {
     public class FigureSelector
     {
-        public Figure? SelectedFigure { get; set; }
+        public Figure? SelectedFigure { get; private set; }
         public Rasterizer Rasterizer { get; }
         private ProgramLogic _logic;
 
@@ -34,6 +34,11 @@ namespace P1_Polygons.Logic.MainLogic
                 .Min(new EdgePixelDistanceComparer(position, Rasterizer));
 
             SelectedFigure = (Figure?)closestVertex ?? closestEdge;
+        }
+
+        public void ClearSelection()
+        {
+            SelectedFigure = null;
         }
     }
 }

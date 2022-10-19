@@ -60,8 +60,6 @@ namespace P1_Polygons
             ClickMode = ClickModes.DeletePolygon;
         }
 
-        private Point startingMovingPosition;
-
         private void pictureBox_MouseDown(object sender, MouseEventArgs e)
         {
             switch (e.Button)
@@ -70,12 +68,10 @@ namespace P1_Polygons
                     switch (this.ClickMode)
                     {
                         case ClickModes.Default:
-                            var figure = Logic.GetPointedFigure(e.Location);
-                            if (figure != null)
+                            Logic.FigureSelector.SelectByClick(e.Location);
+                            if (Logic.FigureSelector.SelectedFigure != null)
                             {
-                                Logic.SetSelectedFigure(figure);
                                 ClickMode = ClickModes.MovingFigure;
-                                startingMovingPosition = e.Location;
                             }
                             break;
                         case ClickModes.AddPolygon:
@@ -87,6 +83,7 @@ namespace P1_Polygons
                             if (Logic.FigureSelector.SelectedFigure?.GetPolygon() != null)
                             {
                                 Logic.DeletePolygon(Logic.FigureSelector.SelectedFigure.GetPolygon());
+                                Logic.FigureSelector.ClearSelection();
                                 ClickMode = ClickModes.Default;
                             }
                             break;
@@ -132,11 +129,9 @@ namespace P1_Polygons
                     switch (this.ClickMode)
                     {
                         case ClickModes.Default:
-                            var figure = Logic.GetPointedFigure(e.Location);
-                            var polygon = figure?.GetPolygon();
-                            if (polygon != null)
+                            Logic.FigureSelector.SelectByClick(e.Location);
+                            if (Logic.FigureSelector.SelectedFigure?.GetPolygon() != null)
                             {
-                                Logic.SetSelectedFigure(polygon);
                                 ClickMode = ClickModes.MovingFigure;
                             }
                             break;
@@ -157,7 +152,7 @@ namespace P1_Polygons
                     switch (this.ClickMode)
                     {
                         case ClickModes.MovingFigure:
-                            Logic.MoveSelectedFigureBy(new Point(startingMovingPosition.X - e.Location.X, startingMovingPosition.Y - e.Location.Y));
+                            //Logic.Figu(new Point(startingMovingPosition.X - e.Location.X, startingMovingPosition.Y - e.Location.Y));
                             break;
                         default:
                             break;
@@ -174,7 +169,7 @@ namespace P1_Polygons
                     switch (this.ClickMode)
                     {
                         case ClickModes.MovingFigure:
-                            Logic.MoveSelectedFigureBy(new Point(startingMovingPosition.X - e.Location.X, startingMovingPosition.Y - e.Location.Y));
+                            //Logic.MoveSelectedFigureBy(new Point(startingMovingPosition.X - e.Location.X, startingMovingPosition.Y - e.Location.Y));
                             break;
                         default:
                             break;
@@ -193,7 +188,7 @@ namespace P1_Polygons
                     switch (this.ClickMode)
                     {
                         case ClickModes.MovingFigure:
-                            Logic.SetSelectedFigure(null);
+                            Logic.FigureSelector.ClearSelection();
                             ClickMode = ClickModes.Default;
                             break;
                         default:
@@ -211,7 +206,7 @@ namespace P1_Polygons
                     switch (this.ClickMode)
                     {
                         case ClickModes.MovingFigure:
-                            Logic.SetSelectedFigure(null);
+                            Logic.FigureSelector.ClearSelection();
                             ClickMode = ClickModes.Default;
                             break;
                         default:
