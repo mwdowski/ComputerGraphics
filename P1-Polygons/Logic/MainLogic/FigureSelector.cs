@@ -26,17 +26,14 @@ namespace P1_Polygons.Logic.MainLogic
             var closestVertex = _logic.Polygons
                 .SelectMany(_ => _.Vertices)
                 .Where(_ => _.GetPixelDistanceSquared(position, Rasterizer) <= SearchRadius * SearchRadius)
-                .Min(new VertexDistanceComparer(position, Rasterizer));
+                .Min(new VertexPixelDistanceComparer(position, Rasterizer));
             
             var closestEdge = _logic.Polygons
                 .SelectMany(_ => _.Edges)
-                .Where(_ => _.GetPixelDistanceSquared(position, Rasterizer) <= SearchRadius)
-                .Min(new EdgeDistanceComparer(position, Rasterizer));
-            
+                .Where(_ => _.GetPixelDistanceSquared(position, Rasterizer) <= SearchRadius * SearchRadius)
+                .Min(new EdgePixelDistanceComparer(position, Rasterizer));
+
             SelectedFigure = (Figure?)closestVertex ?? closestEdge;
-
-            int x = 0;
         }
-
     }
 }

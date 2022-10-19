@@ -27,15 +27,37 @@ namespace P1_Polygons.Model
 
             return topSqrt * topSqrt / bottom;
         }
+
+        private static int DotProduct(Point a, Point b)
+        {
+            return a.X * b.X + a.Y * b.Y;
+        }
+
+        private static Point ToVector(Point from, Point to)
+        {
+            return new Point(to.X - from.X, to.Y - from.Y);
+        }
+
         public override int GetPixelDistanceSquared(Point point, Rasterizer rasterizer)
         {
-            // TODO
             var rasterizedStart = rasterizer.Rasterize(Start.Position);
             var rasterizedEnd = rasterizer.Rasterize(End.Position);
-            var topSqrt = (rasterizedEnd.X - rasterizedStart.X) * (rasterizedStart.Y - point.Y)
+
+
+            if (DotProduct(ToVector(rasterizedStart, rasterizedEnd), ToVector(rasterizedEnd, point)) > 0)
+            {
+                return End.GetPixelDistanceSquared(point, rasterizer);
+            }
+            if (DotProduct(ToVector(rasterizedStart, rasterizedEnd), ToVector(rasterizedStart, point)) < 0)
+            {
+                return Start.GetPixelDistanceSquared(point, rasterizer);
+            }
+
+            float topSqrt = (rasterizedEnd.X - rasterizedStart.X) * (rasterizedStart.Y - point.Y)
                         - (rasterizedStart.X - point.X) * (rasterizedEnd.Y - rasterizedStart.Y);
-            var bottom = Start.GetPixelDistanceSquared(rasterizedEnd, rasterizer);
-            return topSqrt * topSqrt / bottom; ;
+            float bottom = Start.GetPixelDistanceSquared(rasterizedEnd, rasterizer);
+
+            return (int)(topSqrt / bottom * topSqrt);
         }
 
         public override Polygon GetPolygon()

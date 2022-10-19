@@ -62,12 +62,12 @@ namespace P1_Polygons.Logic.MainLogic
         }
     }
 
-    public class EdgeDistanceComparer : IComparer<Edge>
+    public class EdgePixelDistanceComparer : IComparer<Edge>
     {
         private Point Point { get; }
         public Rasterizer Rasterizer { get; }
 
-        public EdgeDistanceComparer(Point point, Rasterizer rasterizer)
+        public EdgePixelDistanceComparer(Point point, Rasterizer rasterizer)
         {
             Point = point;
             Rasterizer = rasterizer;
@@ -79,12 +79,12 @@ namespace P1_Polygons.Logic.MainLogic
         }
     }
 
-    public class VertexDistanceComparer : IComparer<Vertex>
+    public class VertexPixelDistanceComparer : IComparer<Vertex>
     {
         private Point Point { get; }
         public Rasterizer Rasterizer { get; }
 
-        public VertexDistanceComparer(Point point, Rasterizer rasterizer)
+        public VertexPixelDistanceComparer(Point point, Rasterizer rasterizer)
         {
             Point = point;
             Rasterizer = rasterizer;
