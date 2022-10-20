@@ -17,6 +17,7 @@ namespace P1_Polygons
         {
             { ClickModes.Default, ("Default", new string[] {
                 "Left click on vertex - start dragging vertex",
+                "Left click on edge - start dragging edge",
                 "Right click on edge - open edge context menu",
                 "Middle click on edge or vertex - start moving polygon"})},
             { ClickModes.AddPolygon, ("Add new polygon", new string[] {
@@ -29,8 +30,8 @@ namespace P1_Polygons
                 "Left click on starting vertex - finish creating polygon",
                 "Left click - add another vertex",
                 "Right click - abort creating polygon"})},
-            { ClickModes.MovingFigure, ("Moving polygon", new string[] {
-                "Release middle click - finish moving polygon"})}
+            { ClickModes.MovingFigure, ("Moving figure", new string[] {
+                "Release click - finish moving"})}
         };
 
         public static string GetModeName(ClickModes clickMode) => dict[clickMode].name;

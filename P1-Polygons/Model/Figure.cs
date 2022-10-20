@@ -21,5 +21,8 @@ namespace P1_Polygons.Model
         {
             return (float)Math.Sqrt((double)GetDistanceSquared(point));
         }
+        public abstract void ShowContextMenu(MainWindow mainWindow, Point point);
+        public abstract void Remove();
+
     }
 }

@@ -279,12 +279,12 @@
         private TableLayoutPanel polygonGroupBoxTableLayoutPanel;
         private Button addPolygonButton;
         private Button deletePolygonButton;
-        private PictureBox pictureBox;
         private GroupBox helperGroupBox;
         private GroupBox lineDrawingGroupBox;
         private TableLayoutPanel lineDrawingGroupBoxTableLayoutPanel;
         private RadioButton lineDrawingLibraryRadioButton;
         private RadioButton lineDrawingOwnRadioButton;
         private TextBox helperTextBox;
+        public PictureBox pictureBox;
     }
 }

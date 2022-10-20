@@ -71,6 +71,7 @@ namespace P1_Polygons
                             Logic.FigureSelector.SelectByClick(e.Location);
                             if (Logic.FigureSelector.SelectedFigure != null)
                             {
+                                Logic.FigureMover.StartMovement(e.Location, Logic.FigureSelector.SelectedFigure);
                                 ClickMode = ClickModes.MovingFigure;
                             }
                             break;
@@ -109,7 +110,9 @@ namespace P1_Polygons
                     switch (this.ClickMode)
                     {
                         case ClickModes.Default:
-                            Logic.GetPointedFigure(e.Location)?.ProcessRightClick();
+                            Logic.FigureSelector.SelectByClick(e.Location);
+                            Logic.FigureSelector.SelectedFigure?.ShowContextMenu(this, e.Location);
+                            Logic.FigureSelector.ClearSelection();
                             break;
                         case ClickModes.AddPolygon:
                             ClickMode = ClickModes.Default;
@@ -132,6 +135,7 @@ namespace P1_Polygons
                             Logic.FigureSelector.SelectByClick(e.Location);
                             if (Logic.FigureSelector.SelectedFigure?.GetPolygon() != null)
                             {
+                                Logic.FigureMover.StartMovement(e.Location, Logic.FigureSelector.SelectedFigure.GetPolygon());
                                 ClickMode = ClickModes.MovingFigure;
                             }
                             break;
@@ -152,7 +156,7 @@ namespace P1_Polygons
                     switch (this.ClickMode)
                     {
                         case ClickModes.MovingFigure:
-                            //Logic.Figu(new Point(startingMovingPosition.X - e.Location.X, startingMovingPosition.Y - e.Location.Y));
+                            Logic.FigureMover.Move(e.Location);
                             break;
                         default:
                             break;
@@ -169,7 +173,7 @@ namespace P1_Polygons
                     switch (this.ClickMode)
                     {
                         case ClickModes.MovingFigure:
-                            //Logic.MoveSelectedFigureBy(new Point(startingMovingPosition.X - e.Location.X, startingMovingPosition.Y - e.Location.Y));
+                            Logic.FigureMover.Move(e.Location);
                             break;
                         default:
                             break;
@@ -178,6 +182,7 @@ namespace P1_Polygons
                 default:
                     break;
             }
+            Logic.DrawPolygons();
         }
 
         private void pictureBox_MouseUp(object sender, MouseEventArgs e)
@@ -188,7 +193,7 @@ namespace P1_Polygons
                     switch (this.ClickMode)
                     {
                         case ClickModes.MovingFigure:
-                            Logic.FigureSelector.ClearSelection();
+                            Logic.FigureMover.FinishMovement();
                             ClickMode = ClickModes.Default;
                             break;
                         default:
@@ -206,7 +211,7 @@ namespace P1_Polygons
                     switch (this.ClickMode)
                     {
                         case ClickModes.MovingFigure:
-                            Logic.FigureSelector.ClearSelection();
+                            Logic.FigureMover.FinishMovement();
                             ClickMode = ClickModes.Default;
                             break;
                         default:
@@ -216,6 +221,7 @@ namespace P1_Polygons
                 default:
                     break;
             }
+            Logic.DrawPolygons();
         }
     }
 }

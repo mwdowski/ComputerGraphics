@@ -61,5 +61,15 @@ namespace P1_Polygons.Model
         {
             throw new NotImplementedException();
         }
+
+        public override void ShowContextMenu(MainWindow mainWindow, Point point)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void Remove()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

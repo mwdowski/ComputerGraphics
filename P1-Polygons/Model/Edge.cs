@@ -1,4 +1,5 @@
-﻿using P1_Polygons.Logic.EdgeRestrictions;
+﻿using P1_Polygons.Controls;
+using P1_Polygons.Logic.EdgeRestrictions;
 using P1_Polygons.Logic.MainLogic;
 using System.Diagnostics;
 
@@ -6,9 +7,10 @@ namespace P1_Polygons.Model
 {
     public class Edge : Figure
     {
-        public readonly Vertex Start;
-        public readonly Vertex End;
+        internal Vertex Start;
+        internal Vertex End;
         private readonly Polygon _polygon;
+        private EdgeContextMenuStrip _edgeContextMenuStrip;
 
         private List<IEdgeRestriction> _edgeRestriction = new List<IEdgeRestriction>(2);
 
@@ -17,6 +19,7 @@ namespace P1_Polygons.Model
             Start = start;
             End = end;
             _polygon = polygon;
+            _edgeContextMenuStrip = new EdgeContextMenuStrip(this);
         }
 
         public override float GetDistanceSquared(PointF point)
@@ -87,6 +90,33 @@ namespace P1_Polygons.Model
         public override void ProcessRightClick()
         {
             Console.WriteLine($"{this.GetType().Name}.{(new StackFrame())?.GetMethod()?.Name}");
+        }
+
+        public override void ShowContextMenu(MainWindow mainWindow, Point point)
+        {
+            _edgeContextMenuStrip.Show(mainWindow.pictureBox, point);
+        }
+
+        public override void Remove()
+        {
+            _polygon.Edges.Remove(this);
+
+            var edgeWithEndToChange = _polygon.Edges.Single(_ => _.End == Start);
+            var edgeWithStartToChange = _polygon.Edges.Single(_ => _.Start == End);
+
+            //edgeWithEndToChange.End = edgeWithStartToChange.;
+            //edgeWithStartToChange.Start = edgeWithEndToChange
+        }
+
+        public void AddVertexOnMiddle()
+        {
+            var middlePosition = new PointF((Start.Position.X + End.Position.X) / 2, (Start.Position.Y + End.Position.Y) / 2);
+            var newVertex = new Vertex(middlePosition, _polygon);
+            _polygon.Vertices.Add(newVertex);
+
+            var newEdge = new Edge(newVertex, End, _polygon);
+            _polygon.Edges.Add(newEdge);
+            End = newVertex;
         }
     }
 }

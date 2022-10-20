@@ -13,6 +13,7 @@ namespace P1_Polygons.Logic.MainLogic
         public FigureDrawer FigureDrawer { get; }
         public PolygonCreator PolygonCreator { get; }
         public FigureSelector FigureSelector { get; }
+        public FigureMover FigureMover { get; }
         public List<Polygon> Polygons { get; private set; }
         private PictureBox _pictureBox;
 
@@ -23,6 +24,7 @@ namespace P1_Polygons.Logic.MainLogic
             FigureDrawer = new(Rasterizer);
             FigureSelector = new(Rasterizer, this);
             PolygonCreator = new(Rasterizer);
+            FigureMover = new(Rasterizer);
             Polygons = new List<Polygon>();
             _pictureBox = canvas;
         }
