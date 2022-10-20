@@ -1,4 +1,5 @@
 using P1_Polygons.Logic.MainLogic;
+using P1_Polygons.Logic.MainLogic.FigureDrawers;
 
 namespace P1_Polygons
 {
@@ -221,6 +222,18 @@ namespace P1_Polygons
                 default:
                     break;
             }
+            Logic.DrawPolygons();
+        }
+
+        private void lineDrawingLibraryRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            Logic.FigureDrawer = new FigureDrawer(Logic.Rasterizer);
+            Logic.DrawPolygons();
+        }
+
+        private void lineDrawingOwnRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            Logic.FigureDrawer = new MyFigureDrawer(Logic.Rasterizer);
             Logic.DrawPolygons();
         }
     }

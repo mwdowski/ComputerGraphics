@@ -1,4 +1,5 @@
-﻿using P1_Polygons.Model;
+﻿using P1_Polygons.Logic.MainLogic.FigureDrawers;
+using P1_Polygons.Model;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;

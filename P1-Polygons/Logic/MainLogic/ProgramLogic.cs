@@ -1,5 +1,6 @@
 ﻿using P1_Polygons.Logic.EdgeRestrictions;
 using P1_Polygons.Logic.LineDrawingMethods;
+using P1_Polygons.Logic.MainLogic.FigureDrawers;
 using P1_Polygons.Model;
 using System.Diagnostics;
 
@@ -10,7 +11,7 @@ namespace P1_Polygons.Logic.MainLogic
         private Figure? _selectedFigure;
         private const int searchRadius = 20;
         public Rasterizer Rasterizer { get; }
-        public FigureDrawer FigureDrawer { get; }
+        public FigureDrawer FigureDrawer { get; set; }
         public PolygonCreator PolygonCreator { get; }
         public FigureSelector FigureSelector { get; }
         public FigureMover FigureMover { get; }

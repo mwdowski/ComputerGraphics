@@ -6,12 +6,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace P1_Polygons.Logic.MainLogic
+namespace P1_Polygons.Logic.MainLogic.FigureDrawers
 {
     public class FigureDrawer
     {
-        private static Pen pen = new Pen(Color.Black, 1);
-        private static int radius = 4;
+        protected static Pen Pen = new Pen(Color.Black, 1);
+        protected static int Radius = 4;
         public Rasterizer Rasterizer { get; }
 
         public FigureDrawer(Rasterizer rasterizer)
@@ -19,24 +19,24 @@ namespace P1_Polygons.Logic.MainLogic
             Rasterizer = rasterizer;
         }
 
-        public void DrawVertex(Vertex vertex, Graphics graphics)
+        public virtual void DrawVertex(Vertex vertex, Graphics graphics)
         {
             var rasterizedPosition = Rasterizer.Rasterize(vertex.Position);
             var vertexPaintRect = new Rectangle(
-                rasterizedPosition.X - radius,
-                rasterizedPosition.Y - radius,
-                radius * 2,
-                radius * 2);
+                rasterizedPosition.X - Radius,
+                rasterizedPosition.Y - Radius,
+                Radius * 2,
+                Radius * 2);
 
-            graphics.FillEllipse(pen.Brush, vertexPaintRect);
+            graphics.FillEllipse(Pen.Brush, vertexPaintRect);
         }
 
-        public void DrawEdge(Edge edge, Graphics graphics)
+        public virtual void DrawEdge(Edge edge, Graphics graphics)
         {
-            graphics.DrawLine(pen, Rasterizer.Rasterize(edge.Start.Position), Rasterizer.Rasterize(edge.End.Position));
+            graphics.DrawLine(Pen, Rasterizer.Rasterize(edge.Start.Position), Rasterizer.Rasterize(edge.End.Position));
         }
 
-        public void DrawPolygon(Polygon polygon, Graphics graphics)
+        public virtual void DrawPolygon(Polygon polygon, Graphics graphics)
         {
             foreach (var e in polygon.Edges)
             {

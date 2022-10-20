@@ -217,6 +217,7 @@
             this.lineDrawingLibraryRadioButton.TabStop = true;
             this.lineDrawingLibraryRadioButton.Text = "Library method";
             this.lineDrawingLibraryRadioButton.UseVisualStyleBackColor = true;
+            this.lineDrawingLibraryRadioButton.CheckedChanged += new System.EventHandler(this.lineDrawingLibraryRadioButton_CheckedChanged);
             // 
             // lineDrawingOwnRadioButton
             // 
@@ -228,6 +229,7 @@
             this.lineDrawingOwnRadioButton.TabIndex = 1;
             this.lineDrawingOwnRadioButton.Text = "Implemented method";
             this.lineDrawingOwnRadioButton.UseVisualStyleBackColor = true;
+            this.lineDrawingOwnRadioButton.CheckedChanged += new System.EventHandler(this.lineDrawingOwnRadioButton_CheckedChanged);
             // 
             // pictureBox
             // 
