@@ -16,7 +16,7 @@ namespace P1_Polygons.Controls
             Edge = edge;
             Items.Add("Edge");
             Items.Add("Remove", null, (_, _) => edge.Remove());
-            Items.Add("Add vertex in the middle", null, (_, _) => edge.AddVertexOnMiddle());
+            Items.Add("Add vertex in the middle", null, (_, _) => edge.DivideEdgeWithVertexOnMiddle());
         }
     }
 }

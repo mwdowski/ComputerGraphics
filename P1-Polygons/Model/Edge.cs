@@ -99,19 +99,33 @@ namespace P1_Polygons.Model
 
         public override void Remove()
         {
+            if (_polygon.Edges.Count <= 3) return;
+
             _polygon.Edges.Remove(this);
+            _polygon.Vertices.Remove(Start);
+            _polygon.Vertices.Remove(End);
 
             var edgeWithEndToChange = _polygon.Edges.Single(_ => _.End == Start);
             var edgeWithStartToChange = _polygon.Edges.Single(_ => _.Start == End);
 
-            //edgeWithEndToChange.End = edgeWithStartToChange.;
-            //edgeWithStartToChange.Start = edgeWithEndToChange
+            var newVertex = CreateVertexInTheMiddle();
+            _polygon.Vertices.Add(newVertex);
+
+            edgeWithEndToChange.End = newVertex;
+            edgeWithStartToChange.Start = newVertex;
         }
 
-        public void AddVertexOnMiddle()
+        private Vertex CreateVertexInTheMiddle()
         {
             var middlePosition = new PointF((Start.Position.X + End.Position.X) / 2, (Start.Position.Y + End.Position.Y) / 2);
             var newVertex = new Vertex(middlePosition, _polygon);
+
+            return newVertex;
+        }
+
+        public void DivideEdgeWithVertexOnMiddle()
+        {
+            var newVertex = CreateVertexInTheMiddle();
             _polygon.Vertices.Add(newVertex);
 
             var newEdge = new Edge(newVertex, End, _polygon);
