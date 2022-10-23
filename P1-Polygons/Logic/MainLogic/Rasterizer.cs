@@ -11,8 +11,8 @@ namespace P1_Polygons.Logic.MainLogic
     public class Rasterizer
     {
         public readonly Image Image;
-        private const float xMin = -100.0f;
-        private const float xMax = 100.0f;
+        private const float xMin = -160.0f;
+        private const float xMax = 160.0f;
         private const float yMin = -100.0f;
         private const float yMax = 100.0f;
 
@@ -75,7 +75,7 @@ namespace P1_Polygons.Logic.MainLogic
 
         public int Compare(Edge? x, Edge? y)
         {
-            return x.GetPixelDistanceSquared(Point, Rasterizer) - y.GetPixelDistanceSquared(Point, Rasterizer);
+            return (x == null || y == null) ? 0 : x.GetPixelDistanceSquared(Point, Rasterizer) - y.GetPixelDistanceSquared(Point, Rasterizer);
         }
     }
 
@@ -92,7 +92,7 @@ namespace P1_Polygons.Logic.MainLogic
 
         public int Compare(Vertex? x, Vertex? y)
         {
-            return x.GetPixelDistanceSquared(Point, Rasterizer) - y.GetPixelDistanceSquared(Point, Rasterizer);
+            return (x == null || y == null) ? 0 : x.GetPixelDistanceSquared(Point, Rasterizer) - y.GetPixelDistanceSquared(Point, Rasterizer);
         }
     }
 }

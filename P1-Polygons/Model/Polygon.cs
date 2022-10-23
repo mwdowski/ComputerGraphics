@@ -33,25 +33,6 @@ namespace P1_Polygons.Model
             }
         }
 
-        public override void MoveTo(PointF position)
-        {
-            Console.WriteLine($"{this.GetType().Name}.{(new StackFrame())?.GetMethod()?.Name}: {position}");
-            foreach (var vertex in Vertices)
-            {
-                vertex.MoveTo(position);
-            }
-        }
-
-        public override void ProcessLeftClick()
-        {
-            Console.WriteLine($"{this.GetType().Name}.{(new StackFrame())?.GetMethod()?.Name}");
-        }
-
-        public override void ProcessRightClick()
-        {
-            Console.WriteLine($"{this.GetType().Name}.{(new StackFrame())?.GetMethod()?.Name}");
-        }
-
         public override float GetDistanceSquared(PointF point)
         {
             throw new NotImplementedException();
@@ -70,6 +51,11 @@ namespace P1_Polygons.Model
         public override void Remove()
         {
             throw new NotImplementedException();
+        }
+
+        public override void MoveByConsideringRestrictions(PointF vector)
+        {
+            MoveBy(vector);
         }
     }
 }

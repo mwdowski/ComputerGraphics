@@ -31,7 +31,7 @@ namespace P1_Polygons.Logic.MainLogic
             if (!_lastClickPosition.HasValue) return;
 
             var movementVector = new Point(point.X - _lastClickPosition.Value.X, point.Y - _lastClickPosition.Value.Y);
-            _movedFigure?.MoveBy(Rasterizer.Derasterize(movementVector));
+            _movedFigure?.MoveByConsideringRestrictions(Rasterizer.Derasterize(movementVector));
             _lastClickPosition = point;
         }
 

@@ -20,7 +20,7 @@ namespace P1_Polygons.Logic.MainLogic
 
         public ProgramLogic(PictureBox canvas)
         {
-            canvas.Image = new Bitmap(2000, 2000);
+            canvas.Image = new Bitmap(canvas.Width, canvas.Height);
             Rasterizer = new(canvas);
             FigureDrawer = new(Rasterizer);
             FigureSelector = new(Rasterizer, this);

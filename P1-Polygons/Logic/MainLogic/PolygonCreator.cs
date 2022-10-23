@@ -79,6 +79,8 @@ namespace P1_Polygons.Logic.MainLogic
                 }
 
                 var newEdge = new Edge(lastVertex, firstVertex, _newPolygon);
+                firstVertex.Incoming = newEdge;
+                lastVertex.Outgoing = newEdge;
                 _newPolygonEdges.Add(newEdge);
 
                 return SetLastState(CreatingPolygonState.PolygonReady);
@@ -86,6 +88,8 @@ namespace P1_Polygons.Logic.MainLogic
             else
             {
                 var newEdge = new Edge(lastVertex, newVertex, _newPolygon);
+                newVertex.Incoming = newEdge;
+                lastVertex.Outgoing = newEdge;
                 _newPolygonEdges.Add(newEdge);
                 _newPolygonVertices.Add(newVertex);
 

@@ -9,17 +9,21 @@ namespace P1_Polygons.Model
     {
         internal Vertex Start;
         internal Vertex End;
-        private readonly Polygon _polygon;
-        private EdgeContextMenuStrip _edgeContextMenuStrip;
 
-        private List<IEdgeRestriction> _edgeRestriction = new List<IEdgeRestriction>(2);
+        public float Length { get => (float)Math.Sqrt(
+            (Start.Position.X - End.Position.X) * (Start.Position.X - End.Position.X) +
+            (Start.Position.Y - End.Position.Y) * (Start.Position.Y - End.Position.Y));
+        }
+
+        private readonly Polygon _polygon;
+
+        private List<IEdgeRestriction> _edgeRestrictions = new List<IEdgeRestriction>();
 
         public Edge(Vertex start, Vertex end, Polygon polygon)
         {
             Start = start;
             End = end;
             _polygon = polygon;
-            _edgeContextMenuStrip = new EdgeContextMenuStrip(this);
         }
 
         public override float GetDistanceSquared(PointF point)
@@ -75,26 +79,11 @@ namespace P1_Polygons.Model
             End.MoveBy(vector);
         }
 
-        public override void MoveTo(PointF position)
-        {
-            Console.WriteLine($"{this.GetType().Name}.{(new StackFrame())?.GetMethod()?.Name}: {position}");
-            Start.MoveTo(position);
-            End.MoveTo(position);
-        }
-
-        public override void ProcessLeftClick()
-        {
-            Console.WriteLine($"{this.GetType().Name}.{(new StackFrame())?.GetMethod()?.Name}");
-        }
-
-        public override void ProcessRightClick()
-        {
-            Console.WriteLine($"{this.GetType().Name}.{(new StackFrame())?.GetMethod()?.Name}");
-        }
-
         public override void ShowContextMenu(MainWindow mainWindow, Point point)
         {
-            _edgeContextMenuStrip.Show(mainWindow.pictureBox, point);
+            var edgeContextMenuStrip = new EdgeContextMenuStrip(this);
+            edgeContextMenuStrip.AddRestrictionsButtons();
+            edgeContextMenuStrip.Show(mainWindow.pictureBox, point);
         }
 
         public override void Remove()
@@ -112,7 +101,9 @@ namespace P1_Polygons.Model
             _polygon.Vertices.Add(newVertex);
 
             edgeWithEndToChange.End = newVertex;
+            newVertex.Incoming = edgeWithEndToChange;
             edgeWithStartToChange.Start = newVertex;
+            newVertex.Outgoing = edgeWithStartToChange;
         }
 
         private Vertex CreateVertexInTheMiddle()
@@ -131,6 +122,29 @@ namespace P1_Polygons.Model
             var newEdge = new Edge(newVertex, End, _polygon);
             _polygon.Edges.Add(newEdge);
             End = newVertex;
+        }
+
+        public void ConsiderRestrictions(Vertex movedVertex)
+        {
+            foreach (var restriction in _edgeRestrictions)
+            {
+                restriction.Consider(movedVertex);
+            }
+        }
+
+        public void AddRestriction(IEdgeRestriction restriction)
+        {
+            _edgeRestrictions.Add(restriction);
+            ConsiderRestrictions(End);
+        }
+
+        public override void MoveByConsideringRestrictions(PointF vector)
+        {
+            Console.WriteLine($"{this.GetType().Name}.{(new StackFrame())?.GetMethod()?.Name}: {vector}");
+            Start.MoveBy(vector);
+            End.MoveBy(vector);
+            //Start.Incoming?.End.MoveByConsideringRestrictions(vector);
+            //End.Incoming?.MoveByConsideringRestrictions(vector);
         }
     }
 }

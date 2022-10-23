@@ -10,28 +10,14 @@ namespace P1_Polygons.Model
     {
         public PointF Position;
         private readonly Polygon _polygon;
-        private VertexContextMenuStrip _contextMenuStrip;
+
+        public Edge? Incoming { get; set; }
+        public Edge? Outgoing { get; set; }
 
         public Vertex(PointF position, Polygon polygon)
         {
             Position = position;
             _polygon = polygon;
-            _contextMenuStrip = new(this);
-        }
-
-        public override void MoveTo(PointF position)
-        {
-            Console.WriteLine($"{this.GetType().Name}.{(new StackFrame())?.GetMethod()?.Name}: {position}");
-        }
-
-        public override void ProcessLeftClick()
-        {
-            Console.WriteLine($"{this.GetType().Name}.{(new StackFrame())?.GetMethod()?.Name}");
-        }
-
-        public override void ProcessRightClick()
-        {
-            Console.WriteLine($"{this.GetType().Name}.{(new StackFrame())?.GetMethod()?.Name}");
         }
 
         public override Polygon GetPolygon()
@@ -61,7 +47,8 @@ namespace P1_Polygons.Model
 
         public override void ShowContextMenu(MainWindow mainWindow, Point point)
         {
-            _contextMenuStrip.Show(mainWindow.pictureBox, point);
+            var vertexContextMenuStrip = new VertexContextMenuStrip(this);
+            vertexContextMenuStrip.Show(mainWindow.pictureBox, point);
         }
 
         public override void Remove()
@@ -77,6 +64,15 @@ namespace P1_Polygons.Model
 
             _polygon.Edges.Remove(edgeWithStartAsThis);
             edgeWithEndAsThis.End = nextEdge.Start;
+            edgeWithEndAsThis.End.Outgoing = nextEdge;
+            nextEdge.Start.Incoming = edgeWithStartAsThis;
+        }
+
+        public override void MoveByConsideringRestrictions(PointF vector)
+        {
+            MoveBy(vector);
+            Incoming?.ConsiderRestrictions(this);
+            Outgoing?.ConsiderRestrictions(this);
         }
     }
 }
