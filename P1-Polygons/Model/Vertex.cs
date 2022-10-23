@@ -70,9 +70,17 @@ namespace P1_Polygons.Model
 
         public override void MoveByConsideringRestrictions(PointF vector)
         {
+            foreach (var restriction in Incoming?.EdgeRestrictions)
+            {
+                vector = restriction.CorrectedVectorForVertexMovement(vector, this);
+            }
+            foreach (var restriction in Outgoing?.EdgeRestrictions)
+            {
+                vector = restriction.CorrectedVectorForVertexMovement(vector, this);
+            }
             MoveBy(vector);
-            Incoming?.ConsiderRestrictions(this);
-            Outgoing?.ConsiderRestrictions(this);
+            //Incoming?.ConsiderRestrictions(this);
+            //Outgoing?.ConsiderRestrictions(this);
         }
     }
 }

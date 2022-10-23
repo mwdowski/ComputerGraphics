@@ -17,7 +17,7 @@ namespace P1_Polygons.Model
 
         private readonly Polygon _polygon;
 
-        private List<IEdgeRestriction> _edgeRestrictions = new List<IEdgeRestriction>();
+        public List<IEdgeRestriction> EdgeRestrictions = new List<IEdgeRestriction>();
 
         public Edge(Vertex start, Vertex end, Polygon polygon)
         {
@@ -82,7 +82,6 @@ namespace P1_Polygons.Model
         public override void ShowContextMenu(MainWindow mainWindow, Point point)
         {
             var edgeContextMenuStrip = new EdgeContextMenuStrip(this);
-            edgeContextMenuStrip.AddRestrictionsButtons();
             edgeContextMenuStrip.Show(mainWindow.pictureBox, point);
         }
 
@@ -106,9 +105,13 @@ namespace P1_Polygons.Model
             newVertex.Outgoing = edgeWithStartToChange;
         }
 
+        public PointF Center => new PointF((Start.Position.X + End.Position.X) / 2, (Start.Position.Y + End.Position.Y) / 2);
+
+        public string RestrictionString => EdgeRestrictions.Select(_ => _.Symbol).Aggregate(string.Empty, (s, v) => s + v);
+
         private Vertex CreateVertexInTheMiddle()
         {
-            var middlePosition = new PointF((Start.Position.X + End.Position.X) / 2, (Start.Position.Y + End.Position.Y) / 2);
+            var middlePosition = Center;
             var newVertex = new Vertex(middlePosition, _polygon);
 
             return newVertex;
@@ -121,12 +124,24 @@ namespace P1_Polygons.Model
 
             var newEdge = new Edge(newVertex, End, _polygon);
             _polygon.Edges.Add(newEdge);
+
+            newVertex.Incoming = this;
+            newVertex.Outgoing = newEdge;
+            this.End.Incoming = newEdge;
+
             End = newVertex;
+
+            ClearEdgeRestrictions();
+        }
+
+        private void ClearEdgeRestrictions()
+        {
+            EdgeRestrictions.Clear();
         }
 
         public void ConsiderRestrictions(Vertex movedVertex)
         {
-            foreach (var restriction in _edgeRestrictions)
+            foreach (var restriction in EdgeRestrictions)
             {
                 restriction.Consider(movedVertex);
             }
@@ -134,17 +149,25 @@ namespace P1_Polygons.Model
 
         public void AddRestriction(IEdgeRestriction restriction)
         {
-            _edgeRestrictions.Add(restriction);
-            ConsiderRestrictions(End);
+            restriction.Initiate(this);
         }
 
         public override void MoveByConsideringRestrictions(PointF vector)
         {
             Console.WriteLine($"{this.GetType().Name}.{(new StackFrame())?.GetMethod()?.Name}: {vector}");
-            Start.MoveBy(vector);
-            End.MoveBy(vector);
-            //Start.Incoming?.End.MoveByConsideringRestrictions(vector);
-            //End.Incoming?.MoveByConsideringRestrictions(vector);
+
+            var list = new List<Figure>();
+            (vector, list) = LengthRestritcion.CorrectedVectorAndSetForEdgeMovement(vector, this);
+
+
+            foreach (var el in list.Distinct())
+            {
+                el.MoveBy(vector);
+            }
+            /*
+            Start.Incoming?.Start.MoveByConsideringRestrictions(vector);
+            End.Outgoing?.End.MoveByConsideringRestrictions(vector);
+            */
         }
     }
 }

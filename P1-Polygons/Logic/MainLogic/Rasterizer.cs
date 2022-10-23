@@ -11,10 +11,10 @@ namespace P1_Polygons.Logic.MainLogic
     public class Rasterizer
     {
         public readonly Image Image;
-        private const float xMin = -160.0f;
-        private const float xMax = 160.0f;
-        private const float yMin = -100.0f;
-        private const float yMax = 100.0f;
+        private const float xMin = -1600.0f;
+        private const float xMax = 1600.0f;
+        private const float yMin = -1000.0f;
+        private const float yMax = 1000.0f;
 
         public Rasterizer(PictureBox canvas)
         {

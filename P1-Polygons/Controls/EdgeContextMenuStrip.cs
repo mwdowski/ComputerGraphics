@@ -18,16 +18,74 @@ namespace P1_Polygons.Controls
             Items.Add("Edge");
             Items.Add("Remove", null, (_, _) => edge.Remove());
             Items.Add("Add vertex in the middle", null, (_, _) => edge.DivideEdgeWithVertexOnMiddle());
+
+            AddRestrictionsButtons();
         }
 
-        public void AddRestrictionsButtons()
+        private void AddRestrictionsButtons()
         {
-            Items.Add("Add length restriction", null, (_, _) => AddLengthRestriction());
+            if (Edge.EdgeRestrictions.Any(_ => _.GetType() == typeof(LengthRestritcion)))
+            {
+                Items.Add("Remove length restriction", null, (_, _) => RemoveLengthRestriction());
+            }
+            else
+            {
+                Items.Add("Add length restriction", null, (_, _) => AddLengthRestriction());
+            }
+        }
+        public static DialogResult InputBox(string title, string promptText, ref string value)
+        {
+            TextBox textBox = new TextBox();
+            textBox.Text = promptText;
+            textBox.SetBounds(20, 20, 160, 40);
+
+            Button buttonOk = new Button();
+            buttonOk.DialogResult = DialogResult.OK;
+            buttonOk.SetBounds(20, 50, 70, 30);
+            buttonOk.Text = "OK";
+
+            Button buttonCancel = new Button();
+            buttonCancel.Text = "Cancel";
+            buttonCancel.DialogResult = DialogResult.Cancel;
+            buttonCancel.SetBounds(110, 50, 70, 30);
+
+            Form form = new Form();
+            form.Text = title;
+            form.ClientSize = new Size(200, 100);
+            form.FormBorderStyle = FormBorderStyle.FixedDialog;
+            form.StartPosition = FormStartPosition.CenterParent;
+            form.MinimizeBox = false;
+            form.MaximizeBox = false;
+            form.Controls.AddRange(new Control[] { textBox, buttonOk, buttonCancel });
+            form.AcceptButton = buttonOk;
+            form.CancelButton = buttonCancel;
+
+            DialogResult dialogResult = form.ShowDialog();
+            value = textBox.Text;
+
+            return dialogResult;
         }
 
         private void AddLengthRestriction()
         {
-            Edge.AddRestriction(new LengthRestritcion(Edge, 20));
+            string result = "";
+            if (InputBox("Set length", Edge.Length.ToString("0.0000"), ref result) == DialogResult.OK)
+            {
+                try
+                {
+                    float length = float.Parse(result);
+                    Edge.AddRestriction(new LengthRestritcion(Edge, length));
+                }
+                catch
+                {
+                    MessageBox.Show("Incorrect input. Aborting action.");
+                }
+            }
+        }
+
+        private void RemoveLengthRestriction()
+        {
+            Edge.EdgeRestrictions = Edge.EdgeRestrictions.Where(_ => _.GetType() != typeof(LengthRestritcion)).ToList();
         }
     }
 }

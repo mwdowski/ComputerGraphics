@@ -34,6 +34,7 @@ namespace P1_Polygons.Logic.MainLogic.FigureDrawers
         public virtual void DrawEdge(Edge edge, Graphics graphics)
         {
             graphics.DrawLine(Pen, Rasterizer.Rasterize(edge.Start.Position), Rasterizer.Rasterize(edge.End.Position));
+            graphics.DrawString(edge.RestrictionString, new Font("Arial", 12), Pen.Brush, Rasterizer.Rasterize((edge.Center)));
         }
 
         public virtual void DrawPolygon(Polygon polygon, Graphics graphics)
