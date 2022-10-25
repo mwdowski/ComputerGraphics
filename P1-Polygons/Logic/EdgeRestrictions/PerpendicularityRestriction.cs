@@ -1,6 +1,7 @@
 ﻿using P1_Polygons.Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,11 +27,7 @@ namespace P1_Polygons.Logic.EdgeRestrictions
             Edge1.EdgeRestrictions.Add(this);
             Edge2.EdgeRestrictions.Add(this);
 
-            Edge1.End.MoveByConsideringRestrictions(new PointF(0, 0));
             Edge1.Start.MoveByConsideringRestrictions(new PointF(0, 0));
-
-            Edge2.End.MoveByConsideringRestrictions(new PointF(0, 0));
-            Edge2.Start.MoveByConsideringRestrictions(new PointF(0, 0));
         }
 
         private static float DotProduct(PointF a, PointF b)
@@ -55,18 +52,21 @@ namespace P1_Polygons.Logic.EdgeRestrictions
 
         public PointF CorrectingMovement(Vertex moved, Vertex other)
         {
+            Console.WriteLine($"{this.GetType().Name}.{(new StackFrame())?.GetMethod()?.Name}");
             PointF pivot = default;
             PointF pivotOther = default;
             PointF toRotate = other.Position;
             PointF toRotateOther = default;
-            float sin = 1;
-            float cos = 1;
+            float sin = Edge1.End == Edge2.Start ? 1 : -1;
+            float cos = Edge1.End == Edge2.Start ? 1 : -1;
 
             if (Edge1.Start == Edge2.End && Edge1.Start == moved)
             {
                 pivot = moved.Position;
                 toRotateOther = moved.Position;
                 pivotOther = Edge1.End == other ? Edge2.Start.Position : Edge1.End.Position;
+                cos *= -1;
+                sin *= -1;
             }
             else if (Edge1.End == Edge2.Start && Edge1.End == moved)
             {
@@ -79,8 +79,6 @@ namespace P1_Polygons.Logic.EdgeRestrictions
                 pivot = Edge1.Start.Position;
                 pivotOther = Edge1.End.Position;
                 toRotateOther = Edge2.Start == other ? Edge2.End.Position : Edge2.Start.Position;
-                cos *= -1;
-                sin *= -1;
             }
             else if (Edge1.End == Edge2.Start && Edge2.End == moved)
             {
@@ -93,7 +91,7 @@ namespace P1_Polygons.Logic.EdgeRestrictions
             else if (Edge1.Start == Edge2.End && Edge2.Start == moved)
             {
                 pivot = Edge1.Start.Position;
-                pivotOther = Edge1.End.Position;
+                pivotOther = Edge2.Start.Position;
                 toRotateOther = Edge1.End == other ? Edge1.Start.Position : Edge1.End.Position;
                 cos *= -1;
                 sin *= -1;
@@ -101,24 +99,22 @@ namespace P1_Polygons.Logic.EdgeRestrictions
             else if (Edge1.End == Edge2.Start && Edge1.Start == moved)
             {
                 pivot = Edge2.Start.Position;
-                pivotOther = Edge2.End.Position;
+                pivotOther = Edge1.Start.Position;
                 toRotateOther = Edge2.End == other ? Edge2.Start.Position : Edge2.End.Position;
-                cos *= -1;
-                sin *= -1;
             }
             else if (Edge1.Start == moved)
             {
                 pivot = moved.Position;
                 pivotOther = Edge1.End.Position;
                 toRotateOther = Edge2.Start == other ? Edge2.End.Position : Edge2.Start.Position;
+                cos *= -1;
+                sin *= -1;
             }
             else if (Edge2.Start == moved)
             {
                 pivot = moved.Position;
                 pivotOther = Edge2.End.Position;
                 toRotateOther = Edge1.Start == other ? Edge1.End.Position : Edge1.Start.Position;
-                cos *= -1;
-                sin *= -1;
             }
             else if (Edge1.End == moved)
             {
@@ -138,12 +134,17 @@ namespace P1_Polygons.Logic.EdgeRestrictions
             var edgePivot = ToVector(pivot, pivotOther); 
             var edgeRotated = ToVector(toRotateOther, toRotate);
 
-            sin *= CrossProduct(edgePivot, edgeRotated) / Edge1.Length / Edge2.Length;
-            cos *= DotProduct(edgePivot, edgeRotated) / Edge1.Length / Edge2.Length;
+            var l1 = Length(edgePivot, new PointF());
+            var l2 = Length(edgeRotated, new PointF());
+
+            sin *= CrossProduct(edgePivot, edgeRotated) / (l1 * l2);
+            cos *= DotProduct(edgePivot, edgeRotated) / (l1 * l2);
 
             var rotation = new PointF(edgeRotated.X * sin - edgeRotated.X - edgeRotated.Y * cos, edgeRotated.Y * sin - edgeRotated.Y + edgeRotated.X * cos);
 
             return rotation;
         }
+
+        private float Length(PointF a, PointF b) => (float)Math.Sqrt((a.X - b.X) * (a.X - b.X) + (a.Y - b.Y) * (a.Y - b.Y));
     }
 }

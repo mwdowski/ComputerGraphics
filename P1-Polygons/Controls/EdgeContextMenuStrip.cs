@@ -37,7 +37,13 @@ namespace P1_Polygons.Controls
 
         private void RemovePerpendicularityRestrictions()
         {
+            var toRemove = new List<PerpendicularityRestriction>();
             foreach (var restriction in Edge.EdgeRestrictions.Where(_ => _ is PerpendicularityRestriction).Cast<PerpendicularityRestriction>())
+            {
+                toRemove.Add(restriction);
+            }
+
+            foreach (var restriction in toRemove)
             {
                 restriction.Remove();
             }

@@ -50,7 +50,6 @@ namespace P1_Polygons.Model
             var rasterizedStart = rasterizer.Rasterize(Start.Position);
             var rasterizedEnd = rasterizer.Rasterize(End.Position);
 
-
             if (DotProduct(ToVector(rasterizedStart, rasterizedEnd), ToVector(rasterizedEnd, point)) > 0)
             {
                 return End.GetPixelDistanceSquared(point, rasterizer);
@@ -74,7 +73,6 @@ namespace P1_Polygons.Model
 
         public override void MoveBy(PointF vector)
         {
-            Console.WriteLine($"{this.GetType().Name}.{(new StackFrame())?.GetMethod()?.Name}: {vector}");
             Start.MoveBy(vector);
             End.MoveBy(vector);
         }
@@ -108,6 +106,22 @@ namespace P1_Polygons.Model
             newVertex.Incoming = edgeWithEndToChange;
             edgeWithStartToChange.Start = newVertex;
             newVertex.Outgoing = edgeWithStartToChange;
+
+            ClearAllRestrictions();
+        }
+
+        private void ClearAllRestrictions()
+        {
+            var toRemove = new List<IEdgeRestriction>();
+            foreach (var restriction in EdgeRestrictions)
+            {
+                toRemove.Add(restriction);
+            }
+
+            foreach (var restriction in toRemove)
+            {
+                restriction.Remove();
+            }
         }
 
         public PointF Center => new PointF((Start.Position.X + End.Position.X) / 2, (Start.Position.Y + End.Position.Y) / 2);

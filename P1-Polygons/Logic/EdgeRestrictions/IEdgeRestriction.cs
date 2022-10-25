@@ -13,5 +13,6 @@ namespace P1_Polygons.Logic.EdgeRestrictions
         string Symbol { get; }
         void Initialize();
         public PointF CorrectingMovement(Vertex moved, Vertex other);
+        void Remove();
     }
 }

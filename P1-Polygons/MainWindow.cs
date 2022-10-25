@@ -109,14 +109,18 @@ namespace P1_Polygons
                             }
                             break;
                         case ClickModes.SelectingPerpendicularEdge:
-                            var potentialEdge = (Edge) Logic.FigureSelector.SelectedFigure!;
-                            Logic.FigureSelector.SelectByClick(e.Location);
-                            if (Logic.FigureSelector.SelectedFigure != null && Logic.FigureSelector.SelectedFigure is Edge)
+                            if (Logic.FigureSelector.SelectedFigure is Edge)
                             {
-                                var pr = new PerpendicularityRestriction(potentialEdge, (Edge)Logic.FigureSelector.SelectedFigure!);
-                                pr.Initialize();
-                                ClickMode = ClickModes.Default;
+                                Edge potentialEdge = (Edge)Logic.FigureSelector.SelectedFigure!;
+                                Logic.FigureSelector.SelectByClick(e.Location);
+                                if (Logic.FigureSelector.SelectedFigure != null && Logic.FigureSelector.SelectedFigure is Edge)
+                                {
+                                    var newRestriction = new PerpendicularityRestriction(potentialEdge, (Edge)Logic.FigureSelector.SelectedFigure!);
+                                    newRestriction.Initialize();
+                                }
                             }
+                            ClickMode = ClickModes.Default;
+
                             break;
                         default:
                             break;
@@ -128,7 +132,6 @@ namespace P1_Polygons
                         case ClickModes.Default:
                             Logic.FigureSelector.SelectByClick(e.Location);
                             Logic.FigureSelector.SelectedFigure?.ShowContextMenu(this, e.Location);
-                            //Logic.FigureSelector.ClearSelection();
                             break;
                         case ClickModes.AddPolygon:
                             ClickMode = ClickModes.Default;

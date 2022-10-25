@@ -32,8 +32,8 @@ namespace P1_Polygons
                 "Right click - abort creating polygon"})},
             { ClickModes.MovingFigure, ("Moving figure", new string[] {
                 "Release click - finish moving"})},
-            { ClickModes.SelectingPerpendicularEdge, ("TODO", new string[] {
-                "Left click on edge - TODO",
+            { ClickModes.SelectingPerpendicularEdge, ("Selecting other edge", new string[] {
+                "Left click on edge - Connect selected edges with perpendicularity restriction",
                 "Right click - abort selecting edge"})},
         };
 

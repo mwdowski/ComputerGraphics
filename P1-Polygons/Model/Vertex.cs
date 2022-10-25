@@ -29,7 +29,6 @@ namespace P1_Polygons.Model
 
         public override void MoveBy(PointF vector)
         {
-            Console.WriteLine($"{this.GetType().Name}.{(new StackFrame())?.GetMethod()?.Name}: {vector}");
             Position.X += vector.X;
             Position.Y += vector.Y;
         }
@@ -55,7 +54,6 @@ namespace P1_Polygons.Model
 
         public override void Remove()
         {
-            Console.WriteLine($"{this.GetType().Name}.{(new StackFrame())?.GetMethod()?.Name}");
             if (_polygon.Vertices.Count <= 3) return;
 
             _polygon.Vertices.Remove(this);
@@ -70,70 +68,79 @@ namespace P1_Polygons.Model
             nextEdge.Start.Incoming = edgeWithStartAsThis;
         }
 
-        private ISet<PerpendicularityRestriction> _visitedRestrictions;
-        private Stack<PerpendicularityRestriction> _restritionsToVisit;
 
         public override void MoveByConsideringRestrictions(PointF vector, Direction? direction = null)
         {
-            _visitedRestrictions = new HashSet<PerpendicularityRestriction>();
-            _restritionsToVisit = new Stack<PerpendicularityRestriction>();
-            MoveBy(vector);
-            _ConsiderLengthRestrictions(vector, this, direction);
-            _ConsiderPerpendicularityRestrictions(vector, this, direction);
+            var visitedRestrictions = new HashSet<IEdgeRestriction>();
+            _MoveByConsideringRestrictions(vector, visitedRestrictions, null);
         }
 
-        private void _MoveByConsideringRestrictions(PointF vector, Vertex start, Direction? direction = null)
+        private void _MoveByConsideringRestrictions(PointF vector, HashSet<IEdgeRestriction> visited, Direction? direction = null)
         {
-            if (this == start) return;
-
             MoveBy(vector);
-            _ConsiderLengthRestrictions(vector, start, direction);
-            _ConsiderPerpendicularityRestrictions(vector, start, direction);
+            _ConsiderLengthRestrictions(vector, visited, direction);
+            _ConsiderPerpendicularityRestrictions(vector, visited, direction);
         }
 
-        private void _ConsiderPerpendicularityRestrictions(PointF vector, Vertex start, Direction? direction)
+        private void _ConsiderPerpendicularityRestrictions(PointF vector, HashSet<IEdgeRestriction> visited, Direction? direction)
         {
-            var incomingRestriction = (PerpendicularityRestriction?)Incoming!.EdgeRestrictions.SingleOrDefault(_ => _ is PerpendicularityRestriction);
-
-            var otherRestricitionEdge = incomingRestriction?.Edge1 == Incoming ? incomingRestriction?.Edge2! : incomingRestriction?.Edge1;
-            var otherVertex = otherRestricitionEdge?.Start == this ? otherRestricitionEdge?.End : otherRestricitionEdge?.Start;
-            var cm = incomingRestriction?.CorrectingMovement(this, otherVertex);
-            if (cm.HasValue && direction != Direction.Outgoing)
-            {
-                otherVertex.MoveBy(cm.Value);
+            var incomingRestrictions = Incoming!.EdgeRestrictions.Where(_ => _ is PerpendicularityRestriction).Cast<PerpendicularityRestriction>().ToList();
+            foreach (var incomingRestriction in incomingRestrictions)
+            { 
+                if (incomingRestriction != null && !visited.Contains(incomingRestriction))
+                {
+                    visited.Add(incomingRestriction);
+                    var otherRestricitionEdge = incomingRestriction?.Edge1 == Incoming ? incomingRestriction?.Edge2 : incomingRestriction?.Edge1;
+                    var otherVertex = otherRestricitionEdge?.Start == this ? otherRestricitionEdge?.End : otherRestricitionEdge?.Start;
+                    var correctedMovement = incomingRestriction?.CorrectingMovement(this, otherVertex!);
+                    if (correctedMovement.HasValue)
+                    {
+                        otherVertex?._MoveByConsideringRestrictions(correctedMovement.Value, visited, null);
+                    }
+                }
             }
 
-            /*
             
-            var outgoingRestriction = (PerpendicularityRestriction?)Outgoing!.EdgeRestrictions.SingleOrDefault(_ => _ is PerpendicularityRestriction);
-
-            otherRestricitionEdge = outgoingRestriction?.Edge1 == Outgoing ? outgoingRestriction?.Edge2 : outgoingRestriction?.Edge1;
-            otherVertex = otherRestricitionEdge?.Start == this ? otherRestricitionEdge?.End : otherRestricitionEdge?.Start;
-
-            var cm2 = outgoingRestriction?.CorrectingMovement(this, otherVertex);
-            if (cm2.HasValue && direction != Direction.Incoming)
+            var outgoingRestrictions = Outgoing!.EdgeRestrictions.Where(_ => _ is PerpendicularityRestriction).Cast<PerpendicularityRestriction>().ToList();
+            foreach (var outgoingRestriction in outgoingRestrictions)
             {
-                otherVertex.MoveBy(cm2.Value);
+                if (outgoingRestriction != null && !visited.Contains(outgoingRestriction))
+                {
+                    visited.Add(outgoingRestriction);
+                    var otherRestricitionEdge = outgoingRestriction?.Edge1 == Outgoing ? outgoingRestriction?.Edge2 : outgoingRestriction?.Edge1;
+                    var otherVertex = otherRestricitionEdge?.End == this ? otherRestricitionEdge?.Start : otherRestricitionEdge?.End;
+                    var correctedMovement = outgoingRestriction?.CorrectingMovement(this, otherVertex!);
+                    if (correctedMovement.HasValue)
+                    {
+                        otherVertex?._MoveByConsideringRestrictions(correctedMovement.Value, visited, null);
+                    }
+                }
             }
-            */
+            
         }
 
-        private void _ConsiderLengthRestrictions(PointF vector, Vertex start, Direction? direction = null)
+        private void _ConsiderLengthRestrictions(PointF vector, HashSet<IEdgeRestriction> visited, Direction? direction = null)
         {
             var incomingRestriction = (LengthRestritcion?)Incoming!.EdgeRestrictions.SingleOrDefault(_ => _ is LengthRestritcion);
-
-            var cm = incomingRestriction?.CorrectingMovement(this, Incoming!.Start);
-            if (cm.HasValue && direction != Direction.Outgoing)
+            if (incomingRestriction != null && !visited.Contains(incomingRestriction) && direction != Direction.Outgoing)
             {
-                Incoming!.Start._MoveByConsideringRestrictions(cm.Value, start, Direction.Incoming);
+                visited.Add(incomingRestriction);
+                var correctedMovement = incomingRestriction?.CorrectingMovement(this, Incoming!.Start);
+                if (correctedMovement.HasValue)
+                {
+                    Incoming!.Start._MoveByConsideringRestrictions(correctedMovement.Value, visited, Direction.Incoming);
+                }
             }
 
             var outgoingRestriction = (LengthRestritcion?)Outgoing!.EdgeRestrictions.SingleOrDefault(_ => _ is LengthRestritcion);
-
-            var cm2 = outgoingRestriction?.CorrectingMovement(this, Outgoing!.End);
-            if (cm2.HasValue && direction != Direction.Incoming)
+            if (outgoingRestriction != null && !visited.Contains(outgoingRestriction) && direction != Direction.Incoming)
             {
-                Outgoing!.End._MoveByConsideringRestrictions(cm2.Value, start, Direction.Outgoing);
+                visited.Add(outgoingRestriction);
+                var correctedMovement = outgoingRestriction?.CorrectingMovement(this, Outgoing!.End);
+                if (correctedMovement.HasValue)
+                {
+                    Outgoing!.End._MoveByConsideringRestrictions(correctedMovement.Value, visited, Direction.Outgoing);
+                }
             }
         }
 

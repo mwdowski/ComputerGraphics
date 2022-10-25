@@ -1,6 +1,7 @@
 ﻿using P1_Polygons.Model;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -32,6 +33,7 @@ namespace P1_Polygons.Logic.EdgeRestrictions
 
         public PointF CorrectingMovement(Vertex moved, Vertex other)
         {
+            Console.WriteLine($"{this.GetType().Name}.{(new StackFrame())?.GetMethod()?.Name}");
             var afterMovementVertexPosition = moved.Position;
 
             float ratio = Edge.Length;
@@ -39,6 +41,11 @@ namespace P1_Polygons.Logic.EdgeRestrictions
             float newY = afterMovementVertexPosition.Y + Length * (other.Position.Y - afterMovementVertexPosition.Y) / ratio;
 
             return new PointF(newX - other.Position.X, newY - other.Position.Y);
+        }
+
+        public void Remove()
+        {
+            Edge.EdgeRestrictions.Remove(this);
         }
     }
 }

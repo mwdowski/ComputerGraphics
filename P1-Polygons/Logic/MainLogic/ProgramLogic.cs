@@ -27,6 +27,38 @@ namespace P1_Polygons.Logic.MainLogic
             FigureMover = new(Rasterizer);
             Polygons = new List<Polygon>();
             _pictureBox = canvas;
+
+            CreatePredefinedScene();
+            DrawPolygons();
+        }
+
+        private void CreatePredefinedScene()
+        {
+            PolygonCreator.StartPolygonCreation(new Point(100, 100));
+            PolygonCreator.AddVertexWhileCreatingPolygon(new Point(200, 150));
+            PolygonCreator.AddVertexWhileCreatingPolygon(new Point(200, 300));
+            PolygonCreator.AddVertexWhileCreatingPolygon(new Point(250, 400));
+            PolygonCreator.AddVertexWhileCreatingPolygon(new Point(400, 300));
+            PolygonCreator.AddVertexWhileCreatingPolygon(new Point(500, 200));
+            PolygonCreator.AddVertexWhileCreatingPolygon(new Point(300, 100));
+            PolygonCreator.AddVertexWhileCreatingPolygon(new Point(100, 100));
+            Polygons.Add(PolygonCreator.GetCreatedPolygon());
+            PolygonCreator.Restart();
+            
+            PolygonCreator.StartPolygonCreation(new Point(800, 100));
+            PolygonCreator.AddVertexWhileCreatingPolygon(new Point(750, 400));
+            PolygonCreator.AddVertexWhileCreatingPolygon(new Point(700, 450));
+            PolygonCreator.AddVertexWhileCreatingPolygon(new Point(500, 300));
+            PolygonCreator.AddVertexWhileCreatingPolygon(new Point(400, 250));
+            PolygonCreator.AddVertexWhileCreatingPolygon(new Point(800, 100));
+            Polygons.Add(PolygonCreator.GetCreatedPolygon());
+            PolygonCreator.Restart();
+
+            new LengthRestritcion(Polygons[0].Edges[0], 300).Initialize();
+            new LengthRestritcion(Polygons[0].Edges[1], 700).Initialize();
+            new LengthRestritcion(Polygons[1].Edges[1], 700).Initialize();
+            new PerpendicularityRestriction(Polygons[0].Edges[4], Polygons[0].Edges[5]).Initialize();
+            new PerpendicularityRestriction(Polygons[0].Edges[1], Polygons[1].Edges[3]).Initialize();
         }
 
         public void DrawPolygons()
