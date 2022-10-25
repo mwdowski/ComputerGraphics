@@ -40,7 +40,7 @@ namespace P1_Polygons.Model
             return a.X * b.X + a.Y * b.Y;
         }
 
-        private static Point ToVector(Point from, Point to)
+        public static Point ToVector(Point from, Point to)
         {
             return new Point(to.X - from.X, to.Y - from.Y);
         }
@@ -82,7 +82,12 @@ namespace P1_Polygons.Model
         public override void ShowContextMenu(MainWindow mainWindow, Point point)
         {
             var edgeContextMenuStrip = new EdgeContextMenuStrip(this);
+            edgeContextMenuStrip.Items.Add("Add perpendicularity restriction", null, (_, _) =>
+            {
+                mainWindow.ClickMode = ClickModes.SelectingPerpendicularEdge;
+            });
             edgeContextMenuStrip.Show(mainWindow.pictureBox, point);
+
         }
 
         public override void Remove()
@@ -139,35 +144,15 @@ namespace P1_Polygons.Model
             EdgeRestrictions.Clear();
         }
 
-        public void ConsiderRestrictions(Vertex movedVertex)
-        {
-            foreach (var restriction in EdgeRestrictions)
-            {
-                restriction.Consider(movedVertex);
-            }
-        }
-
         public void AddRestriction(IEdgeRestriction restriction)
         {
-            restriction.Initiate(this);
+            restriction.Initialize();
         }
 
-        public override void MoveByConsideringRestrictions(PointF vector)
+        public override void MoveByConsideringRestrictions(PointF vector, Vertex.Direction? direction = null)
         {
-            Console.WriteLine($"{this.GetType().Name}.{(new StackFrame())?.GetMethod()?.Name}: {vector}");
-
-            var list = new List<Figure>();
-            (vector, list) = LengthRestritcion.CorrectedVectorAndSetForEdgeMovement(vector, this);
-
-
-            foreach (var el in list.Distinct())
-            {
-                el.MoveBy(vector);
-            }
-            /*
-            Start.Incoming?.Start.MoveByConsideringRestrictions(vector);
-            End.Outgoing?.End.MoveByConsideringRestrictions(vector);
-            */
+            Start.MoveByConsideringRestrictions(vector, Vertex.Direction.Incoming);
+            End.MoveByConsideringRestrictions(vector, Vertex.Direction.Outgoing);
         }
     }
 }

@@ -32,7 +32,17 @@ namespace P1_Polygons.Controls
             {
                 Items.Add("Add length restriction", null, (_, _) => AddLengthRestriction());
             }
+            Items.Add("Clear all perpendicularity restrictions", null, (_, _) => RemovePerpendicularityRestrictions());
         }
+
+        private void RemovePerpendicularityRestrictions()
+        {
+            foreach (var restriction in Edge.EdgeRestrictions.Where(_ => _ is PerpendicularityRestriction).Cast<PerpendicularityRestriction>())
+            {
+                restriction.Remove();
+            }
+        }
+
         public static DialogResult InputBox(string title, string promptText, ref string value)
         {
             TextBox textBox = new TextBox();

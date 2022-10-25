@@ -9,11 +9,9 @@ namespace P1_Polygons.Logic.EdgeRestrictions
 {
     public interface IEdgeRestriction
     {
+        int Order { get; }
         string Symbol { get; }
-
-        void Consider(Vertex movedVertex);
-        void Initiate(Edge edge);
-        PointF CorrectedVectorForVertexMovement(PointF vector, Vertex movedVertex);
-        (PointF vector, List<Figure> moveSet) CorrectedVectorForEdgeMovement(PointF vector, Edge movedEdge);
+        void Initialize();
+        public PointF CorrectingMovement(Vertex moved, Vertex other);
     }
 }

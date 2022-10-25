@@ -1,5 +1,7 @@
+using P1_Polygons.Logic.EdgeRestrictions;
 using P1_Polygons.Logic.MainLogic;
 using P1_Polygons.Logic.MainLogic.FigureDrawers;
+using P1_Polygons.Model;
 
 namespace P1_Polygons
 {
@@ -8,7 +10,7 @@ namespace P1_Polygons
         private ProgramLogic Logic;
 
         private ClickModes _clickMode;
-        private ClickModes ClickMode { get => _clickMode; set
+        public ClickModes ClickMode { get => _clickMode; set
             {
                 switch (value)
                 {
@@ -34,6 +36,9 @@ namespace P1_Polygons
                         break;
                     case ClickModes.MovingFigure:
                         this.pictureBox.Cursor = Cursors.SizeAll;
+                        break;
+                    case ClickModes.SelectingPerpendicularEdge:
+                        this.pictureBox.Cursor = Cursors.Cross;
                         break;
                     default:
                         throw new NotImplementedException();
@@ -103,6 +108,16 @@ namespace P1_Polygons
                                     throw new NotImplementedException();
                             }
                             break;
+                        case ClickModes.SelectingPerpendicularEdge:
+                            var potentialEdge = (Edge) Logic.FigureSelector.SelectedFigure!;
+                            Logic.FigureSelector.SelectByClick(e.Location);
+                            if (Logic.FigureSelector.SelectedFigure != null && Logic.FigureSelector.SelectedFigure is Edge)
+                            {
+                                var pr = new PerpendicularityRestriction(potentialEdge, (Edge)Logic.FigureSelector.SelectedFigure!);
+                                pr.Initialize();
+                                ClickMode = ClickModes.Default;
+                            }
+                            break;
                         default:
                             break;
                     }
@@ -113,7 +128,7 @@ namespace P1_Polygons
                         case ClickModes.Default:
                             Logic.FigureSelector.SelectByClick(e.Location);
                             Logic.FigureSelector.SelectedFigure?.ShowContextMenu(this, e.Location);
-                            Logic.FigureSelector.ClearSelection();
+                            //Logic.FigureSelector.ClearSelection();
                             break;
                         case ClickModes.AddPolygon:
                             ClickMode = ClickModes.Default;
@@ -123,6 +138,10 @@ namespace P1_Polygons
                             break;
                         case ClickModes.AddingPolygon:
                             Logic.PolygonCreator.Restart();
+                            ClickMode = ClickModes.Default;
+                            break;
+                        case ClickModes.SelectingPerpendicularEdge:
+                            Logic.FigureSelector.ClearSelection();
                             ClickMode = ClickModes.Default;
                             break;
                         default:

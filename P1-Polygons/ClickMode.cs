@@ -8,7 +8,7 @@ namespace P1_Polygons
 {
     public enum ClickModes
     {
-        Default, AddPolygon, DeletePolygon, AddingPolygon, MovingFigure
+        Default, AddPolygon, DeletePolygon, AddingPolygon, MovingFigure, SelectingPerpendicularEdge
     }
 
     public static class ClickModeText
@@ -31,7 +31,10 @@ namespace P1_Polygons
                 "Left click - add another vertex",
                 "Right click - abort creating polygon"})},
             { ClickModes.MovingFigure, ("Moving figure", new string[] {
-                "Release click - finish moving"})}
+                "Release click - finish moving"})},
+            { ClickModes.SelectingPerpendicularEdge, ("TODO", new string[] {
+                "Left click on edge - TODO",
+                "Right click - abort selecting edge"})},
         };
 
         public static string GetModeName(ClickModes clickMode) => dict[clickMode].name;

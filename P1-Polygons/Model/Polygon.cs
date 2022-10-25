@@ -53,7 +53,7 @@ namespace P1_Polygons.Model
             throw new NotImplementedException();
         }
 
-        public override void MoveByConsideringRestrictions(PointF vector)
+        public override void MoveByConsideringRestrictions(PointF vector, Vertex.Direction? direction = null)
         {
             MoveBy(vector);
         }
