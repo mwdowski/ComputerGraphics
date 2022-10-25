@@ -14,6 +14,8 @@ namespace P1_Polygons.Logic.MainLogic
         public FigureSelector FigureSelector { get; }
         public FigureMover FigureMover { get; }
         public List<Polygon> Polygons { get; private set; }
+        public List<Circle> Circles { get; private set; } = new List<Circle>();
+        public CircleCreator CircleCreator { get; }
 
         private PictureBox _pictureBox;
 
@@ -27,9 +29,10 @@ namespace P1_Polygons.Logic.MainLogic
             FigureMover = new(Rasterizer);
             Polygons = new List<Polygon>();
             _pictureBox = canvas;
+            CircleCreator = new(Rasterizer);
 
             CreatePredefinedScene();
-            DrawPolygons();
+            DrawScene();
         }
 
         private void CreatePredefinedScene()
@@ -61,7 +64,7 @@ namespace P1_Polygons.Logic.MainLogic
             new PerpendicularityRestriction(Polygons[0].Edges[1], Polygons[1].Edges[3]).Initialize();
         }
 
-        public void DrawPolygons()
+        public void DrawScene()
         {
             using (var graphics = Graphics.FromImage(Rasterizer.Image))
             {
@@ -72,6 +75,13 @@ namespace P1_Polygons.Logic.MainLogic
                     FigureDrawer.DrawPolygon(polygon, graphics);
                 }
                 PolygonCreator.DrawCurrentPolygon(FigureDrawer, graphics);
+                
+                foreach (var circle in Circles)
+                {
+                    FigureDrawer.DrawCircle(circle, graphics);
+                }
+
+                CircleCreator.Draw(graphics);
             }
 
             _pictureBox.Refresh();
@@ -90,7 +100,12 @@ namespace P1_Polygons.Logic.MainLogic
         {
             Console.WriteLine($"{this.GetType().Name}.{(new StackFrame())?.GetMethod()?.Name}");
             Polygons.Remove(polygon);
-        
+        }
+
+        public void DeleteCircle(Circle circle)
+        {
+            Console.WriteLine($"{this.GetType().Name}.{(new StackFrame())?.GetMethod()?.Name}");
+            Circles.Remove(circle);
         }
     }
 }

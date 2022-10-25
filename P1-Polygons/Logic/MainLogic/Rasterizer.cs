@@ -95,4 +95,21 @@ namespace P1_Polygons.Logic.MainLogic
             return (x == null || y == null) ? 0 : x.GetPixelDistanceSquared(Point, Rasterizer) - y.GetPixelDistanceSquared(Point, Rasterizer);
         }
     }
+
+    public class CirclePixelDistanceComparer : IComparer<Circle>
+    {
+        private Point Point { get; }
+        public Rasterizer Rasterizer { get; }
+
+        public CirclePixelDistanceComparer(Point point, Rasterizer rasterizer)
+        {
+            Point = point;
+            Rasterizer = rasterizer;
+        }
+
+        public int Compare(Circle? x, Circle? y)
+        {
+            return (x == null || y == null) ? 0 : x.GetPixelDistanceSquared(Point, Rasterizer) - y.GetPixelDistanceSquared(Point, Rasterizer);
+        }
+    }
 }

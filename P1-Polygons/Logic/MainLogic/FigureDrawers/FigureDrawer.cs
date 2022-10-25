@@ -48,5 +48,16 @@ namespace P1_Polygons.Logic.MainLogic.FigureDrawers
                 DrawVertex(v, graphics);
             }
         }
+
+        public virtual void DrawCircle(Circle circle, Graphics graphics)
+        {
+            var rasterizedCenter = Rasterizer.Rasterize(circle.Center);
+            var rasterizedRadius = Rasterizer.Rasterize(new PointF(circle.Radius, 0)).X;
+            graphics.DrawEllipse(Pen, new Rectangle(
+                rasterizedCenter.X - rasterizedRadius,
+                rasterizedCenter.Y - rasterizedRadius,
+                rasterizedRadius * 2,
+                rasterizedRadius * 2));
+        }
     }
 }

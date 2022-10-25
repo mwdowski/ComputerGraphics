@@ -8,7 +8,7 @@ namespace P1_Polygons
 {
     public enum ClickModes
     {
-        Default, AddPolygon, DeletePolygon, AddingPolygon, MovingFigure, SelectingPerpendicularEdge
+        Default, AddPolygon, DeletePolygon, AddingPolygon, MovingFigure, SelectingPerpendicularEdge, AddCircle, AddingCircle, DeleteCircle, ResizeCircle
     }
 
     public static class ClickModeText
@@ -18,8 +18,9 @@ namespace P1_Polygons
             { ClickModes.Default, ("Default", new string[] {
                 "Left click on vertex - start dragging vertex",
                 "Left click on edge - start dragging edge",
-                "Right click on edge - open edge context menu",
-                "Middle click on edge or vertex - start moving polygon"})},
+                "Left click on circle - resize circle",
+                "Right click on figure - open figure context menu",
+                "Middle click on edge or vertex or circle - start moving polygon or circle"})},
             { ClickModes.AddPolygon, ("Add new polygon", new string[] {
                 "Left click - start creating polygon",
                 "Right click - abort creating polygon" })},
@@ -35,6 +36,17 @@ namespace P1_Polygons
             { ClickModes.SelectingPerpendicularEdge, ("Selecting other edge", new string[] {
                 "Left click on edge - Connect selected edges with perpendicularity restriction",
                 "Right click - abort selecting edge"})},
+            { ClickModes.AddCircle, ("Add new circle", new string[] {
+                "Left click - choose circle center",
+                "Right click - abort crearting circle"})},
+            { ClickModes.AddingCircle, ("Adding circle", new string[] {
+                "Left click - choose circle radius",
+                "Right click - abort crearting circle"})},
+            { ClickModes.DeleteCircle, ("Delete circle", new string[] {
+                "Left click on circle edge - choosing circle to delete",
+                "Right click - abort deleting circle"})},
+            { ClickModes.ResizeCircle, ("Resize circle", new string[] {
+                "Drag - resize circle"})},
         };
 
         public static string GetModeName(ClickModes clickMode) => dict[clickMode].name;

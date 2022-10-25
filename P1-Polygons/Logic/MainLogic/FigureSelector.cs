@@ -33,7 +33,11 @@ namespace P1_Polygons.Logic.MainLogic
                 .Where(_ => _.GetPixelDistanceSquared(position, Rasterizer) <= SearchRadius * SearchRadius)
                 .Min(new EdgePixelDistanceComparer(position, Rasterizer));
 
-            SelectedFigure = (Figure?)closestVertex ?? closestEdge;
+            var closestCircle = _logic.Circles
+                .Where(_ => _.GetPixelDistanceSquared(position, Rasterizer) <= SearchRadius * SearchRadius)
+                .Min(new CirclePixelDistanceComparer(position, Rasterizer));
+
+            SelectedFigure = (Figure?)closestVertex ?? (Figure?)closestEdge ?? closestCircle;
         }
 
         public void ClearSelection()

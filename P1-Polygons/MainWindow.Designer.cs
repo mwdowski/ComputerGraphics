@@ -30,6 +30,10 @@
         {
             this.mainTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.controlsTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.circlesGroupBox = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.addCircleButton = new System.Windows.Forms.Button();
+            this.DeleteCircleButton = new System.Windows.Forms.Button();
             this.helperGroupBox = new System.Windows.Forms.GroupBox();
             this.helperTextBox = new System.Windows.Forms.TextBox();
             this.polygonGroupBox = new System.Windows.Forms.GroupBox();
@@ -43,6 +47,8 @@
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.mainTableLayoutPanel.SuspendLayout();
             this.controlsTableLayoutPanel.SuspendLayout();
+            this.circlesGroupBox.SuspendLayout();
+            this.tableLayoutPanel1.SuspendLayout();
             this.helperGroupBox.SuspendLayout();
             this.polygonGroupBox.SuspendLayout();
             this.polygonGroupBoxTableLayoutPanel.SuspendLayout();
@@ -74,15 +80,17 @@
             this.controlsTableLayoutPanel.AutoSize = true;
             this.controlsTableLayoutPanel.ColumnCount = 1;
             this.controlsTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-            this.controlsTableLayoutPanel.Controls.Add(this.helperGroupBox, 0, 2);
+            this.controlsTableLayoutPanel.Controls.Add(this.circlesGroupBox, 0, 0);
+            this.controlsTableLayoutPanel.Controls.Add(this.helperGroupBox, 0, 3);
             this.controlsTableLayoutPanel.Controls.Add(this.polygonGroupBox, 0, 0);
-            this.controlsTableLayoutPanel.Controls.Add(this.lineDrawingGroupBox, 0, 1);
+            this.controlsTableLayoutPanel.Controls.Add(this.lineDrawingGroupBox, 0, 2);
             this.controlsTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Left;
             this.controlsTableLayoutPanel.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.AddColumns;
             this.controlsTableLayoutPanel.Location = new System.Drawing.Point(853, 5);
             this.controlsTableLayoutPanel.Margin = new System.Windows.Forms.Padding(0);
             this.controlsTableLayoutPanel.Name = "controlsTableLayoutPanel";
-            this.controlsTableLayoutPanel.RowCount = 4;
+            this.controlsTableLayoutPanel.RowCount = 5;
+            this.controlsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.controlsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.controlsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.controlsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
@@ -90,15 +98,71 @@
             this.controlsTableLayoutPanel.Size = new System.Drawing.Size(150, 527);
             this.controlsTableLayoutPanel.TabIndex = 0;
             // 
+            // circlesGroupBox
+            // 
+            this.circlesGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.circlesGroupBox.AutoSize = true;
+            this.circlesGroupBox.Controls.Add(this.tableLayoutPanel1);
+            this.circlesGroupBox.Location = new System.Drawing.Point(0, 84);
+            this.circlesGroupBox.Margin = new System.Windows.Forms.Padding(0);
+            this.circlesGroupBox.Name = "circlesGroupBox";
+            this.circlesGroupBox.Size = new System.Drawing.Size(156, 84);
+            this.circlesGroupBox.TabIndex = 3;
+            this.circlesGroupBox.TabStop = false;
+            this.circlesGroupBox.Text = "Circles";
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.AutoSize = true;
+            this.tableLayoutPanel1.ColumnCount = 1;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Controls.Add(this.addCircleButton, 0, 0);
+            this.tableLayoutPanel1.Controls.Add(this.DeleteCircleButton, 0, 1);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 19);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(0);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 2;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(150, 62);
+            this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // addCircleButton
+            // 
+            this.addCircleButton.AutoSize = true;
+            this.addCircleButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.addCircleButton.Location = new System.Drawing.Point(3, 3);
+            this.addCircleButton.Name = "addCircleButton";
+            this.addCircleButton.Size = new System.Drawing.Size(144, 25);
+            this.addCircleButton.TabIndex = 0;
+            this.addCircleButton.Text = "Add new circle";
+            this.addCircleButton.UseVisualStyleBackColor = true;
+            this.addCircleButton.Click += new System.EventHandler(this.addCircleButton_Click);
+            // 
+            // DeleteCircleButton
+            // 
+            this.DeleteCircleButton.AutoSize = true;
+            this.DeleteCircleButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.DeleteCircleButton.Location = new System.Drawing.Point(3, 34);
+            this.DeleteCircleButton.Name = "DeleteCircleButton";
+            this.DeleteCircleButton.Size = new System.Drawing.Size(144, 25);
+            this.DeleteCircleButton.TabIndex = 1;
+            this.DeleteCircleButton.Text = "Delete circle";
+            this.DeleteCircleButton.UseVisualStyleBackColor = true;
+            this.DeleteCircleButton.Click += new System.EventHandler(this.DeleteCircleButton_Click);
+            // 
             // helperGroupBox
             // 
             this.helperGroupBox.AutoSize = true;
             this.helperGroupBox.Controls.Add(this.helperTextBox);
             this.helperGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.helperGroupBox.Location = new System.Drawing.Point(0, 156);
+            this.helperGroupBox.Location = new System.Drawing.Point(0, 240);
             this.helperGroupBox.Margin = new System.Windows.Forms.Padding(0);
             this.helperGroupBox.Name = "helperGroupBox";
-            this.helperGroupBox.Size = new System.Drawing.Size(156, 371);
+            this.helperGroupBox.Size = new System.Drawing.Size(156, 287);
             this.helperGroupBox.TabIndex = 2;
             this.helperGroupBox.TabStop = false;
             this.helperGroupBox.Text = "Placeholder";
@@ -180,7 +244,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lineDrawingGroupBox.AutoSize = true;
             this.lineDrawingGroupBox.Controls.Add(this.lineDrawingGroupBoxTableLayoutPanel);
-            this.lineDrawingGroupBox.Location = new System.Drawing.Point(0, 84);
+            this.lineDrawingGroupBox.Location = new System.Drawing.Point(0, 168);
             this.lineDrawingGroupBox.Margin = new System.Windows.Forms.Padding(0);
             this.lineDrawingGroupBox.Name = "lineDrawingGroupBox";
             this.lineDrawingGroupBox.Size = new System.Drawing.Size(156, 72);
@@ -257,6 +321,10 @@
             this.mainTableLayoutPanel.PerformLayout();
             this.controlsTableLayoutPanel.ResumeLayout(false);
             this.controlsTableLayoutPanel.PerformLayout();
+            this.circlesGroupBox.ResumeLayout(false);
+            this.circlesGroupBox.PerformLayout();
+            this.tableLayoutPanel1.ResumeLayout(false);
+            this.tableLayoutPanel1.PerformLayout();
             this.helperGroupBox.ResumeLayout(false);
             this.helperGroupBox.PerformLayout();
             this.polygonGroupBox.ResumeLayout(false);
@@ -288,5 +356,9 @@
         private RadioButton lineDrawingOwnRadioButton;
         private TextBox helperTextBox;
         public PictureBox pictureBox;
+        private GroupBox circlesGroupBox;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Button addCircleButton;
+        private Button DeleteCircleButton;
     }
 }

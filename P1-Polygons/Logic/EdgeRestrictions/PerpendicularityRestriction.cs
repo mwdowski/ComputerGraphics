@@ -145,6 +145,6 @@ namespace P1_Polygons.Logic.EdgeRestrictions
             return rotation;
         }
 
-        private float Length(PointF a, PointF b) => (float)Math.Sqrt((a.X - b.X) * (a.X - b.X) + (a.Y - b.Y) * (a.Y - b.Y));
+        public static float Length(PointF a, PointF b) => (float)Math.Sqrt((a.X - b.X) * (a.X - b.X) + (a.Y - b.Y) * (a.Y - b.Y));
     }
 }
