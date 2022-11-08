@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using P2_TrianglesFilling.Canvases;
@@ -17,9 +18,9 @@ namespace P2_TrianglesFilling.Model
             Normals = new();
         }
 
-        public override void Draw(Graphics graphics, ICanvas canvas, IFigureDrawer drawer)
+        public override void Draw(Graphics graphics, ICanvas canvas, IFigureDrawer drawer, FigureDrawerArgument argument)
         {
-            drawer.DrawPolygonSetWithNormals(graphics, canvas, this);
+            drawer.DrawPolygonSetWithNormals(graphics, canvas, this, argument);
         }
     }
 }

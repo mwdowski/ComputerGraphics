@@ -18,9 +18,14 @@ namespace P2_TrianglesFilling.Model
             Position = position;
         }
 
-        public override void Draw(Graphics graphics, ICanvas canvas, IFigureDrawer drawer)
+        public override string ToString()
         {
-            drawer.DrawVertex(graphics, canvas, this);
+            return Position.ToString();
+        }
+
+        public override void Draw(Graphics graphics, ICanvas canvas, IFigureDrawer drawer, FigureDrawerArgument argument)
+        {
+            drawer.DrawVertex(graphics, canvas, this, argument);
         }
     }
 }

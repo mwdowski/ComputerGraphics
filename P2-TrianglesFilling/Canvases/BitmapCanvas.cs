@@ -11,10 +11,13 @@ namespace P2_TrianglesFilling.Canvases
     public class BitmapCanvas : IDisposable, ICanvas
     {
         public Bitmap Bitmap { get; private set; }
+        public PictureBox PictureBox { get; private set; }
 
-        public BitmapCanvas(int width, int height)
+        public BitmapCanvas(PictureBox pictureBox)
         {
-            Bitmap = new Bitmap(width, height);
+            Bitmap = new Bitmap(pictureBox.Width, pictureBox.Height);
+            PictureBox = pictureBox;
+            pictureBox.Image = Bitmap;
         }
 
         public Color GetPixel(int x, int y)
@@ -33,6 +36,11 @@ namespace P2_TrianglesFilling.Canvases
             if (Disposed) return;
             Bitmap.Dispose();
             Disposed = true;
+        }
+
+        public void Refresh()
+        {
+            PictureBox.Refresh();
         }
     }
 }

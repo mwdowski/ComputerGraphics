@@ -10,7 +10,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Resources\proj2_sfera.obj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="CjClutter.ObjLoader" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\proj2_sfera.obj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

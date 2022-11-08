@@ -10,6 +10,6 @@ namespace P2_TrianglesFilling.Model
 {
     public abstract class Figure
     {
-        public abstract void Draw(Graphics graphics, ICanvas canvas, IFigureDrawer drawer);
+        public abstract void Draw(Graphics graphics, ICanvas canvas, IFigureDrawer drawer, FigureDrawerArgument argument);
     }
 }

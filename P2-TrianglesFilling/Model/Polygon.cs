@@ -17,9 +17,9 @@ namespace P2_TrianglesFilling.Model
             Vertices = new();
         }
 
-        public override void Draw(Graphics graphics, ICanvas canvas, IFigureDrawer drawer)
+        public override void Draw(Graphics graphics, ICanvas canvas, IFigureDrawer drawer, FigureDrawerArgument argument)
         {
-            drawer.DrawPolygon(graphics, canvas, this);
+            drawer.DrawPolygon(graphics, canvas, this, argument);
         }
     }
 }

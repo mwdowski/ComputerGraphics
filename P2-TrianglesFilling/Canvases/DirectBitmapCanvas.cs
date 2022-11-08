@@ -15,16 +15,19 @@ namespace P2_TrianglesFilling.Canvases
         public bool Disposed { get; private set; }
         public int Height { get; private set; }
         public int Width { get; private set; }
+        public PictureBox PictureBox { get; private set; }
 
         protected GCHandle BitsHandle { get; private set; }
 
-        public DirectBitmapCanvas(int width, int height)
+        public DirectBitmapCanvas(PictureBox pictureBox)
         {
-            Width = width;
-            Height = height;
-            Bits = new Int32[width * height];
+            Width = pictureBox.Width;
+            Height = pictureBox.Height;
+            Bits = new Int32[Width * Height];
             BitsHandle = GCHandle.Alloc(Bits, GCHandleType.Pinned);
-            Bitmap = new Bitmap(width, height, width * 4, PixelFormat.Format32bppPArgb, BitsHandle.AddrOfPinnedObject());
+            Bitmap = new Bitmap(Width, Height, Width * 4, PixelFormat.Format32bppPArgb, BitsHandle.AddrOfPinnedObject());
+            PictureBox = pictureBox;
+            pictureBox.Image = Bitmap;
         }
 
         public void SetPixel(int x, int y, Color colour)
@@ -42,6 +45,11 @@ namespace P2_TrianglesFilling.Canvases
             Color result = Color.FromArgb(col);
 
             return result;
+        }
+
+        public void Refresh()
+        {
+            PictureBox.Refresh();
         }
 
         public void Dispose()

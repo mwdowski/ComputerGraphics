@@ -47,14 +47,16 @@ namespace P2_TrianglesFilling.Loaders
                 foreach (var face in group.Faces)
                 {
                     var newPolygon = new PolygonWithNormals();
+
                     for (int i = 0; i < face.Count; i++)
                     {
                         var faceVertex = face[i];
 
-                        // perhaps its -1 here
-                        newPolygon.Vertices.Add(polygonSet.Vertices[faceVertex.VertexIndex]);
-                        newPolygon.Normals.Add(polygonSet.Normals[faceVertex.NormalIndex]);
+                        newPolygon.Vertices.Add(polygonSet.Vertices[faceVertex.VertexIndex - 1]);
+                        newPolygon.Normals.Add(polygonSet.Normals[faceVertex.NormalIndex - 1]);
                     }
+
+                    polygonSet.Polygons.Add(newPolygon);
                 }
 
                 return polygonSet;
