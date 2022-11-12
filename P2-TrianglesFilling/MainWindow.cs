@@ -11,5 +11,10 @@ namespace P2_TrianglesFilling
             InitializeComponent();
             Logic = new ProgramLogic(pictureBox);
         }
+
+        private void pictureBox_Click(object sender, EventArgs e)
+        {
+            Logic.DrawFigure();
+        }
     }
 }

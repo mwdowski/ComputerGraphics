@@ -11,7 +11,7 @@ namespace P2_TrianglesFilling.FigureDrawers
         {
         }
 
-        public override void DrawPolygon(Graphics graphics, ICanvas canvas, Polygon polygon, FigureDrawerArgument _)
+        public override void DrawPolygon(Graphics graphics, ICanvas canvas, Polygon polygon, FigureDrawerArguments _)
         {
             graphics.DrawPolygon(
                 Pen,

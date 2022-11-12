@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace P2_TrianglesFilling.FigureDrawers
 {
-    public class FigureDrawerArgument
+    public class FigureDrawerArguments
     {
     }
 }

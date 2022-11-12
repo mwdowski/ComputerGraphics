@@ -17,7 +17,7 @@ namespace P2_TrianglesFilling.Model
             Normals = new();
         }
 
-        public override void Draw(Graphics graphics, ICanvas canvas, IFigureDrawer drawer, FigureDrawerArgument argument)
+        public override void Draw(Graphics graphics, ICanvas canvas, IFigureDrawer drawer, FigureDrawerArguments argument)
         {
             drawer.DrawPolygonWithNormals(graphics, canvas, this, argument);
         }

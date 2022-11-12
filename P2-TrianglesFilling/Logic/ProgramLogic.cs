@@ -22,10 +22,10 @@ namespace P2_TrianglesFilling.Logic
             _canvas = new DirectBitmapCanvas(canvasPanel);
             FigureLoader = new ObjFileLoader();
             Rasterizer = new Rasterizer(_canvas.Bitmap, scale);
-            FigureDrawer = new OrthogonalEdgesDrawer(Rasterizer);
+            FigureDrawer = new OrthogonalRandomColorFillDrawer(Rasterizer);
 
             LoadDefaultFigure();
-            DrawFigure();
+            //DrawFigure();
         }
 
         private void LoadDefaultFigure()
@@ -41,11 +41,11 @@ namespace P2_TrianglesFilling.Logic
             }
         }
 
-        private void DrawFigure()
+        public void DrawFigure()
         {
             using (var graphics = Graphics.FromImage(_canvas.Bitmap))
             {
-                _figure?.Draw(graphics, _canvas, FigureDrawer, new FigureDrawerArgument());
+                _figure?.Draw(graphics, _canvas, FigureDrawer, new FigureDrawerArguments());
             }
             _canvas.Refresh();
         }

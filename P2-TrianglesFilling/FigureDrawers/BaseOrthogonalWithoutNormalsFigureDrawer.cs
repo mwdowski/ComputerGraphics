@@ -26,9 +26,9 @@ namespace P2_TrianglesFilling.FigureDrawers
             return res;
         }
 
-        public abstract void DrawPolygon(Graphics graphics, ICanvas canvas, Polygon polygon, FigureDrawerArgument _);
+        public abstract void DrawPolygon(Graphics graphics, ICanvas canvas, Polygon polygon, FigureDrawerArguments _);
 
-        public void DrawPolygonSet<TPolygon>(Graphics graphics, ICanvas canvas, PolygonSet<TPolygon> polygonSet, FigureDrawerArgument _) where TPolygon : Polygon
+        public void DrawPolygonSet<TPolygon>(Graphics graphics, ICanvas canvas, PolygonSet<TPolygon> polygonSet, FigureDrawerArguments _) where TPolygon : Polygon
         {
             foreach (var polygon in polygonSet.Polygons)
             {
@@ -36,7 +36,7 @@ namespace P2_TrianglesFilling.FigureDrawers
             }
         }
 
-        public void DrawPolygonSetWithNormals(Graphics graphics, ICanvas canvas, PolygonSetWithNormals polygonSetWithNormals, FigureDrawerArgument _)
+        public void DrawPolygonSetWithNormals(Graphics graphics, ICanvas canvas, PolygonSetWithNormals polygonSetWithNormals, FigureDrawerArguments _)
         {
             foreach (var polygon in polygonSetWithNormals.Polygons)
             {
@@ -44,12 +44,12 @@ namespace P2_TrianglesFilling.FigureDrawers
             }
         }
 
-        public void DrawPolygonWithNormals(Graphics graphics, ICanvas canvas, PolygonWithNormals polygonWithNormals, FigureDrawerArgument _)
+        public void DrawPolygonWithNormals(Graphics graphics, ICanvas canvas, PolygonWithNormals polygonWithNormals, FigureDrawerArguments _)
         {
             DrawPolygon(graphics, canvas, polygonWithNormals, _);
         }
 
-        public void DrawVertex(Graphics graphics, ICanvas canvas, Vertex vertex, FigureDrawerArgument _)
+        public void DrawVertex(Graphics graphics, ICanvas canvas, Vertex vertex, FigureDrawerArguments _)
         {
         }
     }
