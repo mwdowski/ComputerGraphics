@@ -1,9 +1,10 @@
 ﻿using P2_TrainglesFilling.Rasterizers;
 using P2_TrianglesFilling.Canvases;
+using P2_TrianglesFilling.FigureDrawers;
 using P2_TrianglesFilling.Model;
 using System.Numerics;
 
-namespace P2_TrianglesFilling.FigureDrawers
+namespace P2_TrianglesFilling.Drawing.FigureDrawers
 {
     public class OrthogonalEdgesDrawer : BaseOrthogonalWithoutNormalsFigureDrawer
     {

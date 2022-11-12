@@ -1,20 +1,15 @@
 ﻿using P2_TrianglesFilling.Canvases;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Windows.Forms.AxHost;
+using P2_TrianglesFilling.Drawing.ColorProviders;
 
 namespace P2_TrianglesFilling.FigureDrawers
 {
     public static class Algorithms
     {
-        public static void FillPolygon(ICanvas canvas, IList<Point> vertices, Color color)
+        public static void FillPolygon(ICanvas canvas, IList<Point> vertices, IColorProvider colorProvider)
         {
+            // TODO: cleanup
             var edges = VerticesListToEdgesList(vertices);
 
-            
             var horizonalEdges = edges.Where(_ => _.Start.Y == _.End.Y);
             foreach (var edge in horizonalEdges)
             {
@@ -23,7 +18,7 @@ namespace P2_TrianglesFilling.FigureDrawers
 
                 for (int x = startX; x < endX; x++)
                 {
-                    canvas.SetPixel(x, edge.Start.Y, color);
+                    canvas.SetPixel(x, edge.Start.Y, colorProvider.GetColor(x, edge.Start.Y));
                 }
             }
 
@@ -52,7 +47,7 @@ namespace P2_TrianglesFilling.FigureDrawers
 
                     for (int x = startX; x < endX; x++)
                     {
-                        canvas.SetPixel(x, scanLine, color);
+                        canvas.SetPixel(x, scanLine, colorProvider.GetColor(x, scanLine));
                     }
                 }
 
@@ -130,7 +125,7 @@ namespace P2_TrianglesFilling.FigureDrawers
 
                 foreach (var edge in edges)
                 {
-                    result.Insert(new EdgeTableEntry { YMax = edge.YMax, XMin = edge.XMin, Slope = edge.Slope }, edge.YMin);
+                    result.Insert(new EdgeTableEntry { YMax = edge.YMax, XMin = edge.XOfYMin, Slope = edge.Slope }, edge.YMin);
                 }
 
                 return result;
@@ -152,7 +147,7 @@ namespace P2_TrianglesFilling.FigureDrawers
 
             public int YMax => Math.Max(Start.Y, End.Y);
 
-            public int XMin => Start.Y < End.Y ? Start.X : End.X;
+            public int XOfYMin => Start.Y < End.Y ? Start.X : End.X;
 
             public float Slope { get
                 {

@@ -1,4 +1,5 @@
 ﻿using P2_TrianglesFilling.Canvases;
+using P2_TrianglesFilling.FigureDrawers;
 using P2_TrianglesFilling.Model;
 using System;
 using System.Collections.Generic;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace P2_TrianglesFilling.FigureDrawers
+namespace P2_TrianglesFilling.Drawing.FigureDrawers
 {
     public interface IFigureDrawer
     {

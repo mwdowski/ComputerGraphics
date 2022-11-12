@@ -1,5 +1,6 @@
 ﻿using P2_TrainglesFilling.Rasterizers;
 using P2_TrianglesFilling.Canvases;
+using P2_TrianglesFilling.Drawing.FigureDrawers;
 using P2_TrianglesFilling.FigureDrawers;
 using P2_TrianglesFilling.Loaders;
 using P2_TrianglesFilling.Model;
