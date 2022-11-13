@@ -11,15 +11,15 @@ using System.Threading.Tasks;
 
 namespace P2_TrianglesFilling.Drawing.FigureDrawers
 {
-    public class OrthogonalRandomColorFillDrawer : BaseOrthogonalWithoutNormalsFigureDrawer
+    public class OrthogonalColorFillDrawer : BaseOrthogonalWithoutNormalsFigureDrawer
     {
-        public OrthogonalRandomColorFillDrawer(Rasterizer rasterizer) : base(rasterizer)
+        public OrthogonalColorFillDrawer(Rasterizer rasterizer) : base(rasterizer)
         {
         }
 
         public override void DrawPolygon(Graphics graphics, ICanvas canvas, Polygon polygon, FigureDrawerArguments _)
         {
-            Algorithms.FillPolygon(
+            Algorithms.PolygonFilling.FillPolygon(
                 canvas,
                 polygon
                     .Vertices

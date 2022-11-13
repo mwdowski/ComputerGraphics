@@ -1,4 +1,6 @@
-﻿namespace P2_TrainglesFilling.Rasterizers
+﻿using System.Numerics;
+
+namespace P2_TrainglesFilling.Rasterizers
 {
     public class Rasterizer
     {
@@ -26,6 +28,12 @@
         }
 
         public Point Rasterize(PointF point)
+        {
+            return new Point(
+                (int)Math.Round((point.X - xMin) * (Image.Width) / (xMax - xMin)),
+                (int)Math.Round((point.Y - yMin) * (Image.Height) / (yMax - yMin)));
+        }
+        public Point RasterizeOrthogonaly(Vector3 point)
         {
             return new Point(
                 (int)Math.Round((point.X - xMin) * (Image.Width) / (xMax - xMin)),
