@@ -34,6 +34,7 @@ namespace P2_TrianglesFilling.Drawing.BarycentricInterpolation
 
         public TValue GetWeightInPoint(Point position)
         {
+            // TODO: fix casting
             var weight1 = (float)((Position2.Y - Position3.Y) * (position.X - Position3.X) + (Position3.X - Position2.X) * (position.Y - Position3.Y))
                 / ((Position2.Y - Position3.Y) * (Position1.X - Position3.X) + (Position3.X - Position2.X) * (Position1.Y - Position3.Y));
             var weight2 = (float)((Position3.Y - Position1.Y) * (position.X - Position3.X) + (Position1.X - Position3.X) * (position.Y - Position3.Y))
