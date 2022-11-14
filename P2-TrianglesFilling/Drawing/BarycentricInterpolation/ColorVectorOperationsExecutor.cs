@@ -18,6 +18,7 @@ namespace P2_TrianglesFilling.Drawing.BarycentricInterpolation
             return Color.FromArgb(Cut(vector.R * scale), Cut(vector.G * scale), Cut(vector.B * scale), Cut(vector.A * scale));
         }
 
+        // TODO: cleanup
         private static Color AddAndCut(Color color1, Color color2)
         {
             int r = color1.R + color2.R;
