@@ -6,6 +6,7 @@ using System.Numerics;
 
 namespace P2_TrianglesFilling.Drawing.ColorProviders
 {
+    // TODO: don't inherit ConstantColorProvider
     public class LambertWithVerticesColorInterpolationConstantColorProvider : ConstantColorProvider
     {
         private readonly FigureDrawerArguments _arguments;
@@ -23,6 +24,7 @@ namespace P2_TrianglesFilling.Drawing.ColorProviders
             _polygonWithNormals = polygonWithNormals;
             _rasterizer = rasterizer;
             _colorInterpolator = new BarycentricTriangleInterpolator<Color>(
+                // TODO: pass Lambert evaluated colors 
                 _rasterizer.RasterizeOrthogonaly(polygonWithNormals.Vertices[0].Position), Color.AliceBlue,
                 _rasterizer.RasterizeOrthogonaly(polygonWithNormals.Vertices[1].Position), Color.AliceBlue,
                 _rasterizer.RasterizeOrthogonaly(polygonWithNormals.Vertices[2].Position), Color.AliceBlue,
