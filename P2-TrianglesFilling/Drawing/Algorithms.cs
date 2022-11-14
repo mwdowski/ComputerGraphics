@@ -1,10 +1,11 @@
-﻿using P2_TrianglesFilling.Canvases;
+using P2_TrianglesFilling.Canvases;
 using P2_TrianglesFilling.Drawing.ColorProviders;
 using System.Drawing.Printing;
 using System.Numerics;
 
 namespace P2_TrianglesFilling.FigureDrawers
 {
+    // TODO: divide into two files
     public static class Algorithms
     {
         public static class PolygonFilling
