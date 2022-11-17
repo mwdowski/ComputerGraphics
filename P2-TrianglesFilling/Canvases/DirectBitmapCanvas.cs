@@ -23,9 +23,13 @@ namespace P2_TrianglesFilling.Canvases
         {
             Width = pictureBox.Width;
             Height = pictureBox.Height;
-            Bits = new Int32[Width * Height];
+            Bits = new int[Width * Height];
+            for (int i = 0; i < Bits.Length; i++)
+            {
+                Bits[i] = Color.White.ToArgb();
+            }
             BitsHandle = GCHandle.Alloc(Bits, GCHandleType.Pinned);
-            Bitmap = new Bitmap(Width, Height, Width * 4, PixelFormat.Format32bppPArgb, BitsHandle.AddrOfPinnedObject());
+            Bitmap = new Bitmap(Width, Height, Width * 4, PixelFormat.Format32bppRgb, BitsHandle.AddrOfPinnedObject());
             PictureBox = pictureBox;
             pictureBox.Image = Bitmap;
         }

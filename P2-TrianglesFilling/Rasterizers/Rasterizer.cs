@@ -17,7 +17,7 @@ namespace P2_TrainglesFilling.Rasterizers
             xMin = -scale * image.Width / image.Height;
             xMax = scale * image.Width / image.Height;
             yMin = -scale;
-            yMax = scale ;
+            yMax = scale;
         }
 
         public PointF Derasterize(Point point)
@@ -33,37 +33,10 @@ namespace P2_TrainglesFilling.Rasterizers
                 (int)Math.Round((point.X - xMin) * (Image.Width) / (xMax - xMin)),
                 (int)Math.Round((point.Y - yMin) * (Image.Height) / (yMax - yMin)));
         }
+
         public Point RasterizeOrthogonaly(Vector3 point)
         {
-            return new Point(
-                (int)Math.Round((point.X - xMin) * (Image.Width) / (xMax - xMin)),
-                (int)Math.Round((point.Y - yMin) * (Image.Height) / (yMax - yMin)));
-        }
-
-        public bool ArePointsWithinPixelRadius(PointF a, PointF b, float radius)
-        {
-            return ArePointsWithinPixelRadius(Rasterize(a), Rasterize(b), radius);
-        }
-
-        public bool ArePointsWithinPixelRadius(Point aInt, Point bInt, float radius)
-        {
-            var xDif = aInt.X - bInt.X;
-            var yDif = aInt.Y - bInt.Y;
-
-            return xDif * xDif + yDif * yDif < radius * radius;
-        }
-
-        public int PixelDistanceSquared(Point aInt, Point bInt)
-        {
-            var xDif = aInt.X - bInt.X;
-            var yDif = aInt.Y - bInt.Y;
-
-            return xDif * xDif + yDif * yDif;
-        }
-
-        public int DistanceSquared(PointF a, PointF b)
-        {
-            return PixelDistanceSquared(Rasterize(a), Rasterize(b));
+            return Rasterize(new PointF(point.X, point.Y));
         }
     }
 }

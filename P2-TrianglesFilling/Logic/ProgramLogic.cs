@@ -16,6 +16,14 @@ namespace P2_TrianglesFilling.Logic
 
         private Figure _figure = new PolygonSet<Polygon>();
         private ICanvas _canvas;
+        public FigureDrawerArguments FigureDrawerArguments { get; private set; } = new FigureDrawerArguments()
+        {
+            I_L = Color.White,
+            k_d = 0.5f,
+            k_s = 0.5f,
+            L = new System.Numerics.Vector3(10f, 10f, 20f),
+            m = 5
+        };
 
         private const float scale = 1f;
 
@@ -24,15 +32,22 @@ namespace P2_TrianglesFilling.Logic
             _canvas = new DirectBitmapCanvas(canvasPanel);
             FigureLoader = new ObjFileLoader();
             Rasterizer = new Rasterizer(_canvas.Bitmap, scale);
-            FigureDrawer = new LambertOneColorNormalPolygonFillDrawer(Rasterizer, Color.Red);
+            FigureDrawer = new LambertOneColorNormalPolygonFillDrawer(Rasterizer, Color.FromArgb(unchecked((int) 0xFFFFA500)));
 
             LoadDefaultFigure();
-            //DrawFigure();
+            DrawFigure();
+        }
+
+        private void LoadTriangle()
+        {
+            var polygon = new PolygonWithNormals();
+            polygon.Vertices.AddRange(new List<Vertex>() { new Vertex(new System.Numerics.Vector3(-1, -0.5f, 0)), new Vertex(new System.Numerics.Vector3(1, -0.5f, 0)), new Vertex(new System.Numerics.Vector3(0, 1, 0)) });
+            _figure = polygon;
         }
 
         private void LoadDefaultFigure()
         {
-            var loadResult = FigureLoader.LoadFigureFromFile("Resources/proj2_sfera.obj");
+            var loadResult = FigureLoader.LoadFigureFromFile("Resources/Sphere.obj");
             if (loadResult == null)
             {
                 MessageBox.Show("Could not load default figure", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -48,19 +63,11 @@ namespace P2_TrianglesFilling.Logic
             var startTime = DateTime.Now;
             using (var graphics = Graphics.FromImage(_canvas.Bitmap))
             {
-                _figure?.Draw(graphics, _canvas, FigureDrawer, new FigureDrawerArguments()
-                {
-                    I_L = Color.Red,
-                    k_d = 0.2f,
-                    k_s = 0.2f,
-                    L = new System.Numerics.Vector3(0, 10f, 10f),
-                    m = 100
-                });
+                _figure?.Draw(graphics, _canvas, FigureDrawer, FigureDrawerArguments);
             }
             _canvas.Refresh();
 
             Console.WriteLine(DateTime.Now - startTime);
-
         }
     }
 }

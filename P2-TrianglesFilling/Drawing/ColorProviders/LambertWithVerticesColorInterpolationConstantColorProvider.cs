@@ -2,37 +2,34 @@
 using P2_TrianglesFilling.Drawing.BarycentricInterpolation;
 using P2_TrianglesFilling.FigureDrawers;
 using P2_TrianglesFilling.Model;
-using System.Numerics;
+using P2_TrianglesFilling.Algorithms;
 
 namespace P2_TrianglesFilling.Drawing.ColorProviders
 {
-    // TODO: don't inherit ConstantColorProvider
-    public class LambertWithVerticesColorInterpolationConstantColorProvider : ConstantColorProvider
+    public class LambertWithVerticesColorInterpolationConstantColorProvider : IColorProvider
     {
-        private readonly FigureDrawerArguments _arguments;
-        private readonly PolygonWithNormals _polygonWithNormals;
-        private readonly Rasterizer _rasterizer;
-        private readonly BarycentricTriangleInterpolator<Color> _colorInterpolator;
+        private readonly BarycentricTriangleInterpolator<ColorEvaluationChain, Color> _colorInterpolator;
 
         public LambertWithVerticesColorInterpolationConstantColorProvider(
             Color color,
             FigureDrawerArguments arguments,
             PolygonWithNormals polygonWithNormals,
-            Rasterizer rasterizer) : base(color)
+            Rasterizer rasterizer)
         {
-            _arguments = arguments;
-            _polygonWithNormals = polygonWithNormals;
-            _rasterizer = rasterizer;
-            _colorInterpolator = new BarycentricTriangleInterpolator<Color>(
-                // TODO: pass Lambert evaluated colors 
-                _rasterizer.RasterizeOrthogonaly(polygonWithNormals.Vertices[0].Position), Color.AliceBlue,
-                _rasterizer.RasterizeOrthogonaly(polygonWithNormals.Vertices[1].Position), Color.AliceBlue,
-                _rasterizer.RasterizeOrthogonaly(polygonWithNormals.Vertices[2].Position), Color.AliceBlue,
-                new ColorVectorOperationsExecutor()
+            _colorInterpolator = new(
+                rasterizer.RasterizeOrthogonaly(polygonWithNormals.Vertices[0].Position),
+                LambertLightModel.GetLambertColor(color, arguments.I_L, polygonWithNormals.Normals[0].Position,
+                    arguments.L - polygonWithNormals.Vertices[0].Position, arguments.m, arguments.k_d, arguments.k_s),
+                rasterizer.RasterizeOrthogonaly(polygonWithNormals.Vertices[1].Position),
+                LambertLightModel.GetLambertColor(color, arguments.I_L, polygonWithNormals.Normals[1].Position,
+                    arguments.L - polygonWithNormals.Vertices[1].Position, arguments.m, arguments.k_d, arguments.k_s),
+                rasterizer.RasterizeOrthogonaly(polygonWithNormals.Vertices[2].Position),
+                LambertLightModel.GetLambertColor(color, arguments.I_L, polygonWithNormals.Normals[2].Position,
+                    arguments.L - polygonWithNormals.Vertices[2].Position, arguments.m, arguments.k_d, arguments.k_s)
             );
         }
 
-        public override Color GetColor(int x, int y)
+        public Color GetColor(int x, int y)
         {
             return _colorInterpolator.GetWeightInPoint(new Point(x, y));
         }

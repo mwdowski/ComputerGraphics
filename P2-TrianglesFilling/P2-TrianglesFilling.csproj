@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <None Remove="Resources\proj2_sfera.obj" />
+    <None Remove="Resources\Sphere.obj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +20,9 @@
 
   <ItemGroup>
     <Content Include="Resources\proj2_sfera.obj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Sphere.obj">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
