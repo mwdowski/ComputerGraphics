@@ -49,13 +49,18 @@ namespace P2_TrianglesFilling
             {
                 objectColorPanel.BackColor = objectColorDialog.Color;
                 Logic.SetObjectColor(objectColorPanel.BackColor);
+                Logic.DrawFigure();
             }
-            Logic.DrawFigure();
         }
 
         private void loadObjectImageButton_Click(object sender, EventArgs e)
         {
-
+            if (openObjectImageFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var image = Image.FromFile(openObjectImageFileDialog.FileName);
+                Logic.SetObjectImage(new Bitmap(image));
+                Logic.DrawFigure();
+            }
         }
 
         private void oneColorObjectRadioButton_CheckedChanged(object sender, EventArgs e)

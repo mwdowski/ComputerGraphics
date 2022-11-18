@@ -1,6 +1,7 @@
 ﻿using P2_TrainglesFilling.Rasterizers;
 using P2_TrianglesFilling.Canvases;
 using P2_TrianglesFilling.Drawing.ColorProviders;
+using P2_TrianglesFilling.Drawing.ColorProviders.OuterColorProviders;
 using P2_TrianglesFilling.Drawing.FigureDrawers;
 using P2_TrianglesFilling.FigureDrawers;
 using P2_TrianglesFilling.Loaders;
@@ -13,6 +14,8 @@ namespace P2_TrianglesFilling.Logic
         public IFileFigureLoader FigureLoader { get; private set; }
         public Rasterizer Rasterizer { get; private set; }
         public IFigureDrawer FigureDrawer { get; private set; }
+        public IOuterColorProvider ColorProvider { get; private set; }
+        public IColorProvider InnerColorProvider { get; private set; }
 
         private Figure _figure = new PolygonSet<Polygon>();
         private ICanvas _canvas;
@@ -34,7 +37,9 @@ namespace P2_TrianglesFilling.Logic
             _canvas = new DirectBitmapCanvas(canvasPanel);
             FigureLoader = new ObjFileLoader();
             Rasterizer = new Rasterizer(_canvas.Bitmap, scale);
-            FigureDrawer = new LambertOneColorNormalPolygonFillDrawer(Rasterizer, Color.FromArgb(unchecked((int) 0xFFFFA500)));
+            InnerColorProvider = new ConstantColorProvider(Color.Orange);
+            ColorProvider = new LambertWithVerticesColorInterpolationConstantColorProvider(InnerColorProvider, )
+            FigureDrawer = new LambertNormalPolygonFillDrawer(Rasterizer, ColorProvider);
 
             LoadDefaultFigure();
             DrawFigure();
@@ -74,7 +79,12 @@ namespace P2_TrianglesFilling.Logic
 
         public void SetObjectColor(Color color)
         {
-            FigureDrawer = new LambertOneColorNormalPolygonFillDrawer(Rasterizer, color);
+            ColorProvider = new LambertNormalPolygonFillDrawer(Rasterizer, new ConstantColorProvider(color));
+        }
+
+        public void SetObjectImage(Bitmap bitmap)
+        {
+            FigureDrawer = new LambertNormalPolygonFillDrawer(Rasterizer, new FromBitmapColorProvider(bitmap));
         }
     }
 }

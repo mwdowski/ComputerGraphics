@@ -6,15 +6,15 @@ using P2_TrianglesFilling.Model;
 
 namespace P2_TrianglesFilling.Drawing.FigureDrawers
 {
-    public class LambertOneColorNormalPolygonFillDrawer : IFigureDrawer
+    public class LambertNormalPolygonFillDrawer : IFigureDrawer
     {
         protected Rasterizer Rasterizer;
-        private readonly Color _color;
+        public IColorProvider ColorProvider { get; set; }
 
-        public LambertOneColorNormalPolygonFillDrawer(Rasterizer rasterizer, Color color)
+        public LambertNormalPolygonFillDrawer(Rasterizer rasterizer, IColorProvider colorProvider)
         {
             Rasterizer = rasterizer;
-            _color = color;
+            ColorProvider = colorProvider;
         }
 
         public void DrawPolygon(Graphics graphics, ICanvas canvas, Polygon polygon, FigureDrawerArguments argument)
@@ -43,7 +43,7 @@ namespace P2_TrianglesFilling.Drawing.FigureDrawers
                     .Vertices
                     .Select(_ => Rasterizer.RasterizeOrthogonaly(_.Position))
                     .ToList(),
-                new LambertWithVerticesColorInterpolationConstantColorProvider(_color, argument, polygonWithNormals, Rasterizer)
+                new LambertWithVerticesColorInterpolationConstantColorProvider(ColorProvider, argument, polygonWithNormals, Rasterizer)
             );
         }
 

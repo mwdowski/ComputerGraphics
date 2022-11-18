@@ -5,18 +5,18 @@ using P2_TrianglesFilling.Model;
 using P2_TrianglesFilling.Algorithms;
 using System.Numerics;
 
-namespace P2_TrianglesFilling.Drawing.ColorProviders
+namespace P2_TrianglesFilling.Drawing.ColorProviders.OuterColorProviders
 {
-    public class LambertWithNormalsInterpolationConstantColorProvider : IColorProvider
+    public class LambertWithNormalsInterpolationConstantColorProvider : IOuterColorProvider
     {
         private readonly BarycentricTriangleInterpolator<Vector3EvaluationChain, Vector3> _normalsInterpolator;
         private readonly BarycentricTriangleInterpolator<Vector3EvaluationChain, Vector3> _positionInterpolator;
-        private readonly Color _color;
+        private readonly IColorProvider _colorProvider;
         private readonly FigureDrawerArguments _arguments;
         private readonly Rasterizer _rasterizer;
 
         public LambertWithNormalsInterpolationConstantColorProvider(
-            Color color,
+            IColorProvider colorProvider,
             FigureDrawerArguments arguments,
             PolygonWithNormals polygonWithNormals,
             Rasterizer rasterizer)
@@ -31,7 +31,7 @@ namespace P2_TrianglesFilling.Drawing.ColorProviders
                 rasterizer.RasterizeOrthogonaly(polygonWithNormals.Vertices[1].Position), polygonWithNormals.Vertices[1].Position,
                 rasterizer.RasterizeOrthogonaly(polygonWithNormals.Vertices[2].Position), polygonWithNormals.Vertices[2].Position
             );
-            _color = color;
+            _colorProvider = colorProvider;
             _arguments = arguments;
             _rasterizer = rasterizer;
         }
@@ -39,7 +39,7 @@ namespace P2_TrianglesFilling.Drawing.ColorProviders
         public Color GetColor(int x, int y)
         {
             return LambertLightModel.GetLambertColor(
-                _color,
+                _colorProvider.GetColor(x, y),
                 _arguments.I_L,
                 _normalsInterpolator.GetWeightInPoint(new Point(x, y)),
                 _arguments.L - _positionInterpolator.GetWeightInPoint(new Point(x, y)),
@@ -48,6 +48,11 @@ namespace P2_TrianglesFilling.Drawing.ColorProviders
                 _arguments.k_s
             );
 
+        }
+
+        public void SetInnerColorProvider(IColorProvider colorProvider)
+        {
+            throw new NotImplementedException();
         }
     }
 }

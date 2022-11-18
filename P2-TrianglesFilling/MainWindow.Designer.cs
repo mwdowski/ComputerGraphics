@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.mainTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.pictureBox = new System.Windows.Forms.PictureBox();
             this.controlsTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
@@ -55,8 +54,6 @@
             this.normalsInterpolationRadioButton = new System.Windows.Forms.RadioButton();
             this.objectColorDialog = new System.Windows.Forms.ColorDialog();
             this.openObjectImageFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.programLogicBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.programLogicBindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.mainTableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.controlsTableLayoutPanel.SuspendLayout();
@@ -69,8 +66,6 @@
             this.objectColorTableLayoutPanel.SuspendLayout();
             this.paintMethodGroupBox.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.programLogicBindingSource)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.programLogicBindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // mainTableLayoutPanel
@@ -404,14 +399,6 @@
             // 
             this.openObjectImageFileDialog.FileName = "openFileDialog1";
             // 
-            // programLogicBindingSource
-            // 
-            this.programLogicBindingSource.DataSource = typeof(P2_TrianglesFilling.Logic.ProgramLogic);
-            // 
-            // programLogicBindingSource1
-            // 
-            this.programLogicBindingSource1.DataSource = typeof(P2_TrianglesFilling.Logic.ProgramLogic);
-            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -442,8 +429,6 @@
             this.paintMethodGroupBox.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.programLogicBindingSource)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.programLogicBindingSource1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -472,8 +457,6 @@
         private Button loadObjectImageButton;
         private ColorDialog objectColorDialog;
         private OpenFileDialog openObjectImageFileDialog;
-        private BindingSource programLogicBindingSource;
-        private BindingSource programLogicBindingSource1;
         private GroupBox paintMethodGroupBox;
         private TableLayoutPanel tableLayoutPanel1;
         private RadioButton colorInterpolationRadioButton;
