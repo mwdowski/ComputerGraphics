@@ -27,6 +27,8 @@ namespace P2_TrianglesFilling.Logic
 
         private const float scale = 1f;
 
+        public Color ObjectColor { get; set; } = Color.Orange;
+
         public ProgramLogic(PictureBox canvasPanel)
         {
             _canvas = new DirectBitmapCanvas(canvasPanel);
@@ -68,6 +70,11 @@ namespace P2_TrianglesFilling.Logic
             _canvas.Refresh();
 
             Console.WriteLine(DateTime.Now - startTime);
+        }
+
+        public void SetObjectColor(Color color)
+        {
+            FigureDrawer = new LambertOneColorNormalPolygonFillDrawer(Rasterizer, color);
         }
     }
 }

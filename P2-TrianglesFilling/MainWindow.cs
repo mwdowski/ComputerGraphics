@@ -1,4 +1,5 @@
 using P2_TrianglesFilling.Logic;
+using System.Windows.Forms;
 
 namespace P2_TrianglesFilling
 {
@@ -14,6 +15,7 @@ namespace P2_TrianglesFilling
             m_textBox.Text = Logic.FigureDrawerArguments.m.ToString();
             k_s_textBox.Text = Logic.FigureDrawerArguments.k_s.ToString("0.00");
             k_d_textBox.Text = Logic.FigureDrawerArguments.k_s.ToString("0.00");
+
             Refresh();
         }
 
@@ -39,6 +41,41 @@ namespace P2_TrianglesFilling
             k_d_textBox.Text = Logic.FigureDrawerArguments.k_d.ToString("0.00");
             k_d_textBox.Refresh();
             Logic.DrawFigure();
+        }
+
+        private void objectColorPanel_Click(object sender, EventArgs e)
+        {
+            if (objectColorDialog.ShowDialog() == DialogResult.OK)
+            {
+                objectColorPanel.BackColor = objectColorDialog.Color;
+                Logic.SetObjectColor(objectColorPanel.BackColor);
+            }
+            Logic.DrawFigure();
+        }
+
+        private void loadObjectImageButton_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void oneColorObjectRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void imageColorObjectRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void colorInterpolationRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void normalsInterpolationRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
