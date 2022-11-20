@@ -1,9 +1,4 @@
 using P2_TrianglesFilling.Logic;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
-using System.Windows.Forms;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace P2_TrianglesFilling
 {
@@ -16,10 +11,22 @@ namespace P2_TrianglesFilling
             InitializeComponent();
             Logic = new ProgramLogic(pictureBox, new LogicSettings(
                 (value) => objectColorPanel.BackColor = value,
-                (value) => Console.WriteLine("TODO"),
-                (value) => Console.WriteLine("TODO"),
-                (value) => Console.WriteLine("TODO"),
-                (value) => Console.WriteLine("TODO"),
+                (value) => lightColorPanel.BackColor = value,
+                (value) =>
+                {
+                    lightHeightTrackBar.Value = (int)value;
+                    m_trackBar.Refresh();
+                },
+                (value) =>
+                {
+                    lightRadiusTrackBar.Value = (int)value;
+                    m_trackBar.Refresh();
+                },
+                (value) =>
+                {
+                    lightAngleTrackBar.Value = (int)((lightAngleTrackBar.Maximum + 1) * value / 2 / Math.PI);
+                    m_trackBar.Refresh();
+                },
                 (value) =>
                 {
                     oneColorObjectRadioButton.Checked = value == ObjectBackground.ConstantColor;
@@ -134,7 +141,7 @@ namespace P2_TrianglesFilling
             }
         }
 
-        public static Bitmap ResizeImageProportional(Bitmap bitmap, int width, int height)
+        private static Bitmap ResizeImageProportional(Bitmap bitmap, int width, int height)
         {
             var destImage = new Bitmap(width, height);
 
@@ -153,6 +160,54 @@ namespace P2_TrianglesFilling
             scaledImage.Dispose();
 
             return destImage;
+        }
+
+        private void lightColorPanel_click(object sender, EventArgs e)
+        {
+            if (lightColorDialog.ShowDialog() == DialogResult.OK)
+            {
+                Logic.LogicSettings.LightColor = lightColorDialog.Color;
+                Logic.DrawFigure();
+            }
+        }
+
+        private void lightHeightTrackBar_Scroll(object sender, EventArgs e)
+        {
+            Logic.LogicSettings.LightSourcePositionHeight = ((TrackBar)sender).Value;
+            Logic.DrawFigure();
+        }
+
+        private void lightRadiusTrackBar_Scroll(object sender, EventArgs e)
+        {
+            Logic.LogicSettings.LightSourcePositionRadius = ((TrackBar)sender).Value;
+            Logic.DrawFigure();
+        }
+
+        private void lightAngleTrackBar_Scroll(object sender, EventArgs e)
+        {
+            var trackBar = (TrackBar)sender;
+            Logic.LogicSettings.LightSourcePositionAngle = (float)(2 * Math.PI * trackBar.Value / (trackBar.Maximum + 1));
+            Logic.DrawFigure();
+        }
+
+        private void timer_Tick(object sender, EventArgs e)
+        {
+            Logic.LogicSettings.LightSourcePositionAngle += (float)(2 * Math.PI / (lightAngleTrackBar.Maximum + 1));
+            Logic.DrawFigure();
+        }
+
+        private void playButton_Click(object sender, EventArgs e)
+        {
+            timer.Start();
+            pauseButton.Enabled = true;
+            playButton.Enabled = false;
+        }
+
+        private void pauseButton_Click(object sender, EventArgs e)
+        {
+            timer.Stop();
+            pauseButton.Enabled = false;
+            playButton.Enabled = true;
         }
     }
 }

@@ -50,12 +50,26 @@
             this.objectColorPanel = new System.Windows.Forms.Panel();
             this.loadObjectImageButton = new System.Windows.Forms.Button();
             this.paintMethodGroupBox = new System.Windows.Forms.GroupBox();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.paintMethodTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.colorInterpolationRadioButton = new System.Windows.Forms.RadioButton();
             this.normalsInterpolationRadioButton = new System.Windows.Forms.RadioButton();
+            this.lightParametersGroupBox = new System.Windows.Forms.GroupBox();
+            this.lightParametersTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
+            this.lightHeightTrackBar = new System.Windows.Forms.TrackBar();
+            this.lightRadiusTrackBar = new System.Windows.Forms.TrackBar();
+            this.lightAngleTrackBar = new System.Windows.Forms.TrackBar();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.lightColorPanel = new System.Windows.Forms.Panel();
+            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+            this.pauseButton = new System.Windows.Forms.Button();
+            this.playButton = new System.Windows.Forms.Button();
             this.objectColorDialog = new System.Windows.Forms.ColorDialog();
             this.openObjectImageFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.programLogicBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.lightColorDialog = new System.Windows.Forms.ColorDialog();
+            this.timer = new System.Windows.Forms.Timer(this.components);
             this.mainTableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.controlsTableLayoutPanel.SuspendLayout();
@@ -67,6 +81,12 @@
             this.objectColorGroupBox.SuspendLayout();
             this.objectColorTableLayoutPanel.SuspendLayout();
             this.paintMethodGroupBox.SuspendLayout();
+            this.paintMethodTableLayoutPanel.SuspendLayout();
+            this.lightParametersGroupBox.SuspendLayout();
+            this.lightParametersTableLayoutPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lightHeightTrackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lightRadiusTrackBar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lightAngleTrackBar)).BeginInit();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.programLogicBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -103,15 +123,16 @@
             this.controlsTableLayoutPanel.Controls.Add(this.lightModelGroupBox, 0, 0);
             this.controlsTableLayoutPanel.Controls.Add(this.objectColorGroupBox, 0, 1);
             this.controlsTableLayoutPanel.Controls.Add(this.paintMethodGroupBox, 0, 2);
+            this.controlsTableLayoutPanel.Controls.Add(this.lightParametersGroupBox, 0, 3);
             this.controlsTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.controlsTableLayoutPanel.Location = new System.Drawing.Point(1113, 3);
             this.controlsTableLayoutPanel.Name = "controlsTableLayoutPanel";
             this.controlsTableLayoutPanel.RowCount = 5;
             this.controlsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.controlsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.controlsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.controlsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
-            this.controlsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.33333F));
+            this.controlsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.controlsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.controlsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.controlsTableLayoutPanel.Size = new System.Drawing.Size(234, 723);
             this.controlsTableLayoutPanel.TabIndex = 1;
             // 
@@ -348,7 +369,7 @@
             this.paintMethodGroupBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.paintMethodGroupBox.AutoSize = true;
-            this.paintMethodGroupBox.Controls.Add(this.tableLayoutPanel1);
+            this.paintMethodGroupBox.Controls.Add(this.paintMethodTableLayoutPanel);
             this.paintMethodGroupBox.Location = new System.Drawing.Point(3, 227);
             this.paintMethodGroupBox.Name = "paintMethodGroupBox";
             this.paintMethodGroupBox.Size = new System.Drawing.Size(228, 72);
@@ -356,21 +377,21 @@
             this.paintMethodGroupBox.TabStop = false;
             this.paintMethodGroupBox.Text = "Paint method";
             // 
-            // tableLayoutPanel1
+            // paintMethodTableLayoutPanel
             // 
-            this.tableLayoutPanel1.AutoSize = true;
-            this.tableLayoutPanel1.ColumnCount = 1;
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Controls.Add(this.colorInterpolationRadioButton, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.normalsInterpolationRadioButton, 0, 1);
-            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel1.Location = new System.Drawing.Point(3, 19);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(222, 50);
-            this.tableLayoutPanel1.TabIndex = 0;
+            this.paintMethodTableLayoutPanel.AutoSize = true;
+            this.paintMethodTableLayoutPanel.ColumnCount = 1;
+            this.paintMethodTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.paintMethodTableLayoutPanel.Controls.Add(this.colorInterpolationRadioButton, 0, 0);
+            this.paintMethodTableLayoutPanel.Controls.Add(this.normalsInterpolationRadioButton, 0, 1);
+            this.paintMethodTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.paintMethodTableLayoutPanel.Location = new System.Drawing.Point(3, 19);
+            this.paintMethodTableLayoutPanel.Name = "paintMethodTableLayoutPanel";
+            this.paintMethodTableLayoutPanel.RowCount = 2;
+            this.paintMethodTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.paintMethodTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.paintMethodTableLayoutPanel.Size = new System.Drawing.Size(222, 50);
+            this.paintMethodTableLayoutPanel.TabIndex = 0;
             // 
             // colorInterpolationRadioButton
             // 
@@ -398,6 +419,161 @@
             this.normalsInterpolationRadioButton.UseVisualStyleBackColor = true;
             this.normalsInterpolationRadioButton.CheckedChanged += new System.EventHandler(this.normalsInterpolationRadioButton_CheckedChanged);
             // 
+            // lightParametersGroupBox
+            // 
+            this.lightParametersGroupBox.AutoSize = true;
+            this.lightParametersGroupBox.Controls.Add(this.lightParametersTableLayoutPanel);
+            this.lightParametersGroupBox.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lightParametersGroupBox.Location = new System.Drawing.Point(3, 305);
+            this.lightParametersGroupBox.Name = "lightParametersGroupBox";
+            this.lightParametersGroupBox.Size = new System.Drawing.Size(228, 142);
+            this.lightParametersGroupBox.TabIndex = 3;
+            this.lightParametersGroupBox.TabStop = false;
+            this.lightParametersGroupBox.Text = "Light parameters";
+            // 
+            // lightParametersTableLayoutPanel
+            // 
+            this.lightParametersTableLayoutPanel.AutoSize = true;
+            this.lightParametersTableLayoutPanel.BackColor = System.Drawing.SystemColors.Control;
+            this.lightParametersTableLayoutPanel.ColumnCount = 2;
+            this.lightParametersTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.lightParametersTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.lightParametersTableLayoutPanel.Controls.Add(this.lightHeightTrackBar, 1, 1);
+            this.lightParametersTableLayoutPanel.Controls.Add(this.lightRadiusTrackBar, 1, 2);
+            this.lightParametersTableLayoutPanel.Controls.Add(this.lightAngleTrackBar, 1, 3);
+            this.lightParametersTableLayoutPanel.Controls.Add(this.label4, 0, 1);
+            this.lightParametersTableLayoutPanel.Controls.Add(this.label5, 0, 2);
+            this.lightParametersTableLayoutPanel.Controls.Add(this.label6, 0, 3);
+            this.lightParametersTableLayoutPanel.Controls.Add(this.lightColorPanel, 0, 0);
+            this.lightParametersTableLayoutPanel.Controls.Add(this.tableLayoutPanel1, 1, 0);
+            this.lightParametersTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lightParametersTableLayoutPanel.Location = new System.Drawing.Point(3, 19);
+            this.lightParametersTableLayoutPanel.Name = "lightParametersTableLayoutPanel";
+            this.lightParametersTableLayoutPanel.RowCount = 4;
+            this.lightParametersTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.lightParametersTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.lightParametersTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.lightParametersTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.lightParametersTableLayoutPanel.Size = new System.Drawing.Size(222, 120);
+            this.lightParametersTableLayoutPanel.TabIndex = 0;
+            // 
+            // lightHeightTrackBar
+            // 
+            this.lightHeightTrackBar.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lightHeightTrackBar.Location = new System.Drawing.Point(52, 33);
+            this.lightHeightTrackBar.Maximum = 50;
+            this.lightHeightTrackBar.Name = "lightHeightTrackBar";
+            this.lightHeightTrackBar.Size = new System.Drawing.Size(168, 24);
+            this.lightHeightTrackBar.TabIndex = 0;
+            this.lightHeightTrackBar.Scroll += new System.EventHandler(this.lightHeightTrackBar_Scroll);
+            // 
+            // lightRadiusTrackBar
+            // 
+            this.lightRadiusTrackBar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lightRadiusTrackBar.LargeChange = 2;
+            this.lightRadiusTrackBar.Location = new System.Drawing.Point(52, 63);
+            this.lightRadiusTrackBar.Name = "lightRadiusTrackBar";
+            this.lightRadiusTrackBar.Size = new System.Drawing.Size(168, 24);
+            this.lightRadiusTrackBar.TabIndex = 1;
+            this.lightRadiusTrackBar.Scroll += new System.EventHandler(this.lightRadiusTrackBar_Scroll);
+            // 
+            // lightAngleTrackBar
+            // 
+            this.lightAngleTrackBar.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lightAngleTrackBar.LargeChange = 4;
+            this.lightAngleTrackBar.Location = new System.Drawing.Point(52, 93);
+            this.lightAngleTrackBar.Maximum = 20;
+            this.lightAngleTrackBar.Name = "lightAngleTrackBar";
+            this.lightAngleTrackBar.Size = new System.Drawing.Size(168, 24);
+            this.lightAngleTrackBar.TabIndex = 2;
+            this.lightAngleTrackBar.Scroll += new System.EventHandler(this.lightAngleTrackBar_Scroll);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label4.Location = new System.Drawing.Point(3, 30);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(43, 30);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Heigth";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label5.Location = new System.Drawing.Point(3, 60);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(43, 30);
+            this.label5.TabIndex = 4;
+            this.label5.Text = "Radius";
+            this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label6.Location = new System.Drawing.Point(3, 90);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(43, 30);
+            this.label6.TabIndex = 5;
+            this.label6.Text = "Angle";
+            this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // lightColorPanel
+            // 
+            this.lightColorPanel.AutoSize = true;
+            this.lightColorPanel.BackColor = System.Drawing.Color.White;
+            this.lightColorPanel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.lightColorPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lightColorPanel.Location = new System.Drawing.Point(3, 3);
+            this.lightColorPanel.Name = "lightColorPanel";
+            this.lightColorPanel.Size = new System.Drawing.Size(43, 24);
+            this.lightColorPanel.TabIndex = 7;
+            this.lightColorPanel.Click += new System.EventHandler(this.lightColorPanel_click);
+            // 
+            // tableLayoutPanel1
+            // 
+            this.tableLayoutPanel1.AutoSize = true;
+            this.tableLayoutPanel1.ColumnCount = 2;
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.Controls.Add(this.pauseButton, 1, 0);
+            this.tableLayoutPanel1.Controls.Add(this.playButton, 0, 0);
+            this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel1.Location = new System.Drawing.Point(52, 3);
+            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
+            this.tableLayoutPanel1.RowCount = 1;
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(168, 24);
+            this.tableLayoutPanel1.TabIndex = 8;
+            // 
+            // pauseButton
+            // 
+            this.pauseButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pauseButton.Enabled = false;
+            this.pauseButton.Location = new System.Drawing.Point(84, 0);
+            this.pauseButton.Margin = new System.Windows.Forms.Padding(0);
+            this.pauseButton.Name = "pauseButton";
+            this.pauseButton.Size = new System.Drawing.Size(84, 24);
+            this.pauseButton.TabIndex = 1;
+            this.pauseButton.Text = "Pause";
+            this.pauseButton.UseVisualStyleBackColor = true;
+            this.pauseButton.Click += new System.EventHandler(this.pauseButton_Click);
+            // 
+            // playButton
+            // 
+            this.playButton.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.playButton.Location = new System.Drawing.Point(0, 0);
+            this.playButton.Margin = new System.Windows.Forms.Padding(0);
+            this.playButton.Name = "playButton";
+            this.playButton.Size = new System.Drawing.Size(84, 24);
+            this.playButton.TabIndex = 0;
+            this.playButton.Text = "Play";
+            this.playButton.UseVisualStyleBackColor = true;
+            this.playButton.Click += new System.EventHandler(this.playButton_Click);
+            // 
             // openObjectImageFileDialog
             // 
             this.openObjectImageFileDialog.FileName = "openFileDialog1";
@@ -405,6 +581,11 @@
             // programLogicBindingSource
             // 
             this.programLogicBindingSource.DataSource = typeof(P2_TrianglesFilling.Logic.ProgramLogic);
+            // 
+            // timer
+            // 
+            this.timer.Interval = 700;
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // MainWindow
             // 
@@ -434,8 +615,16 @@
             this.objectColorTableLayoutPanel.PerformLayout();
             this.paintMethodGroupBox.ResumeLayout(false);
             this.paintMethodGroupBox.PerformLayout();
+            this.paintMethodTableLayoutPanel.ResumeLayout(false);
+            this.paintMethodTableLayoutPanel.PerformLayout();
+            this.lightParametersGroupBox.ResumeLayout(false);
+            this.lightParametersGroupBox.PerformLayout();
+            this.lightParametersTableLayoutPanel.ResumeLayout(false);
+            this.lightParametersTableLayoutPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.lightHeightTrackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lightRadiusTrackBar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.lightAngleTrackBar)).EndInit();
             this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.programLogicBindingSource)).EndInit();
             this.ResumeLayout(false);
 
@@ -466,9 +655,23 @@
         private ColorDialog objectColorDialog;
         private OpenFileDialog openObjectImageFileDialog;
         private GroupBox paintMethodGroupBox;
-        private TableLayoutPanel tableLayoutPanel1;
+        private TableLayoutPanel paintMethodTableLayoutPanel;
         private RadioButton colorInterpolationRadioButton;
         private RadioButton normalsInterpolationRadioButton;
         private BindingSource programLogicBindingSource;
+        private GroupBox lightParametersGroupBox;
+        private TableLayoutPanel lightParametersTableLayoutPanel;
+        private TrackBar lightHeightTrackBar;
+        private TrackBar lightRadiusTrackBar;
+        private TrackBar lightAngleTrackBar;
+        private Label label4;
+        private Label label5;
+        private Label label6;
+        private Panel lightColorPanel;
+        private TableLayoutPanel tableLayoutPanel1;
+        private Button pauseButton;
+        private Button playButton;
+        private ColorDialog lightColorDialog;
+        private System.Windows.Forms.Timer timer;
     }
 }
