@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Numerics;
 using System.Text;
@@ -75,7 +77,11 @@ namespace P2_TrianglesFilling.Logic
         }
 
         private Bitmap? _ObjectTexture;
-        public Bitmap? ObjectTexture { get => _ObjectTexture; set => _ObjectTexture = value; }
+        public Bitmap? ObjectTexture { get => _ObjectTexture; set
+            {
+                _ObjectTexture = value;
+            }
+        }
 
         private Action<float> LightSourcePositionHeight_setter;
         private float _LightSourcePositionHeight;

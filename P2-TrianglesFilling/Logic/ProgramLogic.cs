@@ -23,8 +23,6 @@ namespace P2_TrianglesFilling.Logic
 
         private const float scale = 1f;
 
-        public Color ObjectColor { get; set; } = Color.Orange;
-
         public ProgramLogic(PictureBox canvasPanel, LogicSettings logicSettings)
         {
             LogicSettings = logicSettings;

@@ -10,7 +10,7 @@ namespace P2_TrianglesFilling.Drawing.FigureDrawers
     public class LambertNormalPolygonFillDrawer : IFigureDrawer
     {
         protected Rasterizer Rasterizer;
-        private readonly LogicSettings logicSettings;
+        private readonly LogicSettings LogicSettings;
 
         public ColorProviderCreator ColorProviderCreator { get; set; }
 
@@ -18,7 +18,7 @@ namespace P2_TrianglesFilling.Drawing.FigureDrawers
         {
             Rasterizer = rasterizer;
             ColorProviderCreator = colorProviderCreator;
-            this.logicSettings = logicSettings;
+            LogicSettings = logicSettings;
         }
 
         public void DrawPolygon(Graphics graphics, ICanvas canvas, Polygon polygon, FigureDrawerArguments argument)
@@ -47,7 +47,7 @@ namespace P2_TrianglesFilling.Drawing.FigureDrawers
                     .Vertices
                     .Select(_ => Rasterizer.RasterizeOrthogonaly(_.Position))
                     .ToList(),
-                ColorProviderCreator.GetColorProvider(argument, logicSettings, polygonWithNormals)
+                ColorProviderCreator.GetColorProvider(argument, LogicSettings, polygonWithNormals)
             );
         }
 

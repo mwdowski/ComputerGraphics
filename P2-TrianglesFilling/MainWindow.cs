@@ -1,5 +1,9 @@
 using P2_TrianglesFilling.Logic;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.Windows.Forms;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace P2_TrianglesFilling
 {
@@ -87,9 +91,9 @@ namespace P2_TrianglesFilling
         {
             if (openObjectImageFileDialog.ShowDialog() == DialogResult.OK)
             {
-                var image = Image.FromFile(openObjectImageFileDialog.FileName);
+                var image = new Bitmap(openObjectImageFileDialog.FileName);
                 loadObjectImageButton.Text = openObjectImageFileDialog.FileName.Split('\\').Last();
-                Logic.LogicSettings.ObjectTexture = (new Bitmap(image));
+                Logic.LogicSettings.ObjectTexture = ResizeImageProportional(image, pictureBox.Width, pictureBox.Height);
                 Logic.DrawFigure();
             }
         }
@@ -128,6 +132,27 @@ namespace P2_TrianglesFilling
                 Logic.LogicSettings.DrawingMethod = DrawingMethod.NormalsInterpolation;
                 Logic.DrawFigure();
             }
+        }
+
+        public static Bitmap ResizeImageProportional(Bitmap bitmap, int width, int height)
+        {
+            var destImage = new Bitmap(width, height);
+
+            var destWidth = height * bitmap.Width / bitmap.Height;
+            var destHeight = destImage.Height;
+            var destX = (width - destWidth) / 2;
+            var destY = 0;
+
+            var scaledImage = new Bitmap(bitmap, destWidth, destHeight);
+            using (var g = Graphics.FromImage(destImage))
+            {
+                g.Clear(Color.Black);
+                g.DrawImage(scaledImage, destX, destY);
+            }
+
+            scaledImage.Dispose();
+
+            return destImage;
         }
     }
 }
