@@ -21,7 +21,8 @@ namespace P2_TrianglesFilling.Logic
             Action<DrawingMethod> drawingMethod_setter,
             Action<int> m_setter,
             Action<float> kS_setter,
-            Action<float> kD_setter)
+            Action<float> kD_setter,
+            Action<NormalMappingMethod> normalMappingMethod_setter)
         {
             ObjectColor_setter = objectColor_setter;
             ObjectColor = Color.Orange;
@@ -52,6 +53,7 @@ namespace P2_TrianglesFilling.Logic
 
             KD_setter = kD_setter;
             KD = 0.5f;
+            NormalMappingMethod_setter = normalMappingMethod_setter;
         }
 
         private Action<Color> ObjectColor_setter;
@@ -77,7 +79,9 @@ namespace P2_TrianglesFilling.Logic
         }
 
         private Bitmap? _ObjectTexture;
-        public Bitmap? ObjectTexture { get => _ObjectTexture; set
+        public Bitmap? ObjectTexture
+        {
+            get => _ObjectTexture; set
             {
                 _ObjectTexture = value;
             }
@@ -171,8 +175,27 @@ namespace P2_TrianglesFilling.Logic
                 DrawingMethod_setter(DrawingMethod);
             }
         }
+
+        private Action<NormalMappingMethod> NormalMappingMethod_setter;
+        private NormalMappingMethod _NormalMappingMethod;
+        public NormalMappingMethod NormalMappingMethod { get => _NormalMappingMethod; set
+            {
+                _NormalMappingMethod = value;
+                NormalMappingMethod_setter(value);
+            }
+        }
+
+        private Bitmap? _NormalMapTexture;
+        public Bitmap? NormalMapTexture
+        {
+            get => _NormalMapTexture; set
+            {
+                _NormalMapTexture = value;
+            }
+        }
     }
 
+    public enum NormalMappingMethod { NoMapping, MapFromFile }
     public enum ObjectBackground { ConstantColor, TextureBitmap }
     public enum DrawingMethod { ColorInterpolation, NormalsInterpolation }
 }

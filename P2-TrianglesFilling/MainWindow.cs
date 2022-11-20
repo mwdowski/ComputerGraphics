@@ -61,6 +61,13 @@ namespace P2_TrianglesFilling
                     k_d_textBox.Refresh();
                     k_d_trackBar.Value = (int)(value * 100);
                     k_d_trackBar.Refresh();
+                },
+                (value) =>
+                {
+                    noNormalMappingRadioButton.Checked = value == NormalMappingMethod.NoMapping;
+                    noNormalMappingRadioButton.Refresh();
+                    normalMappingFromFileRadioButton.Checked = value == NormalMappingMethod.MapFromFile;
+                    normalMappingFromFileRadioButton.Refresh();
                 }
             ));
 
@@ -208,6 +215,35 @@ namespace P2_TrianglesFilling
             timer.Stop();
             pauseButton.Enabled = false;
             playButton.Enabled = true;
+        }
+
+        private void noNormalMappingRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (((RadioButton)sender).Checked)
+            {
+                Logic.LogicSettings.NormalMappingMethod = NormalMappingMethod.NoMapping;
+                Logic.DrawFigure();
+            }
+        }
+
+        private void normalMappingFromFileRadioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            if (((RadioButton)sender).Checked)
+            {
+                Logic.LogicSettings.NormalMappingMethod = NormalMappingMethod.MapFromFile;
+                Logic.DrawFigure();
+            }
+        }
+
+        private void loadNormalsMapButton_Click(object sender, EventArgs e)
+        {
+            if (openNormalMapFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var image = new Bitmap(openNormalMapFileDialog.FileName);
+                loadNormalsMapButton.Text = openNormalMapFileDialog.FileName.Split('\\').Last();
+                Logic.LogicSettings.NormalMapTexture = ResizeImageProportional(image, pictureBox.Width, pictureBox.Height);
+                Logic.DrawFigure();
+            }
         }
     }
 }

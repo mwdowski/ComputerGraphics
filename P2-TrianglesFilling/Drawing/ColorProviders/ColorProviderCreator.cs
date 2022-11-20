@@ -1,12 +1,8 @@
 ﻿using P2_TrainglesFilling.Rasterizers;
+using P2_TrianglesFilling.Drawing.NormalMapping;
 using P2_TrianglesFilling.FigureDrawers;
 using P2_TrianglesFilling.Logic;
 using P2_TrianglesFilling.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace P2_TrianglesFilling.Drawing.ColorProviders
 {
@@ -24,7 +20,13 @@ namespace P2_TrianglesFilling.Drawing.ColorProviders
             LogicSettings logicSettings,
             PolygonWithNormals polygonWithNormals)
         {
-            return GetLambertColorProvider(arguments, logicSettings, polygonWithNormals, Rasterizer, GetObjectColorProvider(logicSettings));
+            return GetLambertColorProvider(
+                arguments,
+                logicSettings,
+                polygonWithNormals,
+                Rasterizer,
+                GetObjectColorProvider(logicSettings),
+                GetNormalMapApplier(logicSettings));
         }
 
         private static IColorProvider GetObjectColorProvider(LogicSettings logicSettings)
@@ -50,24 +52,44 @@ namespace P2_TrianglesFilling.Drawing.ColorProviders
             return objectColorProvider;
         }
 
+        private static INormalMapApplier GetNormalMapApplier(LogicSettings logicSettings)
+        {
+            if (logicSettings.NormalMappingMethod == NormalMappingMethod.NoMapping)
+            {
+                return new IdentityNormalMapApplier();
+            }
+            else
+            {
+                if (logicSettings.NormalMapTexture == null)
+                {
+                    return new IdentityNormalMapApplier();
+                }
+                else
+                {
+                    return new FromFileNormalMapApplier(logicSettings.NormalMapTexture);
+                }
+            }
+        }
+
         private static IColorProvider GetLambertColorProvider(
             FigureDrawerArguments arguments,
             LogicSettings logicSettings,
             PolygonWithNormals polygonWithNormals,
             Rasterizer rasterizer,
-            IColorProvider objectColorProvider)
+            IColorProvider objectColorProvider,
+            INormalMapApplier normalMapApplier)
         {
             IColorProvider lambertMethodColorProvider;
 
             if (logicSettings.DrawingMethod == DrawingMethod.ColorInterpolation)
             {
-                lambertMethodColorProvider = new LambertWithVerticesColorInterpolationConstantColorProvider(
-                    objectColorProvider, arguments, polygonWithNormals, rasterizer);
+                lambertMethodColorProvider = new LambertWithVerticesColorInterpolationAndNormalMappingColorProvider(
+                    objectColorProvider, arguments, polygonWithNormals, rasterizer, normalMapApplier);
             }
             else
             {
-                lambertMethodColorProvider = new LambertWithNormalsInterpolationConstantColorProvider(
-                    objectColorProvider, arguments, polygonWithNormals, rasterizer);
+                lambertMethodColorProvider = new LambertWithNormalsInterpolationAndMappingColorProvider(
+                    objectColorProvider, arguments, polygonWithNormals, rasterizer, normalMapApplier);
             }
 
             return lambertMethodColorProvider;

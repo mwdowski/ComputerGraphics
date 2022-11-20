@@ -6,11 +6,11 @@ using P2_TrianglesFilling.Algorithms;
 
 namespace P2_TrianglesFilling.Drawing.ColorProviders
 {
-    public class LambertWithVerticesColorInterpolationConstantColorProvider : IColorProvider
+    public class LambertWithVerticesColorInterpolationColorProvider : IColorProvider
     {
-        private readonly BarycentricTriangleInterpolator<ColorEvaluationChain, Color> _colorInterpolator;
+        protected BarycentricTriangleInterpolator<ColorEvaluationChain, Color> ColorInterpolator;
 
-        public LambertWithVerticesColorInterpolationConstantColorProvider(
+        public LambertWithVerticesColorInterpolationColorProvider(
             IColorProvider colorProvider,
             FigureDrawerArguments arguments,
             PolygonWithNormals polygonWithNormals,
@@ -19,7 +19,7 @@ namespace P2_TrianglesFilling.Drawing.ColorProviders
             var p1 = rasterizer.RasterizeOrthogonaly(polygonWithNormals.Vertices[0].Position);
             var p2 = rasterizer.RasterizeOrthogonaly(polygonWithNormals.Vertices[1].Position);
             var p3 = rasterizer.RasterizeOrthogonaly(polygonWithNormals.Vertices[2].Position);
-            _colorInterpolator = new(
+            ColorInterpolator = new(
                 p1, LambertLightModel.GetLambertColor(colorProvider.GetColor(p1.X, p1.Y), arguments.I_L, polygonWithNormals.Normals[0].Position,
                 arguments.L - polygonWithNormals.Vertices[0].Position, arguments.m, arguments.k_d, arguments.k_s),
                 p2, LambertLightModel.GetLambertColor(colorProvider.GetColor(p2.X, p2.Y), arguments.I_L, polygonWithNormals.Normals[1].Position,
@@ -29,9 +29,9 @@ namespace P2_TrianglesFilling.Drawing.ColorProviders
             );
         }
 
-        public Color GetColor(int x, int y)
+        public virtual Color GetColor(int x, int y)
         {
-            return _colorInterpolator.GetWeightInPoint(new Point(x, y));
+            return ColorInterpolator.GetWeightInPoint(new Point(x, y));
         }
     }
 }
