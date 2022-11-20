@@ -1,11 +1,11 @@
 ﻿using P2_TrainglesFilling.Rasterizers;
 using P2_TrianglesFilling.Canvases;
 using P2_TrianglesFilling.Drawing.ColorProviders;
-using P2_TrianglesFilling.Drawing.ColorProviders.OuterColorProviders;
 using P2_TrianglesFilling.Drawing.FigureDrawers;
 using P2_TrianglesFilling.FigureDrawers;
 using P2_TrianglesFilling.Loaders;
 using P2_TrianglesFilling.Model;
+using System.Numerics;
 
 namespace P2_TrianglesFilling.Logic
 {
@@ -14,42 +14,28 @@ namespace P2_TrianglesFilling.Logic
         public IFileFigureLoader FigureLoader { get; private set; }
         public Rasterizer Rasterizer { get; private set; }
         public IFigureDrawer FigureDrawer { get; private set; }
-        public IOuterColorProvider ColorProvider { get; private set; }
-        public IColorProvider InnerColorProvider { get; private set; }
+        public ColorProviderCreator ColorProviderCreator { get; private set; }
+        public LogicSettings LogicSettings { get; private set; }
 
         private Figure _figure = new PolygonSet<Polygon>();
         private ICanvas _canvas;
-        public FigureDrawerArguments FigureDrawerArguments { get; private set; } = new FigureDrawerArguments()
-        {
-            I_L = Color.White,
-            k_d = 0.5f,
-            k_s = 0.5f,
-            L = new System.Numerics.Vector3(10f, 10f, 20f),
-            m = 5
-        };
+        public FigureDrawerArguments FigureDrawerArguments { get => SettingsToDrawingArguments(LogicSettings); }
 
         private const float scale = 1f;
 
         public Color ObjectColor { get; set; } = Color.Orange;
 
-        public ProgramLogic(PictureBox canvasPanel)
+        public ProgramLogic(PictureBox canvasPanel, LogicSettings logicSettings)
         {
+            LogicSettings = logicSettings;
             _canvas = new DirectBitmapCanvas(canvasPanel);
             FigureLoader = new ObjFileLoader();
             Rasterizer = new Rasterizer(_canvas.Bitmap, scale);
-            InnerColorProvider = new ConstantColorProvider(Color.Orange);
-            ColorProvider = new LambertWithVerticesColorInterpolationConstantColorProvider(InnerColorProvider, )
-            FigureDrawer = new LambertNormalPolygonFillDrawer(Rasterizer, ColorProvider);
+            ColorProviderCreator = new(Rasterizer);
+            FigureDrawer = new LambertNormalPolygonFillDrawer(Rasterizer, ColorProviderCreator, logicSettings);
 
             LoadDefaultFigure();
             DrawFigure();
-        }
-
-        private void LoadTriangle()
-        {
-            var polygon = new PolygonWithNormals();
-            polygon.Vertices.AddRange(new List<Vertex>() { new Vertex(new System.Numerics.Vector3(-1, -0.5f, 0)), new Vertex(new System.Numerics.Vector3(1, -0.5f, 0)), new Vertex(new System.Numerics.Vector3(0, 1, 0)) });
-            _figure = polygon;
         }
 
         private void LoadDefaultFigure()
@@ -77,14 +63,20 @@ namespace P2_TrianglesFilling.Logic
             Console.WriteLine(DateTime.Now - startTime);
         }
 
-        public void SetObjectColor(Color color)
+        private static FigureDrawerArguments SettingsToDrawingArguments(LogicSettings settings)
         {
-            ColorProvider = new LambertNormalPolygonFillDrawer(Rasterizer, new ConstantColorProvider(color));
-        }
-
-        public void SetObjectImage(Bitmap bitmap)
-        {
-            FigureDrawer = new LambertNormalPolygonFillDrawer(Rasterizer, new FromBitmapColorProvider(bitmap));
-        }
+            return new FigureDrawerArguments()
+            {
+                I_L = settings.LightColor,
+                k_d = settings.KD,
+                k_s = settings.KS,
+                L = new Vector3(
+                    (float)Math.Sin(settings.LightSourcePositionAngle) * settings.LightSourcePositionRadius,
+                    (float)Math.Cos(settings.LightSourcePositionAngle) * settings.LightSourcePositionRadius, 
+                    settings.LightSourcePositionHeight
+                ),
+                m = settings.M
+            };
+        } 
     }
 }

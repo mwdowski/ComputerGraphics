@@ -5,9 +5,9 @@ using P2_TrianglesFilling.Model;
 using P2_TrianglesFilling.Algorithms;
 using System.Numerics;
 
-namespace P2_TrianglesFilling.Drawing.ColorProviders.OuterColorProviders
+namespace P2_TrianglesFilling.Drawing.ColorProviders
 {
-    public class LambertWithNormalsInterpolationConstantColorProvider : IOuterColorProvider
+    public class LambertWithNormalsInterpolationConstantColorProvider : IColorProvider
     {
         private readonly BarycentricTriangleInterpolator<Vector3EvaluationChain, Vector3> _normalsInterpolator;
         private readonly BarycentricTriangleInterpolator<Vector3EvaluationChain, Vector3> _positionInterpolator;
@@ -48,11 +48,6 @@ namespace P2_TrianglesFilling.Drawing.ColorProviders.OuterColorProviders
                 _arguments.k_s
             );
 
-        }
-
-        public void SetInnerColorProvider(IColorProvider colorProvider)
-        {
-            throw new NotImplementedException();
         }
     }
 }

@@ -10,36 +10,67 @@ namespace P2_TrianglesFilling
         public MainWindow()
         {
             InitializeComponent();
-            Logic = new ProgramLogic(pictureBox);
-
-            m_textBox.Text = Logic.FigureDrawerArguments.m.ToString();
-            k_s_textBox.Text = Logic.FigureDrawerArguments.k_s.ToString("0.00");
-            k_d_textBox.Text = Logic.FigureDrawerArguments.k_s.ToString("0.00");
+            Logic = new ProgramLogic(pictureBox, new LogicSettings(
+                (value) => objectColorPanel.BackColor = value,
+                (value) => Console.WriteLine("TODO"),
+                (value) => Console.WriteLine("TODO"),
+                (value) => Console.WriteLine("TODO"),
+                (value) => Console.WriteLine("TODO"),
+                (value) =>
+                {
+                    oneColorObjectRadioButton.Checked = value == ObjectBackground.ConstantColor;
+                    oneColorObjectRadioButton.Refresh();
+                    imageColorObjectRadioButton.Checked = value == ObjectBackground.TextureBitmap;
+                    imageColorObjectRadioButton.Refresh();
+                },
+                (value) =>
+                {
+                    colorInterpolationRadioButton.Checked = value == DrawingMethod.ColorInterpolation;
+                    colorInterpolationRadioButton.Refresh();
+                    normalsInterpolationRadioButton.Checked = value == DrawingMethod.NormalsInterpolation;
+                    normalsInterpolationRadioButton.Refresh();
+                },
+                (value) =>
+                {
+                    m_textBox.Text = value.ToString();
+                    m_textBox.Refresh();
+                    m_trackBar.Value = value;
+                    m_trackBar.Refresh();
+                },
+                (value) =>
+                {
+                    k_s_textBox.Text = value.ToString("0.00");
+                    k_s_textBox.Refresh();
+                    k_s_trackBar.Value = (int)(value * 100);
+                    k_s_trackBar.Refresh();
+                },
+                (value) =>
+                {
+                    k_d_textBox.Text = value.ToString("0.00");
+                    k_d_textBox.Refresh();
+                    k_d_trackBar.Value = (int)(value * 100);
+                    k_d_trackBar.Refresh();
+                }
+            ));
 
             Refresh();
         }
 
         private void m_trackBar_Scroll(object sender, EventArgs e)
         {
-            Logic.FigureDrawerArguments.m = ((TrackBar)sender).Value;
-            m_textBox.Text = Logic.FigureDrawerArguments.m.ToString();
-            m_textBox.Refresh();
+            Logic.LogicSettings.M = ((TrackBar)sender).Value;
             Logic.DrawFigure();
         }
 
         private void k_s_trackBar_Scroll(object sender, EventArgs e)
         {
-            Logic.FigureDrawerArguments.k_s = ((TrackBar)sender).Value / 100f;
-            k_s_textBox.Text = Logic.FigureDrawerArguments.k_s.ToString("0.00");
-            k_s_textBox.Refresh();
+            Logic.LogicSettings.KS = ((TrackBar)sender).Value / 100f;
             Logic.DrawFigure();
         }
 
         private void k_d_trackBar_Scroll(object sender, EventArgs e)
         {
-            Logic.FigureDrawerArguments.k_d = ((TrackBar)sender).Value / 100f;
-            k_d_textBox.Text = Logic.FigureDrawerArguments.k_d.ToString("0.00");
-            k_d_textBox.Refresh();
+            Logic.LogicSettings.KD = ((TrackBar)sender).Value / 100f;
             Logic.DrawFigure();
         }
 
@@ -47,8 +78,7 @@ namespace P2_TrianglesFilling
         {
             if (objectColorDialog.ShowDialog() == DialogResult.OK)
             {
-                objectColorPanel.BackColor = objectColorDialog.Color;
-                Logic.SetObjectColor(objectColorPanel.BackColor);
+                Logic.LogicSettings.ObjectColor = objectColorDialog.Color;
                 Logic.DrawFigure();
             }
         }
@@ -58,29 +88,46 @@ namespace P2_TrianglesFilling
             if (openObjectImageFileDialog.ShowDialog() == DialogResult.OK)
             {
                 var image = Image.FromFile(openObjectImageFileDialog.FileName);
-                Logic.SetObjectImage(new Bitmap(image));
+                loadObjectImageButton.Text = openObjectImageFileDialog.FileName.Split('\\').Last();
+                Logic.LogicSettings.ObjectTexture = (new Bitmap(image));
                 Logic.DrawFigure();
             }
         }
 
         private void oneColorObjectRadioButton_CheckedChanged(object sender, EventArgs e)
         {
-
+            if (((RadioButton)sender).Checked)
+            {
+                Logic.LogicSettings.ObjectBackground = ObjectBackground.ConstantColor;
+                Logic.DrawFigure();
+            }
         }
 
         private void imageColorObjectRadioButton_CheckedChanged(object sender, EventArgs e)
         {
-
+            if (((RadioButton)sender).Checked)
+            {
+                Logic.LogicSettings.ObjectBackground = ObjectBackground.TextureBitmap;
+                Logic.DrawFigure();
+            }
         }
 
         private void colorInterpolationRadioButton_CheckedChanged(object sender, EventArgs e)
         {
-
+            if (((RadioButton)sender).Checked)
+            {
+                Logic.LogicSettings.DrawingMethod = DrawingMethod.ColorInterpolation;
+                Logic.DrawFigure();
+            }
         }
 
         private void normalsInterpolationRadioButton_CheckedChanged(object sender, EventArgs e)
         {
-
+            if (((RadioButton)sender).Checked)
+            {
+                Logic.LogicSettings.DrawingMethod = DrawingMethod.NormalsInterpolation;
+                Logic.DrawFigure();
+            }
         }
     }
 }

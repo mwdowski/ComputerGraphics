@@ -4,9 +4,9 @@ using P2_TrianglesFilling.FigureDrawers;
 using P2_TrianglesFilling.Model;
 using P2_TrianglesFilling.Algorithms;
 
-namespace P2_TrianglesFilling.Drawing.ColorProviders.OuterColorProviders
+namespace P2_TrianglesFilling.Drawing.ColorProviders
 {
-    public class LambertWithVerticesColorInterpolationConstantColorProvider : IOuterColorProvider
+    public class LambertWithVerticesColorInterpolationConstantColorProvider : IColorProvider
     {
         private readonly BarycentricTriangleInterpolator<ColorEvaluationChain, Color> _colorInterpolator;
 
@@ -32,11 +32,6 @@ namespace P2_TrianglesFilling.Drawing.ColorProviders.OuterColorProviders
         public Color GetColor(int x, int y)
         {
             return _colorInterpolator.GetWeightInPoint(new Point(x, y));
-        }
-
-        public void SetInnerColorProvider(IColorProvider colorProvider)
-        {
-            throw new NotImplementedException();
         }
     }
 }
