@@ -70,12 +70,15 @@
             this.noNormalMappingRadioButton = new System.Windows.Forms.RadioButton();
             this.normalMappingFromFileRadioButton = new System.Windows.Forms.RadioButton();
             this.loadNormalsMapButton = new System.Windows.Forms.Button();
+            this.loadObjFileGroupBox = new System.Windows.Forms.GroupBox();
+            this.loadObjButton = new System.Windows.Forms.Button();
             this.objectColorDialog = new System.Windows.Forms.ColorDialog();
             this.openObjectImageFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.programLogicBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.lightColorDialog = new System.Windows.Forms.ColorDialog();
             this.timer = new System.Windows.Forms.Timer(this.components);
             this.openNormalMapFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.openObjFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.mainTableLayoutPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.controlsTableLayoutPanel.SuspendLayout();
@@ -96,6 +99,7 @@
             this.tableLayoutPanel1.SuspendLayout();
             this.normalMappingGroupBox.SuspendLayout();
             this.normalMappingTableLayoutPanel.SuspendLayout();
+            this.loadObjFileGroupBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.programLogicBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -133,16 +137,18 @@
             this.controlsTableLayoutPanel.Controls.Add(this.paintMethodGroupBox, 0, 2);
             this.controlsTableLayoutPanel.Controls.Add(this.lightParametersGroupBox, 0, 3);
             this.controlsTableLayoutPanel.Controls.Add(this.normalMappingGroupBox, 0, 4);
+            this.controlsTableLayoutPanel.Controls.Add(this.loadObjFileGroupBox, 0, 5);
             this.controlsTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.controlsTableLayoutPanel.Location = new System.Drawing.Point(1113, 3);
             this.controlsTableLayoutPanel.Name = "controlsTableLayoutPanel";
-            this.controlsTableLayoutPanel.RowCount = 6;
+            this.controlsTableLayoutPanel.RowCount = 7;
             this.controlsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.controlsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.controlsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.controlsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.controlsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.controlsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.controlsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.controlsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
+            this.controlsTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.controlsTableLayoutPanel.Size = new System.Drawing.Size(234, 723);
             this.controlsTableLayoutPanel.TabIndex = 1;
             // 
@@ -652,6 +658,30 @@
             this.loadNormalsMapButton.UseVisualStyleBackColor = true;
             this.loadNormalsMapButton.Click += new System.EventHandler(this.loadNormalsMapButton_Click);
             // 
+            // loadObjFileGroupBox
+            // 
+            this.loadObjFileGroupBox.AutoSize = true;
+            this.loadObjFileGroupBox.Controls.Add(this.loadObjButton);
+            this.loadObjFileGroupBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.loadObjFileGroupBox.Location = new System.Drawing.Point(3, 560);
+            this.loadObjFileGroupBox.Name = "loadObjFileGroupBox";
+            this.loadObjFileGroupBox.Size = new System.Drawing.Size(228, 47);
+            this.loadObjFileGroupBox.TabIndex = 5;
+            this.loadObjFileGroupBox.TabStop = false;
+            this.loadObjFileGroupBox.Text = "Displayed object";
+            // 
+            // loadObjButton
+            // 
+            this.loadObjButton.AutoSize = true;
+            this.loadObjButton.Dock = System.Windows.Forms.DockStyle.Top;
+            this.loadObjButton.Location = new System.Drawing.Point(3, 19);
+            this.loadObjButton.Name = "loadObjButton";
+            this.loadObjButton.Size = new System.Drawing.Size(222, 25);
+            this.loadObjButton.TabIndex = 0;
+            this.loadObjButton.Text = "Load file";
+            this.loadObjButton.UseVisualStyleBackColor = true;
+            this.loadObjButton.Click += new System.EventHandler(this.loadObjButton_Click);
+            // 
             // openObjectImageFileDialog
             // 
             this.openObjectImageFileDialog.FileName = "openFileDialog1";
@@ -711,6 +741,8 @@
             this.normalMappingGroupBox.PerformLayout();
             this.normalMappingTableLayoutPanel.ResumeLayout(false);
             this.normalMappingTableLayoutPanel.PerformLayout();
+            this.loadObjFileGroupBox.ResumeLayout(false);
+            this.loadObjFileGroupBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.programLogicBindingSource)).EndInit();
             this.ResumeLayout(false);
 
@@ -765,5 +797,8 @@
         private RadioButton normalMappingFromFileRadioButton;
         private Button loadNormalsMapButton;
         private OpenFileDialog openNormalMapFileDialog;
+        private GroupBox loadObjFileGroupBox;
+        private Button loadObjButton;
+        private OpenFileDialog openObjFileDialog;
     }
 }

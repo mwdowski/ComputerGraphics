@@ -32,14 +32,11 @@ namespace P2_TrianglesFilling.Logic
             Rasterizer = new Rasterizer(_canvas.Bitmap, scale);
             ColorProviderCreator = new(Rasterizer);
             FigureDrawer = new LambertNormalPolygonFillDrawer(Rasterizer, ColorProviderCreator, logicSettings);
-
-            LoadDefaultFigure();
-            DrawFigure();
         }
 
-        private void LoadDefaultFigure()
+        public void LoadFigureFromObj(string path)
         {
-            var loadResult = FigureLoader.LoadFigureFromFile("Resources/cone3.obj");
+            var loadResult = FigureLoader.LoadFigureFromFile(path);
             if (loadResult == null)
             {
                 MessageBox.Show("Could not load default figure", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);

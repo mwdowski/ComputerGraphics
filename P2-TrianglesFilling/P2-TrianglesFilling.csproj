@@ -12,8 +12,11 @@
   <ItemGroup>
     <None Remove="Resources\cone.obj" />
     <None Remove="Resources\cone3.obj" />
+    <None Remove="Resources\drive-skorpion.jpg" />
+    <None Remove="Resources\Multicolor_N.jpg" />
     <None Remove="Resources\proj2_sfera.obj" />
     <None Remove="Resources\Sphere.obj" />
+    <None Remove="Resources\sphereNormalMap.jpg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,10 +28,19 @@
     <Content Include="Resources\cone3.obj">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Resources\drive-skorpion.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\Multicolor_N.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\proj2_sfera.obj">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Resources\Sphere.obj">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\sphereNormalMap.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

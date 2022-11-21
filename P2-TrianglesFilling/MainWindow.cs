@@ -71,6 +71,19 @@ namespace P2_TrianglesFilling
                 }
             ));
 
+            LoadFigureFromObj("Resources\\Sphere.obj");
+            LoadImageToProperty(
+                "Resources\\Multicolor_N.jpg",
+                image => Logic.LogicSettings.NormalMapTexture = image,
+                filename => loadNormalsMapButton.Text = filename
+            );
+            LoadImageToProperty(
+                "Resources\\drive-skorpion.jpg",
+                image => Logic.LogicSettings.ObjectTexture = image,
+                filename => loadObjectImageButton.Text = filename
+            );
+
+            Logic.DrawFigure();
             Refresh();
         }
 
@@ -105,9 +118,11 @@ namespace P2_TrianglesFilling
         {
             if (openObjectImageFileDialog.ShowDialog() == DialogResult.OK)
             {
-                var image = new Bitmap(openObjectImageFileDialog.FileName);
-                loadObjectImageButton.Text = openObjectImageFileDialog.FileName.Split('\\').Last();
-                Logic.LogicSettings.ObjectTexture = ResizeImageProportional(image, pictureBox.Width, pictureBox.Height);
+                LoadImageToProperty(
+                    openObjectImageFileDialog.FileName,
+                    image => Logic.LogicSettings.ObjectTexture = image,
+                    filename => loadObjectImageButton.Text = filename
+                );
                 Logic.DrawFigure();
             }
         }
@@ -239,11 +254,35 @@ namespace P2_TrianglesFilling
         {
             if (openNormalMapFileDialog.ShowDialog() == DialogResult.OK)
             {
-                var image = new Bitmap(openNormalMapFileDialog.FileName);
-                loadNormalsMapButton.Text = openNormalMapFileDialog.FileName.Split('\\').Last();
-                Logic.LogicSettings.NormalMapTexture = ResizeImageProportional(image, pictureBox.Width, pictureBox.Height);
+                LoadImageToProperty(
+                    openNormalMapFileDialog.FileName,
+                    image => Logic.LogicSettings.NormalMapTexture = image,
+                    filename => loadNormalsMapButton.Text = filename
+                );
                 Logic.DrawFigure();
             }
+        }
+
+        private void LoadImageToProperty(string filename, Action<Bitmap> propertySetter, Action<string> controlTextSetter)
+        {
+            var image = new Bitmap(filename);
+            controlTextSetter(filename.Split('\\').Last());
+            propertySetter(ResizeImageProportional(image, pictureBox.Width, pictureBox.Height));
+        }
+
+        private void loadObjButton_Click(object sender, EventArgs e)
+        {
+            if (openObjFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                LoadFigureFromObj(openObjFileDialog.FileName);
+                Logic.DrawFigure();
+            }
+        }
+
+        private void LoadFigureFromObj(string path)
+        {
+            loadObjButton.Text = path.Split('\\').Last();
+            Logic.LoadFigureFromObj(path);
         }
     }
 }

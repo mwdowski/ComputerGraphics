@@ -12,16 +12,15 @@ namespace P2_TrianglesFilling.Loaders
     public class ObjFileLoader : IFileFigureLoader
     {
         private ObjLoaderFactory _objLoaderFactory;
-        private IObjLoader _loader;
 
         public ObjFileLoader()
         {
             _objLoaderFactory = new ObjLoaderFactory();
-            _loader = _objLoaderFactory.Create();
         }
 
         public Figure? LoadFigureFromFile(string filename)
         {
+            var _loader = _objLoaderFactory.Create();
             using (var stream = new FileStream(filename, FileMode.Open, FileAccess.Read))
             {
                 var loadResult = _loader.Load(stream);
