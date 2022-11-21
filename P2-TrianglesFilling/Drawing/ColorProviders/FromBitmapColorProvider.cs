@@ -1,5 +1,7 @@
-﻿using System;
+﻿using P2_TrianglesFilling.Canvases;
+using System;
 using System.Collections.Generic;
+using System.Drawing.Imaging;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,20 +10,25 @@ namespace P2_TrianglesFilling.Drawing.ColorProviders
 {
     public class FromBitmapColorProvider : IColorProvider
     {
-        private Bitmap _bitmap;
+        private DirectParallelBitmap _bitmap;
 
-        public FromBitmapColorProvider(Bitmap bitmap)
+        public FromBitmapColorProvider(DirectParallelBitmap bitmap)
         {
             _bitmap = bitmap;
         }
 
         public Color GetColor(int x, int y)
         {
-            if (x < _bitmap.Width && y < _bitmap.Height)
+            Color res;
             {
-                return _bitmap.GetPixel(x, y);
+                if (x < _bitmap.Width && y < _bitmap.Height)
+                {
+                    res = _bitmap.GetPixel(x, y);
+                }
+                else res = Color.Black;
             }
-            else return Color.Black;
+
+            return res;
         }
     }
 }

@@ -39,9 +39,9 @@ namespace P2_TrianglesFilling.Drawing.ColorProviders
             }
             else
             {
-                if (logicSettings.ObjectTexture != null)
+                if (logicSettings.ObjectTextureParallel != null)
                 {
-                    objectColorProvider = new FromBitmapColorProvider(logicSettings.ObjectTexture);
+                    objectColorProvider = new FromBitmapColorProvider(logicSettings.ObjectTextureParallel);
                 }
                 else
                 {
@@ -60,13 +60,13 @@ namespace P2_TrianglesFilling.Drawing.ColorProviders
             }
             else
             {
-                if (logicSettings.NormalMapTexture == null)
+                if (logicSettings.NormalMapTextureParallel == null)
                 {
                     return new IdentityNormalMapApplier();
                 }
                 else
                 {
-                    return new FromFileNormalMapApplier(logicSettings.NormalMapTexture);
+                    return new FromFileNormalMapApplier(logicSettings.NormalMapTextureParallel);
                 }
             }
         }

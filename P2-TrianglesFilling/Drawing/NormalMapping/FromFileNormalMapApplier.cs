@@ -1,12 +1,13 @@
-﻿using System.Numerics;
+﻿using P2_TrianglesFilling.Canvases;
+using System.Numerics;
 
 namespace P2_TrianglesFilling.Drawing.NormalMapping
 {
     public class FromFileNormalMapApplier : INormalMapApplier
     {
-        private Bitmap _bitmap;
+        private DirectParallelBitmap _bitmap;
 
-        public FromFileNormalMapApplier(Bitmap bitmap)
+        public FromFileNormalMapApplier(DirectParallelBitmap bitmap)
         {
             _bitmap = bitmap;
         }

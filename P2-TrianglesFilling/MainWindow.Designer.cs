@@ -470,8 +470,8 @@
             // lightHeightTrackBar
             // 
             this.lightHeightTrackBar.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lightHeightTrackBar.LargeChange = 2;
             this.lightHeightTrackBar.Location = new System.Drawing.Point(52, 33);
-            this.lightHeightTrackBar.Maximum = 50;
             this.lightHeightTrackBar.Name = "lightHeightTrackBar";
             this.lightHeightTrackBar.Size = new System.Drawing.Size(168, 24);
             this.lightHeightTrackBar.TabIndex = 0;
@@ -492,7 +492,7 @@
             this.lightAngleTrackBar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lightAngleTrackBar.LargeChange = 4;
             this.lightAngleTrackBar.Location = new System.Drawing.Point(52, 93);
-            this.lightAngleTrackBar.Maximum = 20;
+            this.lightAngleTrackBar.Maximum = 60;
             this.lightAngleTrackBar.Name = "lightAngleTrackBar";
             this.lightAngleTrackBar.Size = new System.Drawing.Size(168, 24);
             this.lightAngleTrackBar.TabIndex = 2;
@@ -662,7 +662,7 @@
             // 
             // timer
             // 
-            this.timer.Interval = 700;
+            this.timer.Interval = 200;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // openNormalMapFileDialog

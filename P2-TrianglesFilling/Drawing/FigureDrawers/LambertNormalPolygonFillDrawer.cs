@@ -32,21 +32,11 @@ namespace P2_TrianglesFilling.Drawing.FigureDrawers
         }
 
         public void DrawPolygonSetWithNormals(Graphics graphics, ICanvas canvas, PolygonSetWithNormals polygonSetWithNormals, FigureDrawerArguments argument)
-        {
-            
-            foreach (var polygon in polygonSetWithNormals.Polygons)
-            {
-                polygon.Draw(graphics, canvas, this, argument);
-            }
-            
-
-            /*
+        {  
             Parallel.ForEach(polygonSetWithNormals.Polygons, polygon =>
             {
                 polygon.Draw(graphics, canvas, this, argument);
             });
-            */
-
         }
 
         public void DrawPolygonWithNormals(Graphics graphics, ICanvas canvas, PolygonWithNormals polygonWithNormals, FigureDrawerArguments argument)

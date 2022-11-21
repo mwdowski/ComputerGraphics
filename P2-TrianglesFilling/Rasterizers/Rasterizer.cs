@@ -10,6 +10,8 @@ namespace P2_TrainglesFilling.Rasterizers
         private readonly float yMin;
         private readonly float yMax;
 
+        private object _lock = new object();
+
         public Rasterizer(Image image, float scale)
         {
             Image = image;
@@ -22,16 +24,28 @@ namespace P2_TrainglesFilling.Rasterizers
 
         public PointF Derasterize(Point point)
         {
-            return new PointF(
-                point.X * (xMax - xMin) / Image.Width,
-                point.Y * (yMax - yMin) / Image.Height);
+            PointF res;
+            lock (_lock)
+            {
+                res = new PointF(
+                    point.X * (xMax - xMin) / Image.Width,
+                    point.Y * (yMax - yMin) / Image.Height);
+            }
+            return res;
         }
 
         public Point Rasterize(PointF point)
         {
-            return new Point(
-                (int)Math.Round((point.X - xMin) * (Image.Width) / (xMax - xMin)),
-                (int)Math.Round((point.Y - yMin) * (Image.Height) / (yMax - yMin)));
+            Point res;
+
+            lock (_lock)
+            {
+                res = new Point(
+                    (int)Math.Round((point.X - xMin) * (Image.Width) / (xMax - xMin)),
+                    (int)Math.Round((point.Y - yMin) * (Image.Height) / (yMax - yMin)));
+            }
+
+            return res;
         }
 
         public Point RasterizeOrthogonaly(Vector3 point)

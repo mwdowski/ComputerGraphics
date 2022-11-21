@@ -1,4 +1,5 @@
-﻿using System;
+﻿using P2_TrianglesFilling.Canvases;
+using System;
 using System.Collections.Generic;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -84,8 +85,11 @@ namespace P2_TrianglesFilling.Logic
             get => _ObjectTexture; set
             {
                 _ObjectTexture = value;
+                ObjectTextureParallel = value == null ? null : new DirectParallelBitmap(value);
             }
         }
+        public DirectParallelBitmap? ObjectTextureParallel { get; private set; }
+
 
         private Action<float> LightSourcePositionHeight_setter;
         private float _LightSourcePositionHeight;
@@ -191,8 +195,10 @@ namespace P2_TrianglesFilling.Logic
             get => _NormalMapTexture; set
             {
                 _NormalMapTexture = value;
+                NormalMapTextureParallel = value == null ? null : new DirectParallelBitmap(value);
             }
         }
+        public DirectParallelBitmap? NormalMapTextureParallel { get; private set; }
     }
 
     public enum NormalMappingMethod { NoMapping, MapFromFile }
