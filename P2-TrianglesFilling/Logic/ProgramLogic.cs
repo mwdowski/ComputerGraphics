@@ -11,6 +11,7 @@ namespace P2_TrianglesFilling.Logic
 {
     public class ProgramLogic
     {
+        // TODO: load obj file, default files
         public IFileFigureLoader FigureLoader { get; private set; }
         public Rasterizer Rasterizer { get; private set; }
         public IFigureDrawer FigureDrawer { get; private set; }
@@ -38,7 +39,7 @@ namespace P2_TrianglesFilling.Logic
 
         private void LoadDefaultFigure()
         {
-            var loadResult = FigureLoader.LoadFigureFromFile("Resources/Sphere.obj");
+            var loadResult = FigureLoader.LoadFigureFromFile("Resources/cone3.obj");
             if (loadResult == null)
             {
                 MessageBox.Show("Could not load default figure", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
