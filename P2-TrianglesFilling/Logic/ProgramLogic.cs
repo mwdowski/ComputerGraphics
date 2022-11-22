@@ -11,7 +11,6 @@ namespace P2_TrianglesFilling.Logic
 {
     public class ProgramLogic
     {
-        // TODO: load obj file, default files
         public IFileFigureLoader FigureLoader { get; private set; }
         public Rasterizer Rasterizer { get; private set; }
         public IFigureDrawer FigureDrawer { get; private set; }
@@ -45,6 +44,31 @@ namespace P2_TrianglesFilling.Logic
             {
                 _figure = loadResult;
             }
+
+            _figure = new FigureWithCloud(_figure, GetDefaultCloud(), Rasterizer);
+        }
+
+        private Polygon GetDefaultCloud()
+        {
+            var res = new Polygon();
+
+            res.Vertices.AddRange(new Vertex[]
+            {
+                new Vertex(new Vector3(0.3f, 0.3f, 0)),
+                new Vertex(new Vector3(0.5f, 0.3f, 0)),
+                new Vertex(new Vector3(0.4f, -0.5f, 0)),
+                new Vertex(new Vector3(0.2f, -0.35f, 0)),
+                new Vertex(new Vector3(-0.4f, -0.45f, 0)),
+                new Vertex(new Vector3(-0.5f, -0.2f, 0)),
+                new Vertex(new Vector3(-0.2f, 0.4f, 0)),
+            });
+
+            return res;
+        }
+
+        private void MoveCloud()
+        {
+
         }
 
         public void DrawFigure()
@@ -52,6 +76,7 @@ namespace P2_TrianglesFilling.Logic
             var startTime = DateTime.Now;
             using (var graphics = Graphics.FromImage(_canvas.Bitmap))
             {
+                graphics.Clear(Color.White);
                 _figure?.Draw(graphics, _canvas, FigureDrawer, FigureDrawerArguments);
             }
             _canvas.Refresh();
@@ -71,7 +96,8 @@ namespace P2_TrianglesFilling.Logic
                     (float)Math.Cos(settings.LightSourcePositionAngle) * settings.LightSourcePositionRadius, 
                     settings.LightSourcePositionHeight
                 ),
-                m = settings.M
+                m = settings.M,
+                cloud_offset = settings.CloudOffset,
             };
         } 
     }

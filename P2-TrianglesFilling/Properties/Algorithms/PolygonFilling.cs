@@ -8,7 +8,7 @@ namespace P2_TrianglesFilling.Algorithms
         public static void FillPolygon(ICanvas canvas, IList<Point> vertices, IColorProvider colorProvider)
         {
             // TODO: cleanup
-            var edges = VerticesListToEdgesList(vertices);
+            var edges = VerticesListToEdgesList(vertices.DistinctBy(_ => (_.X, _.Y)).ToList());
 
             var horizonalEdges = edges.Where(_ => _.Start.Y == _.End.Y);
             foreach (var edge in horizonalEdges)
@@ -23,7 +23,7 @@ namespace P2_TrianglesFilling.Algorithms
             }
 
             edges = edges.Where(_ => _.Start.Y != _.End.Y).ToList();
-
+            if (edges.Count == 0) return;
             var ET = EdgeTable.GetET(edges);
             var AET = new List<EdgeTableEntry>();
 

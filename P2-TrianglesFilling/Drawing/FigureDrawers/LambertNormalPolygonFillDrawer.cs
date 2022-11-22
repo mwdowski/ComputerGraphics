@@ -23,7 +23,14 @@ namespace P2_TrianglesFilling.Drawing.FigureDrawers
 
         public void DrawPolygon(Graphics graphics, ICanvas canvas, Polygon polygon, FigureDrawerArguments argument)
         {
-            throw new NotImplementedException();
+            Algorithms.PolygonFilling.FillPolygon(
+                canvas,
+                polygon
+                    .Vertices
+                    .Select(_ => Rasterizer.RasterizeOrthogonaly(_.Position))
+                    .ToList(),
+                new ConstantColorProvider(Color.LightBlue)
+            );
         }
 
         public void DrawPolygonSet<TPolygon>(Graphics graphics, ICanvas canvas, PolygonSet<TPolygon> polygonSet, FigureDrawerArguments argument) where TPolygon : Polygon

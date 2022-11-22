@@ -215,6 +215,8 @@ namespace P2_TrianglesFilling
         private void timer_Tick(object sender, EventArgs e)
         {
             Logic.LogicSettings.LightSourcePositionAngle += (float)(2 * Math.PI / (lightAngleTrackBar.Maximum + 1));
+            Logic.LogicSettings.CloudOffset += 0.032f;
+            Logic.LogicSettings.CloudOffset = Logic.LogicSettings.CloudOffset > 2f ? -2f : Logic.LogicSettings.CloudOffset;
             Logic.DrawFigure();
         }
 

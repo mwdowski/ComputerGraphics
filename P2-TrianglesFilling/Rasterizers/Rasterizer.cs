@@ -43,7 +43,12 @@ namespace P2_TrainglesFilling.Rasterizers
                 res = new Point(
                     (int)Math.Round((point.X - xMin) * (Image.Width) / (xMax - xMin)),
                     (int)Math.Round((point.Y - yMin) * (Image.Height) / (yMax - yMin)));
+                if (res.X >= Image.Width) res.X = Image.Width;
+                if (res.Y >= Image.Height) res.Y = Image.Height;
             }
+
+            if (res.X < 0) res.X = 0;
+            if (res.Y < 0) res.Y = 0;
 
             return res;
         }

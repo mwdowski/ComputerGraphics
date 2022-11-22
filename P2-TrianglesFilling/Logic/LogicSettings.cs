@@ -199,6 +199,8 @@ namespace P2_TrianglesFilling.Logic
             }
         }
         public DirectParallelBitmap? NormalMapTextureParallel { get; private set; }
+
+        public float CloudOffset { get; set; } = 0;
     }
 
     public enum NormalMappingMethod { NoMapping, MapFromFile }

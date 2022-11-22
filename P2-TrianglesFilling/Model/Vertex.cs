@@ -12,7 +12,7 @@ namespace P2_TrianglesFilling.Model
 {
     public class Vertex : Figure
     {
-        public Vector3 Position { get; private set; }
+        public Vector3 Position { get; set; }
 
         public Vertex(Vector3 position)
         {

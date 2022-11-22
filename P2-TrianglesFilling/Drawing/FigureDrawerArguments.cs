@@ -40,5 +40,7 @@ namespace P2_TrianglesFilling.FigureDrawers
         /// </summary>
         public int m;
 
+        public float cloud_offset = 0;
+
     }
 }

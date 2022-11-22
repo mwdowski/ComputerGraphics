@@ -33,6 +33,8 @@ namespace P2_TrianglesFilling.Canvases
         public void SetPixel(int x, int y, Color colour)
         {
             int index = x + (y * Width);
+            if (index >= Bits.Length || index < 0) return;
+
             int col = colour.ToArgb();
 
             lock(_lock)
@@ -44,6 +46,8 @@ namespace P2_TrianglesFilling.Canvases
         public Color GetPixel(int x, int y)
         {
             int index = x + (y * Width);
+            if (index >= Bits.Length || index < 0) return Color.White;
+
             int col;
             lock (_lock)
             {
