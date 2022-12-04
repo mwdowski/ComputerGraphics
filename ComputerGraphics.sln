@@ -5,7 +5,9 @@ VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P1-Polygons", "P1-Polygons\P1-Polygons.csproj", "{13C49690-0C1A-4BB2-89DE-CD5BCB68E722}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P2-TrianglesFilling", "P2-TrianglesFilling\P2-TrianglesFilling.csproj", "{D8C8B0F0-D33A-4C2A-BA36-EFEF1034B354}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P2-TrianglesFilling", "P2-TrianglesFilling\P2-TrianglesFilling.csproj", "{D8C8B0F0-D33A-4C2A-BA36-EFEF1034B354}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P3-Coloring", "P3-Coloring\P3-Coloring.csproj", "{1283707C-7A2C-4090-B39A-02C1B8804021}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{D8C8B0F0-D33A-4C2A-BA36-EFEF1034B354}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D8C8B0F0-D33A-4C2A-BA36-EFEF1034B354}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D8C8B0F0-D33A-4C2A-BA36-EFEF1034B354}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1283707C-7A2C-4090-B39A-02C1B8804021}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1283707C-7A2C-4090-B39A-02C1B8804021}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1283707C-7A2C-4090-B39A-02C1B8804021}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1283707C-7A2C-4090-B39A-02C1B8804021}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
