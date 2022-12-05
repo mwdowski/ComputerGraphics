@@ -76,10 +76,15 @@
             this.label2 = new System.Windows.Forms.Label();
             this.sourceGammaTextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.sourcePictureBox = new System.Windows.Forms.PictureBox();
+            this.targetPictureBox = new System.Windows.Forms.PictureBox();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.menuStrip.SuspendLayout();
             this.mainTableLayoutPanel.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.sourceProfileTableLayoutPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sourcePictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.targetPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip
@@ -100,6 +105,7 @@
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
             this.loadToolStripMenuItem.Size = new System.Drawing.Size(81, 20);
             this.loadToolStripMenuItem.Text = "Load image";
+            this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
             // generateToolStripMenuItem
             // 
@@ -126,6 +132,8 @@
             this.mainTableLayoutPanel.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.mainTableLayoutPanel.Controls.Add(this.tableLayoutPanel1, 1, 0);
             this.mainTableLayoutPanel.Controls.Add(this.sourceProfileTableLayoutPanel, 0, 0);
+            this.mainTableLayoutPanel.Controls.Add(this.sourcePictureBox, 0, 1);
+            this.mainTableLayoutPanel.Controls.Add(this.targetPictureBox, 1, 1);
             this.mainTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainTableLayoutPanel.Location = new System.Drawing.Point(0, 24);
             this.mainTableLayoutPanel.Name = "mainTableLayoutPanel";
@@ -179,7 +187,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(672, 133);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(672, 131);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // label9
@@ -218,10 +226,10 @@
             // targetBlueYtextBox
             // 
             this.targetBlueYtextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.targetBlueYtextBox.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.targetBlueYtextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.targetBlueYtextBox.Location = new System.Drawing.Point(507, 107);
             this.targetBlueYtextBox.Name = "targetBlueYtextBox";
-            this.targetBlueYtextBox.Size = new System.Drawing.Size(75, 23);
+            this.targetBlueYtextBox.Size = new System.Drawing.Size(75, 21);
             this.targetBlueYtextBox.TabIndex = 17;
             // 
             // targetBlueXtextBox
@@ -293,7 +301,7 @@
             this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label12.Location = new System.Drawing.Point(382, 104);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(38, 29);
+            this.label12.Size = new System.Drawing.Size(38, 27);
             this.label12.TabIndex = 6;
             this.label12.Text = "Blue";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -332,6 +340,7 @@
             this.targetComboBox.Name = "targetComboBox";
             this.targetComboBox.Size = new System.Drawing.Size(373, 23);
             this.targetComboBox.TabIndex = 1;
+            this.targetComboBox.SelectedIndexChanged += new System.EventHandler(this.targetComboBox_SelectedIndexChanged);
             // 
             // label15
             // 
@@ -350,7 +359,7 @@
             this.label16.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label16.Location = new System.Drawing.Point(3, 104);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(49, 29);
+            this.label16.Size = new System.Drawing.Size(49, 27);
             this.label16.TabIndex = 3;
             this.label16.Text = "White";
             this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -430,7 +439,7 @@
             this.sourceProfileTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.sourceProfileTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.sourceProfileTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.sourceProfileTableLayoutPanel.Size = new System.Drawing.Size(672, 133);
+            this.sourceProfileTableLayoutPanel.Size = new System.Drawing.Size(672, 131);
             this.sourceProfileTableLayoutPanel.TabIndex = 0;
             // 
             // label8
@@ -469,10 +478,10 @@
             // sourceBlueYtextBox
             // 
             this.sourceBlueYtextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sourceBlueYtextBox.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.sourceBlueYtextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.sourceBlueYtextBox.Location = new System.Drawing.Point(507, 107);
             this.sourceBlueYtextBox.Name = "sourceBlueYtextBox";
-            this.sourceBlueYtextBox.Size = new System.Drawing.Size(75, 23);
+            this.sourceBlueYtextBox.Size = new System.Drawing.Size(75, 21);
             this.sourceBlueYtextBox.TabIndex = 17;
             // 
             // sourceBlueXtextBox
@@ -544,7 +553,7 @@
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label4.Location = new System.Drawing.Point(382, 104);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(38, 29);
+            this.label4.Size = new System.Drawing.Size(38, 27);
             this.label4.TabIndex = 6;
             this.label4.Text = "Blue";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -583,6 +592,7 @@
             this.sourceComboBox.Name = "sourceComboBox";
             this.sourceComboBox.Size = new System.Drawing.Size(373, 23);
             this.sourceComboBox.TabIndex = 1;
+            this.sourceComboBox.SelectedIndexChanged += new System.EventHandler(this.sourceComboBox_SelectedIndexChanged);
             // 
             // sourceGammaLabel
             // 
@@ -601,7 +611,7 @@
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Location = new System.Drawing.Point(3, 104);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(49, 29);
+            this.label1.Size = new System.Drawing.Size(49, 27);
             this.label1.TabIndex = 3;
             this.label1.Text = "White";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -637,6 +647,32 @@
             this.label5.Text = "x";
             this.label5.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
+            // sourcePictureBox
+            // 
+            this.sourcePictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.sourcePictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.sourcePictureBox.Location = new System.Drawing.Point(3, 140);
+            this.sourcePictureBox.Name = "sourcePictureBox";
+            this.sourcePictureBox.Size = new System.Drawing.Size(669, 562);
+            this.sourcePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.sourcePictureBox.TabIndex = 2;
+            this.sourcePictureBox.TabStop = false;
+            // 
+            // targetPictureBox
+            // 
+            this.targetPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.targetPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.targetPictureBox.Location = new System.Drawing.Point(678, 140);
+            this.targetPictureBox.Name = "targetPictureBox";
+            this.targetPictureBox.Size = new System.Drawing.Size(669, 562);
+            this.targetPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.targetPictureBox.TabIndex = 3;
+            this.targetPictureBox.TabStop = false;
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.FileName = "openFIleDialog";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -656,6 +692,8 @@
             this.tableLayoutPanel1.PerformLayout();
             this.sourceProfileTableLayoutPanel.ResumeLayout(false);
             this.sourceProfileTableLayoutPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.sourcePictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.targetPictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -711,5 +749,8 @@
         private Label label17;
         private TextBox targetGammaTextBox;
         private Label label18;
+        private PictureBox sourcePictureBox;
+        private PictureBox targetPictureBox;
+        private OpenFileDialog openFileDialog;
     }
 }
