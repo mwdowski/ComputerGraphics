@@ -131,5 +131,97 @@ namespace P3_Coloring
                 }
             }
         }
+
+        private void generateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Logic.ComputeTargetImage();
+        }
+
+        private void sourceGammaTextBox_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void sourceWhiteXtextBox_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void sourceWhiteYtextBox_TextChanged(object sender, EventArgs e)
+        {
+        }
+
+        private void sourceRedXtextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void sourceRedYtextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void sourceGreenXtextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void sourceGreenYtextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void sourceBlueXtextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void sourceBlueYtextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void targetGammaTextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void targetWhiteXtextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void targetWhiteYtextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void targetRedXtextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void targetRedYtextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void targetGreenXtextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void targetGreenYtextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void targetBlueXtextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void targetBlueYtextBox_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -112,6 +112,7 @@
             this.generateToolStripMenuItem.Name = "generateToolStripMenuItem";
             this.generateToolStripMenuItem.Size = new System.Drawing.Size(66, 20);
             this.generateToolStripMenuItem.Text = "Generate";
+            this.generateToolStripMenuItem.Click += new System.EventHandler(this.generateToolStripMenuItem_Click);
             // 
             // saveResultToolStripMenuItem
             // 
@@ -231,6 +232,7 @@
             this.targetBlueYtextBox.Name = "targetBlueYtextBox";
             this.targetBlueYtextBox.Size = new System.Drawing.Size(75, 21);
             this.targetBlueYtextBox.TabIndex = 17;
+            this.targetBlueYtextBox.TextChanged += new System.EventHandler(this.targetBlueYtextBox_TextChanged);
             // 
             // targetBlueXtextBox
             // 
@@ -240,6 +242,7 @@
             this.targetBlueXtextBox.Name = "targetBlueXtextBox";
             this.targetBlueXtextBox.Size = new System.Drawing.Size(75, 21);
             this.targetBlueXtextBox.TabIndex = 16;
+            this.targetBlueXtextBox.TextChanged += new System.EventHandler(this.targetBlueXtextBox_TextChanged);
             // 
             // targetGreenYtextBox
             // 
@@ -249,6 +252,7 @@
             this.targetGreenYtextBox.Name = "targetGreenYtextBox";
             this.targetGreenYtextBox.Size = new System.Drawing.Size(75, 21);
             this.targetGreenYtextBox.TabIndex = 15;
+            this.targetGreenYtextBox.TextChanged += new System.EventHandler(this.targetGreenYtextBox_TextChanged);
             // 
             // targetGreenXtextBox
             // 
@@ -258,6 +262,7 @@
             this.targetGreenXtextBox.Name = "targetGreenXtextBox";
             this.targetGreenXtextBox.Size = new System.Drawing.Size(75, 21);
             this.targetGreenXtextBox.TabIndex = 14;
+            this.targetGreenXtextBox.TextChanged += new System.EventHandler(this.targetGreenXtextBox_TextChanged);
             // 
             // targetWhiteXtextBox
             // 
@@ -267,6 +272,7 @@
             this.targetWhiteXtextBox.Name = "targetWhiteXtextBox";
             this.targetWhiteXtextBox.Size = new System.Drawing.Size(75, 21);
             this.targetWhiteXtextBox.TabIndex = 13;
+            this.targetWhiteXtextBox.TextChanged += new System.EventHandler(this.targetWhiteXtextBox_TextChanged);
             // 
             // targetWhiteYtextBox
             // 
@@ -276,6 +282,7 @@
             this.targetWhiteYtextBox.Name = "targetWhiteYtextBox";
             this.targetWhiteYtextBox.Size = new System.Drawing.Size(75, 21);
             this.targetWhiteYtextBox.TabIndex = 12;
+            this.targetWhiteYtextBox.TextChanged += new System.EventHandler(this.targetWhiteYtextBox_TextChanged);
             // 
             // targetRedYtextBox
             // 
@@ -285,6 +292,7 @@
             this.targetRedYtextBox.Name = "targetRedYtextBox";
             this.targetRedYtextBox.Size = new System.Drawing.Size(75, 21);
             this.targetRedYtextBox.TabIndex = 10;
+            this.targetRedYtextBox.TextChanged += new System.EventHandler(this.targetRedYtextBox_TextChanged);
             // 
             // targetRedXtextBox
             // 
@@ -294,6 +302,7 @@
             this.targetRedXtextBox.Name = "targetRedXtextBox";
             this.targetRedXtextBox.Size = new System.Drawing.Size(75, 21);
             this.targetRedXtextBox.TabIndex = 9;
+            this.targetRedXtextBox.TextChanged += new System.EventHandler(this.targetRedXtextBox_TextChanged);
             // 
             // label12
             // 
@@ -383,6 +392,7 @@
             this.targetGammaTextBox.Name = "targetGammaTextBox";
             this.targetGammaTextBox.Size = new System.Drawing.Size(75, 21);
             this.targetGammaTextBox.TabIndex = 7;
+            this.targetGammaTextBox.TextChanged += new System.EventHandler(this.targetGammaTextBox_TextChanged);
             // 
             // label18
             // 
@@ -483,6 +493,7 @@
             this.sourceBlueYtextBox.Name = "sourceBlueYtextBox";
             this.sourceBlueYtextBox.Size = new System.Drawing.Size(75, 21);
             this.sourceBlueYtextBox.TabIndex = 17;
+            this.sourceBlueYtextBox.TextChanged += new System.EventHandler(this.sourceBlueYtextBox_TextChanged);
             // 
             // sourceBlueXtextBox
             // 
@@ -492,6 +503,7 @@
             this.sourceBlueXtextBox.Name = "sourceBlueXtextBox";
             this.sourceBlueXtextBox.Size = new System.Drawing.Size(75, 21);
             this.sourceBlueXtextBox.TabIndex = 16;
+            this.sourceBlueXtextBox.TextChanged += new System.EventHandler(this.sourceBlueXtextBox_TextChanged);
             // 
             // sourceGreenYtextBox
             // 
@@ -501,6 +513,7 @@
             this.sourceGreenYtextBox.Name = "sourceGreenYtextBox";
             this.sourceGreenYtextBox.Size = new System.Drawing.Size(75, 21);
             this.sourceGreenYtextBox.TabIndex = 15;
+            this.sourceGreenYtextBox.TextChanged += new System.EventHandler(this.sourceGreenYtextBox_TextChanged);
             // 
             // sourceGreenXtextBox
             // 
@@ -510,6 +523,7 @@
             this.sourceGreenXtextBox.Name = "sourceGreenXtextBox";
             this.sourceGreenXtextBox.Size = new System.Drawing.Size(75, 21);
             this.sourceGreenXtextBox.TabIndex = 14;
+            this.sourceGreenXtextBox.TextChanged += new System.EventHandler(this.sourceGreenXtextBox_TextChanged);
             // 
             // sourceWhiteXtextBox
             // 
@@ -519,6 +533,7 @@
             this.sourceWhiteXtextBox.Name = "sourceWhiteXtextBox";
             this.sourceWhiteXtextBox.Size = new System.Drawing.Size(75, 21);
             this.sourceWhiteXtextBox.TabIndex = 13;
+            this.sourceWhiteXtextBox.TextChanged += new System.EventHandler(this.sourceWhiteXtextBox_TextChanged);
             // 
             // sourceWhiteYtextBox
             // 
@@ -528,6 +543,7 @@
             this.sourceWhiteYtextBox.Name = "sourceWhiteYtextBox";
             this.sourceWhiteYtextBox.Size = new System.Drawing.Size(75, 21);
             this.sourceWhiteYtextBox.TabIndex = 12;
+            this.sourceWhiteYtextBox.TextChanged += new System.EventHandler(this.sourceWhiteYtextBox_TextChanged);
             // 
             // sourceRedYtextBox
             // 
@@ -537,6 +553,7 @@
             this.sourceRedYtextBox.Name = "sourceRedYtextBox";
             this.sourceRedYtextBox.Size = new System.Drawing.Size(75, 21);
             this.sourceRedYtextBox.TabIndex = 10;
+            this.sourceRedYtextBox.TextChanged += new System.EventHandler(this.sourceRedYtextBox_TextChanged);
             // 
             // sourceRedXtextBox
             // 
@@ -546,6 +563,7 @@
             this.sourceRedXtextBox.Name = "sourceRedXtextBox";
             this.sourceRedXtextBox.Size = new System.Drawing.Size(75, 21);
             this.sourceRedXtextBox.TabIndex = 9;
+            this.sourceRedXtextBox.TextChanged += new System.EventHandler(this.sourceRedXtextBox_TextChanged);
             // 
             // label4
             // 
@@ -635,6 +653,7 @@
             this.sourceGammaTextBox.Name = "sourceGammaTextBox";
             this.sourceGammaTextBox.Size = new System.Drawing.Size(75, 21);
             this.sourceGammaTextBox.TabIndex = 7;
+            this.sourceGammaTextBox.TextChanged += new System.EventHandler(this.sourceGammaTextBox_TextChanged);
             // 
             // label5
             // 

@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P1-Polygons", "P1-Polygons\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P2-TrianglesFilling", "P2-TrianglesFilling\P2-TrianglesFilling.csproj", "{D8C8B0F0-D33A-4C2A-BA36-EFEF1034B354}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P3-Coloring", "P3-Coloring\P3-Coloring.csproj", "{1283707C-7A2C-4090-B39A-02C1B8804021}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "P3-Coloring", "P3-Coloring\P3-Coloring.csproj", "{1283707C-7A2C-4090-B39A-02C1B8804021}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
