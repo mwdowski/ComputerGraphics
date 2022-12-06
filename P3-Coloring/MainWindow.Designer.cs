@@ -31,8 +31,7 @@
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveResultToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.greyScaleToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.getHSVToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainTableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label9 = new System.Windows.Forms.Label();
@@ -76,6 +75,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.sourceGammaTextBox = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.trackBar1 = new System.Windows.Forms.TrackBar();
             this.sourcePictureBox = new System.Windows.Forms.PictureBox();
             this.targetPictureBox = new System.Windows.Forms.PictureBox();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
@@ -83,6 +84,7 @@
             this.mainTableLayoutPanel.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.sourceProfileTableLayoutPanel.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.sourcePictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.targetPictureBox)).BeginInit();
             this.SuspendLayout();
@@ -92,8 +94,7 @@
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.loadToolStripMenuItem,
             this.generateToolStripMenuItem,
-            this.saveResultToolStripMenuItem,
-            this.greyScaleToolStripMenuItem});
+            this.getHSVToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Size = new System.Drawing.Size(1350, 24);
@@ -114,17 +115,12 @@
             this.generateToolStripMenuItem.Text = "Generate";
             this.generateToolStripMenuItem.Click += new System.EventHandler(this.generateToolStripMenuItem_Click);
             // 
-            // saveResultToolStripMenuItem
+            // getHSVToolStripMenuItem
             // 
-            this.saveResultToolStripMenuItem.Name = "saveResultToolStripMenuItem";
-            this.saveResultToolStripMenuItem.Size = new System.Drawing.Size(75, 20);
-            this.saveResultToolStripMenuItem.Text = "Save result";
-            // 
-            // greyScaleToolStripMenuItem
-            // 
-            this.greyScaleToolStripMenuItem.Name = "greyScaleToolStripMenuItem";
-            this.greyScaleToolStripMenuItem.Size = new System.Drawing.Size(72, 20);
-            this.greyScaleToolStripMenuItem.Text = "Grey scale";
+            this.getHSVToolStripMenuItem.Name = "getHSVToolStripMenuItem";
+            this.getHSVToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
+            this.getHSVToolStripMenuItem.Text = "Get HSV";
+            this.getHSVToolStripMenuItem.Click += new System.EventHandler(this.getHSVToolStripMenuItem_Click);
             // 
             // mainTableLayoutPanel
             // 
@@ -188,7 +184,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(672, 131);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(672, 137);
             this.tableLayoutPanel1.TabIndex = 1;
             // 
             // label9
@@ -310,7 +306,7 @@
             this.label12.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label12.Location = new System.Drawing.Point(382, 104);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(38, 27);
+            this.label12.Size = new System.Drawing.Size(38, 33);
             this.label12.TabIndex = 6;
             this.label12.Text = "Blue";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -368,7 +364,7 @@
             this.label16.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label16.Location = new System.Drawing.Point(3, 104);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(49, 27);
+            this.label16.Size = new System.Drawing.Size(49, 33);
             this.label16.TabIndex = 3;
             this.label16.Text = "White";
             this.label16.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -439,6 +435,8 @@
             this.sourceProfileTableLayoutPanel.Controls.Add(this.label2, 5, 2);
             this.sourceProfileTableLayoutPanel.Controls.Add(this.sourceGammaTextBox, 1, 2);
             this.sourceProfileTableLayoutPanel.Controls.Add(this.label5, 6, 1);
+            this.sourceProfileTableLayoutPanel.Controls.Add(this.label19, 5, 0);
+            this.sourceProfileTableLayoutPanel.Controls.Add(this.trackBar1, 6, 0);
             this.sourceProfileTableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.sourceProfileTableLayoutPanel.Location = new System.Drawing.Point(3, 3);
             this.sourceProfileTableLayoutPanel.Margin = new System.Windows.Forms.Padding(3, 3, 0, 3);
@@ -449,14 +447,14 @@
             this.sourceProfileTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.sourceProfileTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
             this.sourceProfileTableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.sourceProfileTableLayoutPanel.Size = new System.Drawing.Size(672, 131);
+            this.sourceProfileTableLayoutPanel.Size = new System.Drawing.Size(672, 137);
             this.sourceProfileTableLayoutPanel.TabIndex = 0;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label8.Location = new System.Drawing.Point(139, 77);
+            this.label8.Location = new System.Drawing.Point(139, 83);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(75, 27);
             this.label8.TabIndex = 21;
@@ -467,7 +465,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label7.Location = new System.Drawing.Point(58, 77);
+            this.label7.Location = new System.Drawing.Point(58, 83);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(75, 27);
             this.label7.TabIndex = 20;
@@ -478,7 +476,7 @@
             // 
             this.label6.AutoSize = true;
             this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label6.Location = new System.Drawing.Point(507, 21);
+            this.label6.Location = new System.Drawing.Point(507, 27);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(75, 29);
             this.label6.TabIndex = 19;
@@ -489,7 +487,7 @@
             // 
             this.sourceBlueYtextBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.sourceBlueYtextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.sourceBlueYtextBox.Location = new System.Drawing.Point(507, 107);
+            this.sourceBlueYtextBox.Location = new System.Drawing.Point(507, 113);
             this.sourceBlueYtextBox.Name = "sourceBlueYtextBox";
             this.sourceBlueYtextBox.Size = new System.Drawing.Size(75, 21);
             this.sourceBlueYtextBox.TabIndex = 17;
@@ -499,7 +497,7 @@
             // 
             this.sourceBlueXtextBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.sourceBlueXtextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.sourceBlueXtextBox.Location = new System.Drawing.Point(426, 107);
+            this.sourceBlueXtextBox.Location = new System.Drawing.Point(426, 113);
             this.sourceBlueXtextBox.Name = "sourceBlueXtextBox";
             this.sourceBlueXtextBox.Size = new System.Drawing.Size(75, 21);
             this.sourceBlueXtextBox.TabIndex = 16;
@@ -509,7 +507,7 @@
             // 
             this.sourceGreenYtextBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.sourceGreenYtextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.sourceGreenYtextBox.Location = new System.Drawing.Point(507, 80);
+            this.sourceGreenYtextBox.Location = new System.Drawing.Point(507, 86);
             this.sourceGreenYtextBox.Name = "sourceGreenYtextBox";
             this.sourceGreenYtextBox.Size = new System.Drawing.Size(75, 21);
             this.sourceGreenYtextBox.TabIndex = 15;
@@ -519,7 +517,7 @@
             // 
             this.sourceGreenXtextBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.sourceGreenXtextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.sourceGreenXtextBox.Location = new System.Drawing.Point(426, 80);
+            this.sourceGreenXtextBox.Location = new System.Drawing.Point(426, 86);
             this.sourceGreenXtextBox.Name = "sourceGreenXtextBox";
             this.sourceGreenXtextBox.Size = new System.Drawing.Size(75, 21);
             this.sourceGreenXtextBox.TabIndex = 14;
@@ -529,7 +527,7 @@
             // 
             this.sourceWhiteXtextBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.sourceWhiteXtextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.sourceWhiteXtextBox.Location = new System.Drawing.Point(58, 107);
+            this.sourceWhiteXtextBox.Location = new System.Drawing.Point(58, 113);
             this.sourceWhiteXtextBox.Name = "sourceWhiteXtextBox";
             this.sourceWhiteXtextBox.Size = new System.Drawing.Size(75, 21);
             this.sourceWhiteXtextBox.TabIndex = 13;
@@ -539,7 +537,7 @@
             // 
             this.sourceWhiteYtextBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.sourceWhiteYtextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.sourceWhiteYtextBox.Location = new System.Drawing.Point(139, 107);
+            this.sourceWhiteYtextBox.Location = new System.Drawing.Point(139, 113);
             this.sourceWhiteYtextBox.Name = "sourceWhiteYtextBox";
             this.sourceWhiteYtextBox.Size = new System.Drawing.Size(75, 21);
             this.sourceWhiteYtextBox.TabIndex = 12;
@@ -549,7 +547,7 @@
             // 
             this.sourceRedYtextBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.sourceRedYtextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.sourceRedYtextBox.Location = new System.Drawing.Point(507, 53);
+            this.sourceRedYtextBox.Location = new System.Drawing.Point(507, 59);
             this.sourceRedYtextBox.Name = "sourceRedYtextBox";
             this.sourceRedYtextBox.Size = new System.Drawing.Size(75, 21);
             this.sourceRedYtextBox.TabIndex = 10;
@@ -559,7 +557,7 @@
             // 
             this.sourceRedXtextBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.sourceRedXtextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.sourceRedXtextBox.Location = new System.Drawing.Point(426, 53);
+            this.sourceRedXtextBox.Location = new System.Drawing.Point(426, 59);
             this.sourceRedXtextBox.Name = "sourceRedXtextBox";
             this.sourceRedXtextBox.Size = new System.Drawing.Size(75, 21);
             this.sourceRedXtextBox.TabIndex = 9;
@@ -569,7 +567,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label4.Location = new System.Drawing.Point(382, 104);
+            this.label4.Location = new System.Drawing.Point(382, 110);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(38, 27);
             this.label4.TabIndex = 6;
@@ -580,7 +578,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label3.Location = new System.Drawing.Point(382, 77);
+            this.label3.Location = new System.Drawing.Point(382, 83);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(38, 27);
             this.label3.TabIndex = 5;
@@ -590,12 +588,12 @@
             // sourceLabel
             // 
             this.sourceLabel.AutoSize = true;
-            this.sourceProfileTableLayoutPanel.SetColumnSpan(this.sourceLabel, 9);
+            this.sourceProfileTableLayoutPanel.SetColumnSpan(this.sourceLabel, 5);
             this.sourceLabel.Dock = System.Windows.Forms.DockStyle.Fill;
             this.sourceLabel.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.sourceLabel.Location = new System.Drawing.Point(3, 0);
             this.sourceLabel.Name = "sourceLabel";
-            this.sourceLabel.Size = new System.Drawing.Size(666, 21);
+            this.sourceLabel.Size = new System.Drawing.Size(373, 27);
             this.sourceLabel.TabIndex = 0;
             this.sourceLabel.Text = "Source color profile";
             this.sourceLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -606,7 +604,7 @@
             this.sourceComboBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.sourceComboBox.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.sourceComboBox.FormattingEnabled = true;
-            this.sourceComboBox.Location = new System.Drawing.Point(3, 24);
+            this.sourceComboBox.Location = new System.Drawing.Point(3, 30);
             this.sourceComboBox.Name = "sourceComboBox";
             this.sourceComboBox.Size = new System.Drawing.Size(373, 23);
             this.sourceComboBox.TabIndex = 1;
@@ -616,7 +614,7 @@
             // 
             this.sourceGammaLabel.AutoSize = true;
             this.sourceGammaLabel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sourceGammaLabel.Location = new System.Drawing.Point(3, 50);
+            this.sourceGammaLabel.Location = new System.Drawing.Point(3, 56);
             this.sourceGammaLabel.Name = "sourceGammaLabel";
             this.sourceGammaLabel.Size = new System.Drawing.Size(49, 27);
             this.sourceGammaLabel.TabIndex = 2;
@@ -627,7 +625,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Location = new System.Drawing.Point(3, 104);
+            this.label1.Location = new System.Drawing.Point(3, 110);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(49, 27);
             this.label1.TabIndex = 3;
@@ -638,7 +636,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label2.Location = new System.Drawing.Point(382, 50);
+            this.label2.Location = new System.Drawing.Point(382, 56);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(38, 27);
             this.label2.TabIndex = 4;
@@ -649,7 +647,7 @@
             // 
             this.sourceGammaTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
             this.sourceGammaTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.sourceGammaTextBox.Location = new System.Drawing.Point(58, 53);
+            this.sourceGammaTextBox.Location = new System.Drawing.Point(58, 59);
             this.sourceGammaTextBox.Name = "sourceGammaTextBox";
             this.sourceGammaTextBox.Size = new System.Drawing.Size(75, 21);
             this.sourceGammaTextBox.TabIndex = 7;
@@ -659,20 +657,44 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label5.Location = new System.Drawing.Point(426, 21);
+            this.label5.Location = new System.Drawing.Point(426, 27);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(75, 29);
             this.label5.TabIndex = 18;
             this.label5.Text = "x";
             this.label5.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label19.Location = new System.Drawing.Point(382, 0);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(38, 27);
+            this.label19.TabIndex = 22;
+            this.label19.Text = "V";
+            this.label19.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // trackBar1
+            // 
+            this.trackBar1.AutoSize = false;
+            this.sourceProfileTableLayoutPanel.SetColumnSpan(this.trackBar1, 3);
+            this.trackBar1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.trackBar1.Location = new System.Drawing.Point(426, 3);
+            this.trackBar1.Maximum = 100;
+            this.trackBar1.Name = "trackBar1";
+            this.trackBar1.Size = new System.Drawing.Size(243, 21);
+            this.trackBar1.TabIndex = 23;
+            this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
+            // 
             // sourcePictureBox
             // 
             this.sourcePictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.sourcePictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.sourcePictureBox.Location = new System.Drawing.Point(3, 140);
+            this.sourcePictureBox.Location = new System.Drawing.Point(3, 146);
             this.sourcePictureBox.Name = "sourcePictureBox";
-            this.sourcePictureBox.Size = new System.Drawing.Size(669, 562);
+            this.sourcePictureBox.Size = new System.Drawing.Size(669, 556);
             this.sourcePictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.sourcePictureBox.TabIndex = 2;
             this.sourcePictureBox.TabStop = false;
@@ -681,9 +703,9 @@
             // 
             this.targetPictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.targetPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.targetPictureBox.Location = new System.Drawing.Point(678, 140);
+            this.targetPictureBox.Location = new System.Drawing.Point(678, 146);
             this.targetPictureBox.Name = "targetPictureBox";
-            this.targetPictureBox.Size = new System.Drawing.Size(669, 562);
+            this.targetPictureBox.Size = new System.Drawing.Size(669, 556);
             this.targetPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.targetPictureBox.TabIndex = 3;
             this.targetPictureBox.TabStop = false;
@@ -711,6 +733,7 @@
             this.tableLayoutPanel1.PerformLayout();
             this.sourceProfileTableLayoutPanel.ResumeLayout(false);
             this.sourceProfileTableLayoutPanel.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.sourcePictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.targetPictureBox)).EndInit();
             this.ResumeLayout(false);
@@ -723,8 +746,6 @@
         private MenuStrip menuStrip;
         private ToolStripMenuItem loadToolStripMenuItem;
         private ToolStripMenuItem generateToolStripMenuItem;
-        private ToolStripMenuItem saveResultToolStripMenuItem;
-        private ToolStripMenuItem greyScaleToolStripMenuItem;
         private TableLayoutPanel mainTableLayoutPanel;
         private TableLayoutPanel sourceProfileTableLayoutPanel;
         private Label sourceLabel;
@@ -771,5 +792,8 @@
         private PictureBox sourcePictureBox;
         private PictureBox targetPictureBox;
         private OpenFileDialog openFileDialog;
+        private ToolStripMenuItem getHSVToolStripMenuItem;
+        private Label label19;
+        private TrackBar trackBar1;
     }
 }

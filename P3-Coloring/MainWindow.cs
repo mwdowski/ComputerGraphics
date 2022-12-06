@@ -1,3 +1,4 @@
+using P3_Coloring.Algorithms;
 using P3_Coloring.Logic;
 using P3_Coloring.Model;
 
@@ -130,6 +131,7 @@ namespace P3_Coloring
                     Logic.SourceImage.Value = new Bitmap(openFileDialog.FileName);
                 }
             }
+            HSV = false;
         }
 
         private void generateToolStripMenuItem_Click(object sender, EventArgs e)
@@ -222,6 +224,108 @@ namespace P3_Coloring
         private void targetBlueYtextBox_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private bool HSV = false;
+        private float v_tb = 0;
+
+        private void getHSVToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            HSV = true;
+            Logic.SourceImage.Value = GenerateHSVImage();
+        }
+
+        private Bitmap GenerateHSVImage()
+        {
+
+            var v = (float)trackBar1.Value / trackBar1.Maximum;
+            const int width = 801;
+            const int heigth = 801;
+
+            const int centerX = width / 2;
+            const int centerY = heigth / 2;
+
+            const int r = width / 2;
+
+
+            var bitmap = new Bitmap(width, heigth);
+
+            for (int x = 0; x < width; x++)
+            {
+                for (int y = 0; y < heigth; y++)
+                {
+                    var d = (x - centerX) * (x - centerX) + (y - centerY) * (y - centerY);
+                    if (d <= r * r)
+                    {
+                        var s = (float)Math.Sqrt(d) / r;
+
+                        var h_in_radians = (float)Math.Atan2(y - centerY, x - centerX) + (float)Math.PI;
+                        var h = h_in_radians / ((float)Math.PI * 2) * 360;
+                        h = (h + 180) % 360;
+
+                        h = 360 - h;
+
+                        bitmap.SetPixel(x, y, HSV2RGB(h, s, v));
+                    }
+                    else
+                    {
+                        bitmap.SetPixel(x, y, Color.White);
+                    }
+                }
+            }
+
+            return bitmap;
+        }
+
+        private static Color HSV2RGB(float h, float s, float v)
+        {
+            var c = v * s;
+            var h_prim = (h % 360) / 60f;
+            var x = c * (1 - Math.Abs(h_prim % 2 - 1));
+
+            var rgb_prim = (0f, 0f, 0f);
+
+            if (0 <= h_prim && h_prim < 1)
+            {
+                rgb_prim = (c, x, 0);
+            }
+            else if (1 <= h_prim && h_prim < 2)
+            {
+                rgb_prim = (x, c, 0);
+            }
+            else if (2 <= h_prim && h_prim < 3)
+            {
+
+                rgb_prim = (0, c, x);
+            }
+            else if (3 <= h_prim && h_prim < 4)
+            {
+
+                rgb_prim = (0, x, c);
+            }
+            else if (4 <= h_prim && h_prim < 5)
+            {
+
+                rgb_prim = (x, 0, c);
+            }
+            else
+            {
+
+                rgb_prim = (c, 0, x);
+            }
+
+            var m = v - c;
+
+            return Color.FromArgb(
+                ColorProfiles.ScaleFloatToByte(rgb_prim.Item1 + m),
+                ColorProfiles.ScaleFloatToByte(rgb_prim.Item2 + m),
+                ColorProfiles.ScaleFloatToByte(rgb_prim.Item3 + m)
+            );
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            if (HSV) Logic.SourceImage.Value = GenerateHSVImage();
         }
     }
 }
